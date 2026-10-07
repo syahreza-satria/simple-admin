@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Admin — Dashboard</title>
+    <meta name="description" content="Simple Admin is a clean, modern, and feature-rich admin dashboard template built with Bootstrap 5, HTML, CSS, and vanilla JavaScript." />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+    <!-- Bootstrap Icons 1.11.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- Custom Dashboard Styles -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div id="app-wrapper">
+      <!-- ================================================================
+           OFFCANVAS SIDEBAR FOR MOBILE (< 992px)
+           ================================================================ -->
+      <div class="offcanvas offcanvas-start border-end" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header border-bottom px-4 py-3">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-shape bg-primary text-white rounded-3 fs-5" style="width: 36px; height: 36px">
+              <i class="bi bi-grid-1x2-fill"></i>
+            </div>
+            <span class="fw-bold fs-5 tracking-tight text-body" id="mobileSidebarLabel">Simple Admin</span>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-3 d-flex flex-column justify-content-between">
+          <div>
+            <!-- Mobile Search Trigger -->
+            <div class="mb-3">
+              <button class="btn btn-outline-secondary w-100 text-start rounded-3 border d-flex align-items-center gap-2 py-2" id="searchTriggerMobile">
+                <i class="bi bi-search"></i>
+                <span class="text-muted small">Search...</span>
+                <span class="ms-auto kbd-badge">Ctrl K</span>
+              </button>
+            </div>
+
+            <div class="text-uppercase text-muted fw-bold mb-2 px-3" style="font-size: 0.7rem; letter-spacing: 0.08em">Main Navigation</div>
+            <nav class="nav flex-column mb-3">
+              <a class="nav-link-custom active" href="#"><i class="bi bi-grid-1x2 me-3 fs-5"></i> Dashboard</a>
+              <a class="nav-link-custom" href="#"><i class="bi bi-graph-up me-3 fs-5"></i> Analytics</a>
+            </nav>
+
+            <div class="text-uppercase text-muted fw-bold mb-2 px-3" style="font-size: 0.7rem; letter-spacing: 0.08em">Management</div>
+            <nav class="nav flex-column mb-3">
+              <a class="nav-link-custom" href="#"><i class="bi bi-people me-3 fs-5"></i> Users</a>
+              <a class="nav-link-custom" href="#"><i class="bi bi-box-seam me-3 fs-5"></i> Products</a>
+              <a class="nav-link-custom" href="#"><i class="bi bi-cart-check me-3 fs-5"></i> Orders</a>
+              <a class="nav-link-custom" href="#"><i class="bi bi-credit-card me-3 fs-5"></i> Transactions</a>
+            </nav>
+
+            <div class="text-uppercase text-muted fw-bold mb-2 px-3" style="font-size: 0.7rem; letter-spacing: 0.08em">System</div>
+            <nav class="nav flex-column">
+              <a class="nav-link-custom" href="#"><i class="bi bi-file-earmark-bar-graph me-3 fs-5"></i> Reports</a>
+              <a class="nav-link-custom" href="#"><i class="bi bi-gear me-3 fs-5"></i> Settings</a>
+            </nav>
+          </div>
+
+          <div class="border-top pt-3">
+            <div class="d-flex align-items-center justify-content-between mb-3 px-2">
+              <button class="btn btn-sm btn-outline-secondary border-0 rounded-pill d-flex align-items-center gap-1" id="themeToggleMobile">
+                <i class="bi bi-moon-stars-fill" id="themeIconMobile"></i>
+                <span class="small">Theme</span>
+              </button>
+            </div>
+            <div class="d-flex align-items-center gap-3 px-2">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="User Avatar" class="avatar" width="40" height="40" />
+              <div class="flex-grow-1 overflow-hidden">
+                <h6 class="mb-0 text-truncate fw-semibold">Syahreza Satria</h6>
+                <small class="text-muted d-block text-truncate">System Administrator</small>
+              </div>
+              <a href="#" class="btn btn-sm btn-outline-danger border-0" title="Logout">
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================
+           DESKTOP SIDEBAR (>= 992px)
+           ================================================================ -->
+      <aside class="desktop-sidebar p-3" id="desktopSidebar">
+        <!-- Brand Logo Header -->
+        <div class="sidebar-brand d-flex align-items-center gap-2 mb-4 px-2 py-1">
+          <div class="icon-shape bg-primary text-white rounded-3 fs-4" style="width: 40px; height: 40px">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <div class="brand-title">
+            <span class="fw-bold fs-5 tracking-tight text-body">Simple Admin</span>
+            <span class="badge bg-primary-subtle-custom fs-xs ms-1 py-1 px-2 rounded-pill" style="font-size: 0.65rem">v1</span>
+          </div>
+        </div>
+
+        <!-- Search Trigger -->
+        <div class="px-1 mb-3">
+          <button class="btn btn-outline-secondary w-100 text-start rounded-3 border d-flex align-items-center gap-2 py-2 px-3" id="searchTriggerBtn" style="font-size: 0.85rem">
+            <i class="bi bi-search text-muted"></i>
+            <span class="sidebar-text text-muted">Search...</span>
+            <span class="ms-auto kbd-badge sidebar-text">Ctrl K</span>
+          </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex-grow-1 overflow-y-auto">
+          <div class="sidebar-heading text-uppercase text-muted fw-bold mb-2 px-2" style="font-size: 0.68rem; letter-spacing: 0.08em">Main</div>
+          <nav class="nav flex-column mb-3">
+            <a class="nav-link-custom active" href="#" title="Dashboard">
+              <i class="bi bi-grid-1x2 me-3 fs-5"></i>
+              <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a class="nav-link-custom" href="#" title="Analytics">
+              <i class="bi bi-graph-up me-3 fs-5"></i>
+              <span class="sidebar-text">Analytics</span>
+            </a>
+          </nav>
+
+          <div class="sidebar-heading text-uppercase text-muted fw-bold mb-2 px-2" style="font-size: 0.68rem; letter-spacing: 0.08em">Management</div>
+          <nav class="nav flex-column mb-3">
+            <a class="nav-link-custom" href="#" title="Users">
+              <i class="bi bi-people me-3 fs-5"></i>
+              <span class="sidebar-text">Users</span>
+            </a>
+            <a class="nav-link-custom" href="#" title="Products">
+              <i class="bi bi-box-seam me-3 fs-5"></i>
+              <span class="sidebar-text">Products</span>
+            </a>
+            <a class="nav-link-custom" href="#" title="Orders">
+              <i class="bi bi-cart-check me-3 fs-5"></i>
+              <span class="sidebar-text">Orders</span>
+            </a>
+            <a class="nav-link-custom" href="#" title="Transactions">
+              <i class="bi bi-credit-card me-3 fs-5"></i>
+              <span class="sidebar-text">Transactions</span>
+            </a>
+          </nav>
+
+          <div class="sidebar-heading text-uppercase text-muted fw-bold mb-2 px-2" style="font-size: 0.68rem; letter-spacing: 0.08em">System</div>
+          <nav class="nav flex-column">
+            <a class="nav-link-custom" href="#" title="Reports">
+              <i class="bi bi-file-earmark-bar-graph me-3 fs-5"></i>
+              <span class="sidebar-text">Reports</span>
+            </a>
+            <a class="nav-link-custom" href="#" title="Settings">
+              <i class="bi bi-gear me-3 fs-5"></i>
+              <span class="sidebar-text">Settings</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- User Quick Card Bottom -->
+        <div class="border-top pt-3 mt-auto">
+          <div class="d-flex align-items-center justify-content-between px-1">
+            <div class="d-flex align-items-center gap-2 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="User Avatar" class="avatar" width="36" height="36" />
+              <div class="user-card-info overflow-hidden">
+                <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">Syahreza Satria</h6>
+                <small class="text-muted d-block text-truncate" style="font-size: 0.72rem">System Admin</small>
+              </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-link text-muted p-1 hover-text-danger" id="logoutBtn" title="Logout">
+              <i class="bi bi-box-arrow-right fs-5"></i>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ================================================================
+           MAIN CONTENT REGION
+           ================================================================ -->
+      <div class="main-content">
+        <!-- Top Navbar Header -->
+        <header class="top-navbar px-3 px-lg-4 d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <!-- Mobile Toggle Button (<992px) -->
+            <button class="btn btn-outline-secondary d-lg-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
+              <i class="bi bi-list fs-4"></i>
+            </button>
+
+            <!-- Desktop Collapse Toggle Button (>=992px) -->
+            <button class="btn btn-outline-secondary d-none d-lg-flex border-0 rounded-circle" id="desktopSidebarToggle" type="button" title="Toggle Sidebar">
+              <i class="bi bi-text-indent-left fs-5"></i>
+            </button>
+          </div>
+
+          <!-- Right Action Icons & Profile Dropdown -->
+          <div class="d-flex align-items-center gap-2 gap-lg-3">
+            <!-- Theme Toggle -->
+            <button class="theme-toggle-btn d-none d-sm-inline-flex" id="themeToggleBtn" title="Toggle Theme">
+              <i class="bi bi-moon-stars-fill fs-5" id="themeIcon"></i>
+            </button>
+
+            <!-- Fullscreen Toggle -->
+            <button class="btn btn-outline-secondary border-0 rounded-circle d-none d-md-inline-flex" id="fullscreenBtn" title="Toggle Fullscreen">
+              <i class="bi bi-arrows-fullscreen fs-6"></i>
+            </button>
+
+            <!-- Notifications Dropdown -->
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary border-0 rounded-circle position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+                <i class="bi bi-bell fs-5"></i>
+                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle" id="unreadNotificationBadge">
+                  <span class="visually-hidden">New alerts</span>
+                </span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-0 mt-2" style="width: 320px">
+                <div class="p-3 border-bottom d-flex align-items-center justify-content-between">
+                  <h6 class="mb-0 fw-semibold">Notifications</h6>
+                  <button class="btn btn-link text-decoration-none btn-sm p-0 text-primary" id="markNotificationsReadBtn">Mark as read</button>
+                </div>
+                <div class="list-group list-group-flush small overflow-y-auto" style="max-height: 280px" id="notificationList">
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="icon-shape-sm bg-success-subtle-custom text-success rounded-circle flex-shrink-0">
+                        <i class="bi bi-cart-check-fill"></i>
+                      </div>
+                      <div>
+                        <p class="mb-1 fw-medium text-body">New order received #ORD-8942</p>
+                        <span class="text-muted fs-xs">2 minutes ago</span>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="icon-shape-sm bg-primary-subtle-custom text-primary rounded-circle flex-shrink-0">
+                        <i class="bi bi-person-plus-fill"></i>
+                      </div>
+                      <div>
+                        <p class="mb-1 fw-medium text-body">New customer registered: Alex Vance</p>
+                        <span class="text-muted fs-xs">45 minutes ago</span>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="icon-shape-sm bg-warning-subtle-custom text-warning rounded-circle flex-shrink-0">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                      </div>
+                      <div>
+                        <p class="mb-1 fw-medium text-body">Low stock alert: Wireless Headphones</p>
+                        <span class="text-muted fs-xs">3 hours ago</span>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="icon-shape-sm bg-danger-subtle-custom text-danger rounded-circle flex-shrink-0">
+                        <i class="bi bi-shield-exclamation"></i>
+                      </div>
+                      <div>
+                        <p class="mb-1 fw-medium text-body">Security: Failed login attempt detected</p>
+                        <span class="text-muted fs-xs">5 hours ago</span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="p-2 border-top text-center">
+                  <a href="#" class="btn btn-link btn-sm text-decoration-none text-muted">View all notifications</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Messages Dropdown -->
+            <div class="dropdown d-none d-sm-block">
+              <button class="btn btn-outline-secondary border-0 rounded-circle position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Messages">
+                <i class="bi bi-chat-dots fs-5"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-0 mt-2" style="width: 300px">
+                <div class="p-3 border-bottom">
+                  <h6 class="mb-0 fw-semibold">Recent Messages</h6>
+                </div>
+                <div class="list-group list-group-flush small">
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-center">
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="avatar" width="36" height="36" alt="User" />
+                      <div class="overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <h6 class="mb-0 text-truncate fw-medium" style="font-size: 0.85rem">Sarah Connor</h6>
+                          <small class="text-muted">10m</small>
+                        </div>
+                        <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem">Hey, is the export feature ready?</p>
+                      </div>
+                    </div>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action p-3">
+                    <div class="d-flex gap-3 align-items-center">
+                      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="avatar" width="36" height="36" alt="User" />
+                      <div class="overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <h6 class="mb-0 text-truncate fw-medium" style="font-size: 0.85rem">Alex Vance</h6>
+                          <small class="text-muted">1h</small>
+                        </div>
+                        <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem">Invoice #8942 has been approved.</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="p-2 border-top text-center">
+                  <a href="#" class="btn btn-link btn-sm text-decoration-none text-muted">View all messages</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="vr my-2 d-none d-sm-block"></div>
+
+            <!-- User Profile Dropdown Menu -->
+            <div class="dropdown">
+              <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle p-1 rounded-pill hover-bg" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="User Avatar" class="avatar border border-2 border-primary-subtle" width="38" height="38" />
+                <span class="d-none d-md-inline ms-2 me-1 fw-semibold text-body" style="font-size: 0.9rem">Syahreza S.</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 mt-2" style="min-width: 200px">
+                <li class="px-3 py-2 border-bottom mb-1">
+                  <p class="mb-0 fw-semibold text-body">Syahreza Satria</p>
+                  <small class="text-muted">admin@simpleadmin.io</small>
+                </li>
+                <li>
+                  <a class="dropdown-item rounded-2 py-2" href="#"><i class="bi bi-person me-2"></i> Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item rounded-2 py-2" href="#"><i class="bi bi-sliders me-2"></i> Settings</a>
+                </li>
+                <li>
+                  <a class="dropdown-item rounded-2 py-2" href="#"><i class="bi bi-credit-card me-2"></i> Billing & Plans</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item rounded-2 py-2 text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </header>
+
+        <!-- ================================================================
+             MAIN DASHBOARD CONTENT
+             ================================================================ -->
+        <main class="p-3 p-lg-4 flex-grow-1">
+          <!-- Page Breadcrumb & Title Header -->
+          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+            <div>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1 small text-muted">
+                  <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Dashboards</a></li>
+                  <li class="breadcrumb-item active text-primary" aria-current="page">Overview</li>
+                </ol>
+              </nav>
+              <h1 class="h3 fw-bold mb-1 tracking-tight text-body">Dashboard Overview</h1>
+              <p class="text-muted mb-0 small">Welcome back, Syahreza! Here's a real-time summary of your store's performance.</p>
+            </div>
+
+            <!-- Header Date Selector & Action Button -->
+            <div class="d-flex align-items-center gap-2">
+              <select class="form-select border-0 shadow-sm rounded-3 py-2 fw-medium text-sm" id="dashboardDateFilter" style="width: auto">
+                <option value="7d">Last 7 Days</option>
+                <option value="30d" selected>Last 30 Days</option>
+                <option value="ytd">Year to Date</option>
+              </select>
+              <button type="button" class="btn btn-primary rounded-3 py-2 px-3 d-flex align-items-center gap-2 shadow-sm" id="exportReportBtn">
+                <i class="bi bi-download"></i>
+                <span class="d-none d-sm-inline font-semibold">Export Report</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               4 KPI STATISTICS CARDS
+               ============================================================ -->
+          <div class="row g-3 g-lg-4 mb-4">
+            <!-- KPI 1: Revenue -->
+            <div class="col-12 col-sm-6 col-xl-3 fade-in-up">
+              <div class="card card-custom card-custom-hover h-100 p-3 p-lg-4 border-0">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-muted fw-medium small">Total Revenue</span>
+                  <div class="icon-shape bg-primary-subtle-custom rounded-3">
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                </div>
+                <h2 class="fw-bold mb-2 text-body counter-value" data-counter="128450" data-prefix="$">$0</h2>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold"> <i class="bi bi-arrow-up-short"></i> +12.5% </span>
+                  <span class="text-muted fs-xs">vs last month</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 2: Total Orders -->
+            <div class="col-12 col-sm-6 col-xl-3 fade-in-up">
+              <div class="card card-custom card-custom-hover h-100 p-3 p-lg-4 border-0">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-muted fw-medium small">Total Orders</span>
+                  <div class="icon-shape bg-info-subtle-custom rounded-3">
+                    <i class="bi bi-bag-check"></i>
+                  </div>
+                </div>
+                <h2 class="fw-bold mb-2 text-body counter-value" data-counter="3842">0</h2>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold"> <i class="bi bi-arrow-up-short"></i> +8.2% </span>
+                  <span class="text-muted fs-xs">vs last month</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 3: Total Customers -->
+            <div class="col-12 col-sm-6 col-xl-3 fade-in-up">
+              <div class="card card-custom card-custom-hover h-100 p-3 p-lg-4 border-0">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-muted fw-medium small">Total Customers</span>
+                  <div class="icon-shape bg-success-subtle-custom rounded-3">
+                    <i class="bi bi-people"></i>
+                  </div>
+                </div>
+                <h2 class="fw-bold mb-2 text-body counter-value" data-counter="12480">0</h2>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold"> <i class="bi bi-arrow-up-short"></i> +14.6% </span>
+                  <span class="text-muted fs-xs">vs last month</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI 4: Conversion Rate -->
+            <div class="col-12 col-sm-6 col-xl-3 fade-in-up">
+              <div class="card card-custom card-custom-hover h-100 p-3 p-lg-4 border-0">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                  <span class="text-muted fw-medium small">Conversion Rate</span>
+                  <div class="icon-shape bg-warning-subtle-custom rounded-3">
+                    <i class="bi bi-activity"></i>
+                  </div>
+                </div>
+                <h2 class="fw-bold mb-2 text-body">4.86%</h2>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="badge bg-danger-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold"> <i class="bi bi-arrow-down-short"></i> -0.4% </span>
+                  <span class="text-muted fs-xs">vs last month</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               MAIN ANALYTICS SECTION (Line Chart)
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <div class="col-12">
+              <div class="card card-custom border-0 p-3 p-lg-4">
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Revenue & Orders Analytics</h5>
+                    <p class="text-muted mb-0 small">Monthly breakdown of gross revenue and total processed order volume.</p>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="btn-group p-1 bg-body-tertiary rounded-3" role="group" aria-label="Chart Toggle">
+                      <button type="button" class="btn btn-sm btn-primary rounded-2 px-3 active" id="btnToggleRevenue">Revenue ($)</button>
+                      <button type="button" class="btn btn-sm text-body-secondary rounded-2 px-3" id="btnToggleOrders">Orders (Qty)</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Line Chart Canvas -->
+                <div style="height: 320px; position: relative">
+                  <canvas id="mainAnalyticsChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               SALES BAR CHART + REVENUE DOUGHNUT
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <!-- Sales Bar Chart -->
+            <div class="col-12 col-lg-7">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Monthly Sales Performance</h5>
+                    <p class="text-muted mb-0 small">Target vs Actual sales volume for recent months.</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-link text-muted p-0 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical fs-5"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                      <li><a class="dropdown-item" href="#">View Detailed Log</a></li>
+                      <li><a class="dropdown-item" href="#">Download CSV</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div style="height: 260px; position: relative">
+                  <canvas id="salesPerformanceChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Revenue Distribution Doughnut Chart -->
+            <div class="col-12 col-lg-5">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="mb-4">
+                  <h5 class="fw-bold mb-1 text-body">Revenue by Category</h5>
+                  <p class="text-muted mb-0 small">Revenue distribution across product categories.</p>
+                </div>
+                <div class="d-flex align-items-center justify-content-center" style="height: 200px; position: relative">
+                  <canvas id="revenueDistributionChart"></canvas>
+                </div>
+                <!-- Legend -->
+                <div class="d-flex flex-wrap gap-3 mt-3 justify-content-center">
+                  <span class="d-flex align-items-center gap-1 small text-body"><span class="legend-dot" style="background: #2563EB"></span> Electronics (42%)</span>
+                  <span class="d-flex align-items-center gap-1 small text-body"><span class="legend-dot" style="background: #0284C7"></span> Wearables (24%)</span>
+                  <span class="d-flex align-items-center gap-1 small text-body"><span class="legend-dot" style="background: #10B981"></span> Furniture (16%)</span>
+                  <span class="d-flex align-items-center gap-1 small text-body"><span class="legend-dot" style="background: #F59E0B"></span> Accessories (10%)</span>
+                  <span class="d-flex align-items-center gap-1 small text-body"><span class="legend-dot" style="background: #EF4444"></span> Audio (8%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               TRAFFIC SOURCE + SYSTEM HEALTH
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <!-- Traffic Source Breakdown -->
+            <div class="col-12 col-lg-7">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="mb-4">
+                  <h5 class="fw-bold mb-1 text-body">Traffic Source Breakdown</h5>
+                  <p class="text-muted mb-0 small">Acquisition channels driving customer sales.</p>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                  <!-- Source 1: Direct -->
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="fw-medium text-body small"><i class="bi bi-compass me-2 text-primary"></i> Direct Traffic</span>
+                      <span class="fw-semibold text-body small">$53,950 <span class="text-muted font-normal">(42%)</span></span>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 8px">
+                      <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: 42%" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+
+                  <!-- Source 2: Search Engine -->
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="fw-medium text-body small"><i class="bi bi-search me-2 text-info"></i> Organic Search / SEO</span>
+                      <span class="fw-semibold text-body small">$35,960 <span class="text-muted font-normal">(28%)</span></span>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 8px">
+                      <div class="progress-bar bg-info rounded-pill" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+
+                  <!-- Source 3: Social Media -->
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="fw-medium text-body small"><i class="bi bi-share me-2 text-success"></i> Social Media Campaigns</span>
+                      <span class="fw-semibold text-body small">$23,120 <span class="text-muted font-normal">(18%)</span></span>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 8px">
+                      <div class="progress-bar bg-success rounded-pill" role="progressbar" style="width: 18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+
+                  <!-- Source 4: Referral -->
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                      <span class="fw-medium text-body small"><i class="bi bi-link-45deg me-2 text-warning"></i> Referral & Affiliates</span>
+                      <span class="fw-semibold text-body small">$15,420 <span class="text-muted font-normal">(12%)</span></span>
+                    </div>
+                    <div class="progress rounded-pill" style="height: 8px">
+                      <div class="progress-bar bg-warning rounded-pill" role="progressbar" style="width: 12%" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Health / Quick Stats -->
+            <div class="col-12 col-lg-5">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="mb-4">
+                  <h5 class="fw-bold mb-1 text-body">System Health</h5>
+                  <p class="text-muted mb-0 small">Live status of infrastructure and services.</p>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                  <!-- Server Status -->
+                  <div class="d-flex align-items-center justify-content-between p-3 bg-body-tertiary rounded-3">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="icon-shape-sm bg-success-subtle-custom text-success rounded-3">
+                        <i class="bi bi-hdd-rack"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0 fw-semibold text-body" style="font-size: 0.85rem">API Server</h6>
+                        <span class="text-muted fs-xs">Response: 42ms avg</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot online"></span>
+                      <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Online</span>
+                    </div>
+                  </div>
+
+                  <!-- Database -->
+                  <div class="d-flex align-items-center justify-content-between p-3 bg-body-tertiary rounded-3">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="icon-shape-sm bg-primary-subtle-custom text-primary rounded-3">
+                        <i class="bi bi-database"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0 fw-semibold text-body" style="font-size: 0.85rem">PostgreSQL Database</h6>
+                        <span class="text-muted fs-xs">Connections: 84/200</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot online"></span>
+                      <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Healthy</span>
+                    </div>
+                  </div>
+
+                  <!-- Storage -->
+                  <div class="d-flex align-items-center justify-content-between p-3 bg-body-tertiary rounded-3">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="icon-shape-sm bg-warning-subtle-custom text-warning rounded-3">
+                        <i class="bi bi-cloud"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0 fw-semibold text-body" style="font-size: 0.85rem">Cloud Storage</h6>
+                        <span class="text-muted fs-xs">68.4 GB / 100 GB used</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot warning"></span>
+                      <span class="badge bg-warning-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">68%</span>
+                    </div>
+                  </div>
+
+                  <!-- CDN -->
+                  <div class="d-flex align-items-center justify-content-between p-3 bg-body-tertiary rounded-3">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="icon-shape-sm bg-info-subtle-custom text-info rounded-3">
+                        <i class="bi bi-globe2"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0 fw-semibold text-body" style="font-size: 0.85rem">CDN Edge Network</h6>
+                        <span class="text-muted fs-xs">24 regions active</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot online"></span>
+                      <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Online</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               RECENT ORDERS TABLE + RECENT ACTIVITY
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <!-- Recent Orders Table (Col 8) -->
+            <div class="col-12 col-xl-8">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Recent Orders</h5>
+                    <p class="text-muted mb-0 small">Manage and track your latest incoming customer transactions.</p>
+                  </div>
+
+                  <!-- Search & Filter Options for Table -->
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="input-group input-group-sm" style="width: 180px">
+                      <span class="input-group-text bg-body-tertiary border-0"><i class="bi bi-search"></i></span>
+                      <input type="text" class="form-control bg-body-tertiary border-0" id="tableSearchInput" placeholder="Filter order..." />
+                    </div>
+
+                    <select class="form-select form-select-sm border-0 bg-body-tertiary" id="tableStatusFilter" style="width: auto">
+                      <option value="all">All Status</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Processing">Processing</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Responsive Bootstrap Table -->
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0" id="ordersTable">
+                    <thead>
+                      <tr class="text-muted fs-xs text-uppercase tracking-wider">
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-end">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Row 1 -->
+                      <tr data-status="Completed">
+                        <td class="fw-semibold text-primary">#ORD-8942</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="avatar" width="28" height="28" alt="Alex Vance" />
+                            <span class="fw-medium text-body">Alex Vance</span>
+                          </div>
+                        </td>
+                        <td class="text-muted">Wireless Headphones</td>
+                        <td class="text-muted fs-xs">Oct 7, 2026</td>
+                        <td class="fw-semibold text-body">$249.00</td>
+                        <td><span class="badge bg-success-subtle-custom rounded-pill px-2.5 py-1 fs-xs fw-semibold">Completed</span></td>
+                        <td class="text-end">
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                              <li>
+                                <a class="dropdown-item view-order-btn" href="#" data-id="#ORD-8942" data-customer="Alex Vance" data-product="Wireless Headphones" data-amount="$249.00" data-status="Completed"
+                                  ><i class="bi bi-eye me-2"></i> View Details</a
+                                >
+                              </li>
+                              <li>
+                                <a class="dropdown-item download-inv-btn" href="#"><i class="bi bi-file-earmark-pdf me-2"></i> Download Invoice</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Row 2 -->
+                      <tr data-status="Processing">
+                        <td class="fw-semibold text-primary">#ORD-8941</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100" class="avatar" width="28" height="28" alt="Elena Rostova" />
+                            <span class="fw-medium text-body">Elena Rostova</span>
+                          </div>
+                        </td>
+                        <td class="text-muted">Smartwatch Series v2</td>
+                        <td class="text-muted fs-xs">Oct 7, 2026</td>
+                        <td class="fw-semibold text-body">$399.00</td>
+                        <td><span class="badge bg-info-subtle-custom rounded-pill px-2.5 py-1 fs-xs fw-semibold">Processing</span></td>
+                        <td class="text-end">
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                              <li>
+                                <a class="dropdown-item view-order-btn" href="#" data-id="#ORD-8941" data-customer="Elena Rostova" data-product="Smartwatch Series v2" data-amount="$399.00" data-status="Processing"
+                                  ><i class="bi bi-eye me-2"></i> View Details</a
+                                >
+                              </li>
+                              <li>
+                                <a class="dropdown-item download-inv-btn" href="#"><i class="bi bi-file-earmark-pdf me-2"></i> Download Invoice</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Row 3 -->
+                      <tr data-status="Pending">
+                        <td class="fw-semibold text-primary">#ORD-8940</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&q=80&w=100" class="avatar" width="28" height="28" alt="Michael Scott" />
+                            <span class="fw-medium text-body">Michael Scott</span>
+                          </div>
+                        </td>
+                        <td class="text-muted">Ergonomic Desk Chair</td>
+                        <td class="text-muted fs-xs">Oct 6, 2026</td>
+                        <td class="fw-semibold text-body">$180.50</td>
+                        <td><span class="badge bg-warning-subtle-custom rounded-pill px-2.5 py-1 fs-xs fw-semibold">Pending</span></td>
+                        <td class="text-end">
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                              <li>
+                                <a class="dropdown-item view-order-btn" href="#" data-id="#ORD-8940" data-customer="Michael Scott" data-product="Ergonomic Desk Chair" data-amount="$180.50" data-status="Pending"
+                                  ><i class="bi bi-eye me-2"></i> View Details</a
+                                >
+                              </li>
+                              <li>
+                                <a class="dropdown-item download-inv-btn" href="#"><i class="bi bi-file-earmark-pdf me-2"></i> Download Invoice</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Row 4 -->
+                      <tr data-status="Completed">
+                        <td class="fw-semibold text-primary">#ORD-8939</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="avatar" width="28" height="28" alt="James Wilson" />
+                            <span class="fw-medium text-body">James Wilson</span>
+                          </div>
+                        </td>
+                        <td class="text-muted">Mechanical Keyboard</td>
+                        <td class="text-muted fs-xs">Oct 5, 2026</td>
+                        <td class="fw-semibold text-body">$120.00</td>
+                        <td><span class="badge bg-success-subtle-custom rounded-pill px-2.5 py-1 fs-xs fw-semibold">Completed</span></td>
+                        <td class="text-end">
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                              <li>
+                                <a class="dropdown-item view-order-btn" href="#" data-id="#ORD-8939" data-customer="James Wilson" data-product="Mechanical Keyboard" data-amount="$120.00" data-status="Completed"
+                                  ><i class="bi bi-eye me-2"></i> View Details</a
+                                >
+                              </li>
+                              <li>
+                                <a class="dropdown-item download-inv-btn" href="#"><i class="bi bi-file-earmark-pdf me-2"></i> Download Invoice</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Row 5 -->
+                      <tr data-status="Cancelled">
+                        <td class="fw-semibold text-primary">#ORD-8938</td>
+                        <td>
+                          <div class="d-flex align-items-center gap-2">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100" class="avatar" width="28" height="28" alt="Olivia Park" />
+                            <span class="fw-medium text-body">Olivia Park</span>
+                          </div>
+                        </td>
+                        <td class="text-muted">USB-C Hub Adapter</td>
+                        <td class="text-muted fs-xs">Oct 4, 2026</td>
+                        <td class="fw-semibold text-body">$59.99</td>
+                        <td><span class="badge bg-danger-subtle-custom rounded-pill px-2.5 py-1 fs-xs fw-semibold">Cancelled</span></td>
+                        <td class="text-end">
+                          <div class="dropdown">
+                            <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                              <li>
+                                <a class="dropdown-item view-order-btn" href="#" data-id="#ORD-8938" data-customer="Olivia Park" data-product="USB-C Hub Adapter" data-amount="$59.99" data-status="Cancelled"
+                                  ><i class="bi bi-eye me-2"></i> View Details</a
+                                >
+                              </li>
+                              <li>
+                                <a class="dropdown-item download-inv-btn" href="#"><i class="bi bi-file-earmark-pdf me-2"></i> Download Invoice</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Table Pagination -->
+                <div class="d-flex align-items-center justify-content-between mt-3 pt-3 border-top">
+                  <span class="text-muted small">Showing 1 to 5 of 48 entries</span>
+                  <nav aria-label="Table navigation">
+                    <ul class="pagination pagination-sm mb-0 gap-1">
+                      <li class="page-item disabled"><a class="page-link border-0 rounded-2" href="#">&laquo;</a></li>
+                      <li class="page-item active"><a class="page-link border-0 rounded-2 bg-primary" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link border-0 rounded-2" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link border-0 rounded-2" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link border-0 rounded-2" href="#">&raquo;</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity Timeline (Col 4) -->
+            <div class="col-12 col-xl-4">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="mb-4">
+                  <h5 class="fw-bold mb-1 text-body">Recent Activity</h5>
+                  <p class="text-muted mb-0 small">Real-time system events & user actions.</p>
+                </div>
+
+                <div class="timeline">
+                  <!-- Activity 1 -->
+                  <div class="timeline-item">
+                    <div class="timeline-icon bg-success-subtle-custom text-success">
+                      <i class="bi bi-check-lg"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 fs-sm fw-semibold text-body">Payment received for #ORD-8942</h6>
+                      <p class="mb-0 text-muted fs-xs">Alex Vance completed payment of $249.00</p>
+                      <span class="text-muted fs-xs">5 minutes ago</span>
+                    </div>
+                  </div>
+
+                  <!-- Activity 2 -->
+                  <div class="timeline-item">
+                    <div class="timeline-icon bg-primary-subtle-custom text-primary">
+                      <i class="bi bi-person-plus"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 fs-sm fw-semibold text-body">New user registration</h6>
+                      <p class="mb-0 text-muted fs-xs">Elena Rostova joined the platform</p>
+                      <span class="text-muted fs-xs">1 hour ago</span>
+                    </div>
+                  </div>
+
+                  <!-- Activity 3 -->
+                  <div class="timeline-item">
+                    <div class="timeline-icon bg-warning-subtle-custom text-warning">
+                      <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 fs-sm fw-semibold text-body">Inventory threshold alert</h6>
+                      <p class="mb-0 text-muted fs-xs">Wireless Headphones stock < 15 units</p>
+                      <span class="text-muted fs-xs">3 hours ago</span>
+                    </div>
+                  </div>
+
+                  <!-- Activity 4 -->
+                  <div class="timeline-item">
+                    <div class="timeline-icon bg-info-subtle-custom text-info">
+                      <i class="bi bi-cloud-arrow-up"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 fs-sm fw-semibold text-body">Automated DB Backup Completed</h6>
+                      <p class="mb-0 text-muted fs-xs">System snapshot saved successfully</p>
+                      <span class="text-muted fs-xs">6 hours ago</span>
+                    </div>
+                  </div>
+
+                  <!-- Activity 5 -->
+                  <div class="timeline-item">
+                    <div class="timeline-icon bg-danger-subtle-custom text-danger">
+                      <i class="bi bi-shield-exclamation"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0 fs-sm fw-semibold text-body">Security alert resolved</h6>
+                      <p class="mb-0 text-muted fs-xs">Suspicious login blocked from 185.x.x.x</p>
+                      <span class="text-muted fs-xs">12 hours ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               TOP BEST-SELLING PRODUCTS
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <div class="col-12">
+              <div class="card card-custom border-0 p-3 p-lg-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Top Best-Selling Products</h5>
+                    <p class="text-muted mb-0 small">Highest revenue-generating catalog items this month.</p>
+                  </div>
+                  <a href="#" class="btn btn-sm btn-outline-primary rounded-3">View Full Catalog</a>
+                </div>
+
+                <div class="row g-3">
+                  <!-- Product 1 -->
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-2-4">
+                    <div class="p-3 bg-body-tertiary rounded-3 h-100 d-flex flex-column justify-content-between">
+                      <div>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                          <div class="icon-shape-sm bg-primary-subtle-custom text-primary rounded-3 flex-shrink-0">
+                            <i class="bi bi-headphones"></i>
+                          </div>
+                          <div class="overflow-hidden">
+                            <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">Apex Pro Headphones</h6>
+                            <span class="text-muted fs-xs">Electronics</span>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                          <span class="text-muted fs-xs">1,240 Sales</span>
+                          <span class="fw-semibold text-body fs-xs">$148,800</span>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px">
+                          <div class="progress-bar bg-primary" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Product 2 -->
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-2-4">
+                    <div class="p-3 bg-body-tertiary rounded-3 h-100 d-flex flex-column justify-content-between">
+                      <div>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                          <div class="icon-shape-sm bg-info-subtle-custom text-info rounded-3 flex-shrink-0">
+                            <i class="bi bi-smartwatch"></i>
+                          </div>
+                          <div class="overflow-hidden">
+                            <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">UltraFit Smartwatch v2</h6>
+                            <span class="text-muted fs-xs">Wearables</span>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                          <span class="text-muted fs-xs">980 Sales</span>
+                          <span class="fw-semibold text-body fs-xs">$117,600</span>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Product 3 -->
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-2-4">
+                    <div class="p-3 bg-body-tertiary rounded-3 h-100 d-flex flex-column justify-content-between">
+                      <div>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                          <div class="icon-shape-sm bg-success-subtle-custom text-success rounded-3 flex-shrink-0">
+                            <i class="bi bi-lamp"></i>
+                          </div>
+                          <div class="overflow-hidden">
+                            <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">Ergonomic Chair</h6>
+                            <span class="text-muted fs-xs">Furniture</span>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                          <span class="text-muted fs-xs">850 Sales</span>
+                          <span class="fw-semibold text-body fs-xs">$102,000</span>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 68%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Product 4 -->
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-2-4">
+                    <div class="p-3 bg-body-tertiary rounded-3 h-100 d-flex flex-column justify-content-between">
+                      <div>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                          <div class="icon-shape-sm bg-warning-subtle-custom text-warning rounded-3 flex-shrink-0">
+                            <i class="bi bi-keyboard"></i>
+                          </div>
+                          <div class="overflow-hidden">
+                            <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">RGB Keyboards</h6>
+                            <span class="text-muted fs-xs">Accessories</span>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                          <span class="text-muted fs-xs">620 Sales</span>
+                          <span class="fw-semibold text-body fs-xs">$49,600</span>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px">
+                          <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Product 5 -->
+                  <div class="col-12 col-md-6 col-lg-4 col-xl-2-4">
+                    <div class="p-3 bg-body-tertiary rounded-3 h-100 d-flex flex-column justify-content-between">
+                      <div>
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                          <div class="icon-shape-sm bg-danger-subtle-custom text-danger rounded-3 flex-shrink-0">
+                            <i class="bi bi-mic"></i>
+                          </div>
+                          <div class="overflow-hidden">
+                            <h6 class="mb-0 text-truncate fw-semibold text-body" style="font-size: 0.85rem">HD Studio Mic</h6>
+                            <span class="text-muted fs-xs">Audio</span>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
+                          <span class="text-muted fs-xs">410 Sales</span>
+                          <span class="fw-semibold text-body fs-xs">$32,800</span>
+                        </div>
+                        <div class="progress rounded-pill" style="height: 6px">
+                          <div class="progress-bar bg-danger" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               TOP CUSTOMERS + TEAM MEMBERS
+               ============================================================ -->
+          <div class="row g-4 mb-4">
+            <!-- Top Customers -->
+            <div class="col-12 col-lg-6">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Top Customers</h5>
+                    <p class="text-muted mb-0 small">Highest spending customers this quarter.</p>
+                  </div>
+                  <a href="#" class="btn btn-sm btn-outline-primary rounded-3">View All</a>
+                </div>
+
+                <div class="d-flex flex-column">
+                  <!-- Customer 1 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Alex Vance" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Alex Vance</h6>
+                      <span class="text-muted fs-xs">42 orders</span>
+                    </div>
+                    <div class="text-end">
+                      <span class="fw-semibold text-body small">$12,480</span>
+                      <div class="text-muted fs-xs">Lifetime value</div>
+                    </div>
+                  </div>
+
+                  <!-- Customer 2 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Sarah Connor" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Sarah Connor</h6>
+                      <span class="text-muted fs-xs">38 orders</span>
+                    </div>
+                    <div class="text-end">
+                      <span class="fw-semibold text-body small">$9,840</span>
+                      <div class="text-muted fs-xs">Lifetime value</div>
+                    </div>
+                  </div>
+
+                  <!-- Customer 3 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Elena Rostova" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Elena Rostova</h6>
+                      <span class="text-muted fs-xs">29 orders</span>
+                    </div>
+                    <div class="text-end">
+                      <span class="fw-semibold text-body small">$8,250</span>
+                      <div class="text-muted fs-xs">Lifetime value</div>
+                    </div>
+                  </div>
+
+                  <!-- Customer 4 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Michael Scott" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Michael Scott</h6>
+                      <span class="text-muted fs-xs">24 orders</span>
+                    </div>
+                    <div class="text-end">
+                      <span class="fw-semibold text-body small">$6,120</span>
+                      <div class="text-muted fs-xs">Lifetime value</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team / Staff Members -->
+            <div class="col-12 col-lg-6">
+              <div class="card card-custom border-0 p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-body">Team Members</h5>
+                    <p class="text-muted mb-0 small">Active team members and their current roles.</p>
+                  </div>
+                  <a href="#" class="btn btn-sm btn-outline-primary rounded-3">Manage Team</a>
+                </div>
+
+                <div class="d-flex flex-column">
+                  <!-- Member 1 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" class="avatar" width="40" height="40" alt="Syahreza Satria" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Syahreza Satria</h6>
+                      <span class="text-muted fs-xs">System Administrator</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot online"></span>
+                      <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Online</span>
+                    </div>
+                  </div>
+
+                  <!-- Member 2 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Sarah Connor" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Sarah Connor</h6>
+                      <span class="text-muted fs-xs">Product Manager</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot online"></span>
+                      <span class="badge bg-success-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Online</span>
+                    </div>
+                  </div>
+
+                  <!-- Member 3 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="Alex Vance" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">Alex Vance</h6>
+                      <span class="text-muted fs-xs">Sales Lead</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot warning"></span>
+                      <span class="badge bg-warning-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Away</span>
+                    </div>
+                  </div>
+
+                  <!-- Member 4 -->
+                  <div class="team-member-row">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="avatar" width="40" height="40" alt="David Chen" />
+                    <div class="flex-grow-1 overflow-hidden">
+                      <h6 class="mb-0 fw-semibold text-body text-truncate" style="font-size: 0.85rem">David Chen</h6>
+                      <span class="text-muted fs-xs">Frontend Developer</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="status-dot offline"></span>
+                      <span class="badge bg-danger-subtle-custom rounded-pill px-2 py-1 fs-xs fw-semibold">Offline</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- ================================================================
+             DASHBOARD FOOTER
+             ================================================================ -->
+        <footer class="mt-auto py-3 px-4 bg-body-surface border-top border-secondary-subtle">
+          <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-2 text-muted small">
+            <div>&copy; 2026 <span class="fw-semibold text-body">Simple Admin</span>. All rights reserved.</div>
+            <div class="d-flex gap-3">
+              <a href="#" class="text-muted text-decoration-none hover-text-primary">Privacy Policy</a>
+              <a href="#" class="text-muted text-decoration-none hover-text-primary">Terms of Service</a>
+              <span>v1.0.0</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         GLOBAL SEARCH MODAL (Ctrl + K)
+         ==================================================================== -->
+    <div class="search-modal-backdrop" id="searchModalBackdrop">
+      <div class="search-modal">
+        <div class="d-flex align-items-center gap-3 px-3">
+          <i class="bi bi-search text-muted"></i>
+          <input type="text" class="search-modal-input" id="globalSearchInput" placeholder="Search pages, features, settings..." autocomplete="off" />
+          <kbd class="kbd-badge">ESC</kbd>
+        </div>
+        <div class="search-results" id="searchResults">
+          <!-- Results populated by JS -->
+        </div>
+        <div class="search-footer">
+          <div class="d-flex align-items-center gap-2 text-muted fs-xs">
+            <kbd class="kbd-badge">&uarr;&darr;</kbd> <span>Navigate</span>
+            <kbd class="kbd-badge ms-1">&crarr;</kbd> <span>Open</span>
+          </div>
+          <span class="text-muted fs-xs">Simple Admin Search</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         ORDER DETAILS MODAL
+         ==================================================================== -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-custom border-0 shadow-lg rounded-4">
+          <div class="modal-header border-bottom p-4">
+            <div class="d-flex align-items-center gap-2">
+              <div class="icon-shape-sm bg-primary-subtle-custom text-primary rounded-circle">
+                <i class="bi bi-receipt"></i>
+              </div>
+              <h5 class="modal-title fw-bold text-body" id="modalOrderId">Order Details</h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">Customer Name</span>
+              <span class="fw-semibold text-body" id="modalCustomerName">--</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">Product Purchased</span>
+              <span class="fw-semibold text-body" id="modalProductName">--</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted small">Order Status</span>
+              <span id="modalOrderStatus">--</span>
+            </div>
+            <hr class="my-3" />
+            <div class="d-flex justify-content-between align-items-center fw-bold fs-5 text-body">
+              <span>Total Amount</span>
+              <span class="text-primary" id="modalOrderAmount">$0.00</span>
+            </div>
+          </div>
+          <div class="modal-footer border-top p-3 d-flex justify-content-between">
+            <button type="button" class="btn btn-outline-secondary rounded-3" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary rounded-3" id="modalDownloadInvBtn"><i class="bi bi-download me-1"></i> Invoice PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         FLOATING TOAST
+         ==================================================================== -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090">
+      <div id="liveToast" class="toast border-0 shadow-lg rounded-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex align-items-center p-3">
+          <div class="icon-shape-sm bg-primary text-white rounded-circle me-3 flex-shrink-0" id="toastIcon">
+            <i class="bi bi-info-circle-fill"></i>
+          </div>
+          <div class="toast-body p-0 me-auto">
+            <h6 class="mb-0 fw-semibold text-body" id="toastTitle">Notification</h6>
+            <small class="text-muted" id="toastMessage">Action completed successfully.</small>
+          </div>
+          <button type="button" class="btn-close ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Chart.js 4.4.1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- Application Dashboard Logic -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
