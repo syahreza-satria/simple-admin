@@ -9,12 +9,12 @@
         document.documentElement.setAttribute("data-bs-theme", t);
       } catch (e) {}
     </script>
-    <title>Pengaturan · Simple Admin</title>
+    <title>Laporan · Simple Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
     <!-- ============ SIDEBAR ============ -->
@@ -39,7 +39,7 @@
           <div class="sa-nav-label">Utama</div>
           <ul class="nav flex-column gap-1">
             <li>
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="../index.html">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 12l9-8 9 8" />
                   <path d="M5 10v10h14V10" /></svg
@@ -75,7 +75,7 @@
               >
             </li>
             <li>
-              <a class="nav-link" href="reports.html">
+              <a class="nav-link active" href="reports.html" aria-current="page">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 3v18h18" />
                   <path d="M7 15l4-4 3 3 5-6" /></svg
@@ -95,7 +95,7 @@
               >
             </li>
             <li>
-              <a class="nav-link active" href="settings.html" aria-current="page">
+              <a class="nav-link" href="settings.html">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="3" />
                   <path
@@ -182,45 +182,31 @@
                 <div class="sa-page">
           <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
             <div>
-              <div class="sa-crumb mb-1">Beranda / Pengaturan</div>
-              <h1 class="sa-page-title">Pengaturan</h1>
+              <div class="sa-crumb mb-1">Beranda / Laporan</div>
+              <h1 class="sa-page-title">Laporan</h1>
             </div>
-            <div class="d-flex gap-2 flex-wrap"></div>
+            <div class="d-flex gap-2 flex-wrap"><select class="form-select form-select-sm" aria-label="Periode" style="width: auto"><option>Oktober 2026</option><option>September 2026</option><option>Kuartal 3 2026</option></select><button class="btn btn-light btn-sm d-inline-flex align-items-center gap-1" type="button" data-toast="Laporan diunduh"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" /></svg>Unduh PDF</button></div>
           </div>
 
+          <section class="sa-panel sa-kpis mb-4" aria-label="Ringkasan laporan">
+            <div class="sa-kpi"><div class="sa-kpi-label">Penjualan kotor</div><div class="sa-kpi-value">Rp 201,6 jt</div><span class="sa-delta sa-up">▲ 11,2%</span> <small class="text-body-secondary">vs bulan lalu</small></div>
+            <div class="sa-kpi"><div class="sa-kpi-label">Pengembalian dana</div><div class="sa-kpi-value">Rp 4,3 jt</div><span class="sa-delta sa-up">▼ 6,0%</span> <small class="text-body-secondary">vs bulan lalu</small></div>
+            <div class="sa-kpi"><div class="sa-kpi-label">Biaya pengiriman</div><div class="sa-kpi-value">Rp 9,8 jt</div><span class="sa-delta sa-down">▲ 2,4%</span> <small class="text-body-secondary">vs bulan lalu</small></div>
+            <div class="sa-kpi"><div class="sa-kpi-label">Laba bersih</div><div class="sa-kpi-value">Rp 62,7 jt</div><span class="sa-delta sa-up">▲ 9,5%</span> <small class="text-body-secondary">vs bulan lalu</small></div>
+          </section>
           <div class="row g-4">
-            <div class="col-xl-8">
-              <form class="sa-panel mb-4" data-toast-form="Pengaturan toko disimpan">
-                <div class="sa-panel-head"><h2>Profil toko</h2></div>
-                <div class="p-4"><div class="row g-3">
-                  <div class="col-12"><label for="sName" class="form-label small fw-medium">Nama toko</label><input id="sName" type="text" class="form-control" value="Toko Satria" /></div>
-                  <div class="col-md-6"><label for="sEmail" class="form-label small fw-medium">Email</label><input id="sEmail" type="email" class="form-control" value="halo@tokosatria.id" /></div>
-                  <div class="col-md-6"><label for="sPhone" class="form-label small fw-medium">Telepon</label><input id="sPhone" type="tel" class="form-control" value="0812-3456-7890" /></div>
-                  <div class="col-12"><label for="sAddr" class="form-label small fw-medium">Alamat</label><textarea id="sAddr" class="form-control" rows="3">Jl. Merdeka No. 12, Bandung</textarea></div>
-                </div></div>
-                <div class="px-4 py-3 border-top text-end" style="border-color: var(--sa-line) !important"><button type="submit" class="btn btn-primary btn-sm">Simpan perubahan</button></div>
-              </form>
-              <form class="sa-panel" data-toast-form="Preferensi disimpan">
-                <div class="sa-panel-head"><h2>Preferensi</h2></div>
-                <div class="p-4"><div class="row g-3">
-                  <div class="col-md-4"><label for="sLang" class="form-label small fw-medium">Bahasa</label><select id="sLang" class="form-select"><option>Indonesia</option><option>English</option></select></div>
-                  <div class="col-md-4"><label for="sTz" class="form-label small fw-medium">Zona waktu</label><select id="sTz" class="form-select"><option>WIB (UTC+7)</option><option>WITA (UTC+8)</option><option>WIT (UTC+9)</option></select></div>
-                  <div class="col-md-4"><label for="sCur" class="form-label small fw-medium">Mata uang</label><select id="sCur" class="form-select"><option>Rupiah (Rp)</option><option>US Dollar ($)</option></select></div>
-                </div></div>
-                <div class="px-4 py-3 border-top text-end" style="border-color: var(--sa-line) !important"><button type="submit" class="btn btn-primary btn-sm">Simpan perubahan</button></div>
-              </form>
-            </div>
-            <div class="col-xl-4">
-              <form class="sa-panel" data-toast-form="Preferensi notifikasi disimpan">
-                <div class="sa-panel-head"><h2>Notifikasi</h2></div>
-                <div class="p-4">
-                  <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nOrder" checked /><label class="form-check-label" for="nOrder">Pesanan baru</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nPay" checked /><label class="form-check-label" for="nPay">Pembayaran diterima</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nStock" checked /><label class="form-check-label" for="nStock">Stok hampir habis</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nNews" /><label class="form-check-label" for="nNews">Berita &amp; pembaruan produk</label></div>
-                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                </div>
-              </form>
-            </div>
+            <div class="col-xl-6"><section class="sa-panel h-100"><div class="sa-panel-head"><h2>Penjualan per kategori</h2></div><div class="p-3 px-4">
+              <div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">Pakaian</span><span class="sa-num text-body-secondary">Rp 132 jt</span></div><div class="progress" role="progressbar" aria-label="Pakaian" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 66%"></div></div></div><div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">Tas</span><span class="sa-num text-body-secondary">Rp 38 jt</span></div><div class="progress" role="progressbar" aria-label="Tas" aria-valuenow="19" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 19%"></div></div></div><div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">Aksesoris</span><span class="sa-num text-body-secondary">Rp 31 jt</span></div><div class="progress" role="progressbar" aria-label="Aksesoris" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 15%"></div></div></div>
+            </div></section></div>
+            <div class="col-xl-6"><section class="sa-panel h-100"><div class="sa-panel-head"><h2>Metode pembayaran</h2></div><div class="p-3 px-4">
+              <div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">QRIS</span><span class="sa-num text-body-secondary">46%</span></div><div class="progress" role="progressbar" aria-label="QRIS" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 46%"></div></div></div><div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">Transfer bank</span><span class="sa-num text-body-secondary">31%</span></div><div class="progress" role="progressbar" aria-label="Transfer bank" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 31%"></div></div></div><div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">Kartu kredit</span><span class="sa-num text-body-secondary">15%</span></div><div class="progress" role="progressbar" aria-label="Kartu kredit" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 15%"></div></div></div><div class="sa-goal"><div class="d-flex justify-content-between mb-1"><span class="fw-medium">COD</span><span class="sa-num text-body-secondary">8%</span></div><div class="progress" role="progressbar" aria-label="COD" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" style="width: 8%"></div></div></div>
+            </div></section></div>
+            <div class="col-12"><section class="sa-panel"><div class="sa-panel-head"><h2>Produk terlaris</h2></div>
+              <div class="table-responsive"><table class="table sa-table"><thead><tr><th>Produk</th><th>Kategori</th><th class="text-end">Terjual</th><th class="text-end">Pendapatan</th></tr></thead><tbody><tr><td class="fw-medium">Kemeja Linen Putih</td><td class="text-body-secondary">Pakaian</td><td class="text-end sa-num">312</td><td class="text-end sa-num fw-semibold">Rp 62,4 jt</td></tr><tr><td class="fw-medium">Totebag Kanvas</td><td class="text-body-secondary">Tas</td><td class="text-end sa-num">268</td><td class="text-end sa-num fw-semibold">Rp 26,8 jt</td></tr><tr><td class="fw-medium">Kaos Oversize Navy</td><td class="text-body-secondary">Pakaian</td><td class="text-end sa-num">241</td><td class="text-end sa-num fw-semibold">Rp 31,1 jt</td></tr><tr><td class="fw-medium">Topi Baseball</td><td class="text-body-secondary">Aksesoris</td><td class="text-end sa-num">187</td><td class="text-end sa-num fw-semibold">Rp 14,9 jt</td></tr><tr><td class="fw-medium">Jaket Denim</td><td class="text-body-secondary">Pakaian</td><td class="text-end sa-num">96</td><td class="text-end sa-num fw-semibold">Rp 38,4 jt</td></tr></tbody></table></div>
+            </section></div>
           </div>
         </div>
+
       </main>
     </div>
 
@@ -235,6 +221,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/common.js"></script>
+    <script src="../assets/js/common.js"></script>
   </body>
 </html>

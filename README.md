@@ -28,37 +28,40 @@ Bootstrap dan font dimuat dari CDN, jadi dibutuhkan koneksi internet.
 
 ```
 simple-admin-v1/
-├── index.html        Dashboard
-├── orders.html       Pesanan
-├── products.html     Produk
-├── customers.html    Pelanggan
-├── reports.html      Laporan
-├── users.html        Pengguna & Akses
-├── settings.html     Pengaturan
-├── css/
-│   └── style.css     Seluruh gaya, tema terang/gelap, dan animasi
-└── js/
-    ├── common.js     Dipakai semua halaman: toast, notifikasi, mode gelap, helper
-    ├── data.js       Data contoh (pesanan, produk, pelanggan, pengguna)
-    ├── dashboard.js  Tabel pesanan ringkas, grafik, count-up KPI
-    ├── orders.js     Filter dan pencarian pesanan
-    ├── products.js   Daftar produk dan form tambah produk
-    ├── customers.js  Daftar pelanggan
-    └── users.js      Daftar pengguna dan pergantian peran
+├── index.html              Dashboard
+├── pages/
+│   ├── orders.html         Pesanan
+│   ├── products.html       Produk
+│   ├── customers.html      Pelanggan
+│   ├── reports.html        Laporan
+│   ├── users.html          Pengguna & Akses
+│   └── settings.html       Pengaturan
+└── assets/
+    ├── css/
+    │   └── style.css       Seluruh gaya, tema terang/gelap, dan animasi
+    └── js/
+        ├── common.js       Dipakai semua halaman: toast, notifikasi, mode gelap, helper
+        ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
+        └── pages/          Skrip khusus tiap halaman
+            ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
+            ├── orders.js      Filter dan pencarian pesanan
+            ├── products.js    Daftar produk dan form tambah produk
+            ├── customers.js   Daftar pelanggan
+            └── users.js       Daftar pengguna dan pergantian peran
 ```
 
 Setiap halaman memuat `common.js`, lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
 
 ## Menyesuaikan
 
-**Ganti data contoh.** Semua data ada di [js/data.js](js/data.js) (`orders`, `allOrders`, `products`, `customers`, `users`). Notifikasi ada di array `notifs` di [js/common.js](js/common.js), dan data grafik (`months`, `rev2026`, `rev2025`) di [js/dashboard.js](js/dashboard.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
+**Ganti data contoh.** Semua data ada di [assets/js/data.js](assets/js/data.js) (`orders`, `allOrders`, `products`, `customers`, `users`). Notifikasi ada di array `notifs` di [assets/js/common.js](assets/js/common.js), dan data grafik (`months`, `rev2026`, `rev2025`) di [assets/js/pages/dashboard.js](assets/js/pages/dashboard.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
 
-**Ganti warna.** Semua warna adalah variabel CSS di awal [css/style.css](css/style.css). Blok `:root` untuk mode terang, `[data-bs-theme="dark"]` untuk mode gelap. Warna aksen utama adalah `--sa-accent`.
+**Ganti warna.** Semua warna adalah variabel CSS di awal [assets/css/style.css](assets/css/style.css). Blok `:root` untuk mode terang, `[data-bs-theme="dark"]` untuk mode gelap. Warna aksen utama adalah `--sa-accent`.
 
 **Tambah halaman.**
-1. Salin salah satu file HTML yang sudah ada, misalnya `reports.html`, lalu ubah judul dan isi `<main>`.
-2. Tambahkan link di sidebar. Sidebar ditulis ulang di setiap file, jadi menu harus diubah di ketujuh file.
-3. Jika perlu skrip sendiri, buat file di `js/` dan muat setelah `common.js`.
+1. Salin salah satu file di `pages/`, misalnya `reports.html`, lalu ubah judul dan isi `<main>`. Path aset di halaman dalam `pages/` diawali `../`.
+2. Tambahkan link di sidebar. Sidebar ditulis ulang di setiap file, jadi menu harus diubah di ketujuh file HTML (`index.html` dan enam file di `pages/`).
+3. Jika perlu skrip sendiri, buat file di `assets/js/pages/` dan muat setelah `common.js`.
 
 ## Konvensi
 

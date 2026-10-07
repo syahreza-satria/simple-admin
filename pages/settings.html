@@ -9,12 +9,12 @@
         document.documentElement.setAttribute("data-bs-theme", t);
       } catch (e) {}
     </script>
-    <title>Produk · Simple Admin</title>
+    <title>Pengaturan · Simple Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
     <!-- ============ SIDEBAR ============ -->
@@ -39,7 +39,7 @@
           <div class="sa-nav-label">Utama</div>
           <ul class="nav flex-column gap-1">
             <li>
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="../index.html">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 12l9-8 9 8" />
                   <path d="M5 10v10h14V10" /></svg
@@ -56,7 +56,7 @@
               >
             </li>
             <li>
-              <a class="nav-link active" href="products.html" aria-current="page">
+              <a class="nav-link" href="products.html">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
                   <path d="M3.3 7L12 12l8.7-5" />
@@ -95,7 +95,7 @@
               >
             </li>
             <li>
-              <a class="nav-link" href="settings.html">
+              <a class="nav-link active" href="settings.html" aria-current="page">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="3" />
                   <path
@@ -182,57 +182,46 @@
                 <div class="sa-page">
           <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
             <div>
-              <div class="sa-crumb mb-1">Beranda / Produk</div>
-              <h1 class="sa-page-title">Produk</h1>
+              <div class="sa-crumb mb-1">Beranda / Pengaturan</div>
+              <h1 class="sa-page-title">Pengaturan</h1>
             </div>
-            <div class="d-flex gap-2 flex-wrap"><button class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1" type="button" data-bs-toggle="modal" data-bs-target="#saModal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>Tambah Produk</button></div>
+            <div class="d-flex gap-2 flex-wrap"></div>
           </div>
 
-          <section class="sa-panel">
-            <div class="sa-panel-head">
-              <div class="d-flex gap-2 flex-wrap">
-                <input type="search" class="form-control form-control-sm" id="saProdSearch" placeholder="Cari produk…" aria-label="Cari produk…" style="width: 220px; max-width: 100%" />
-                <select class="form-select form-select-sm" id="saProdCat" aria-label="Kategori" style="width: auto"><option value="all">Semua kategori</option><option>Pakaian</option><option>Aksesoris</option><option>Tas</option></select>
-              </div>
-              <small class="text-body-secondary sa-num" id="saProdCount"></small>
+          <div class="row g-4">
+            <div class="col-xl-8">
+              <form class="sa-panel mb-4" data-toast-form="Pengaturan toko disimpan">
+                <div class="sa-panel-head"><h2>Profil toko</h2></div>
+                <div class="p-4"><div class="row g-3">
+                  <div class="col-12"><label for="sName" class="form-label small fw-medium">Nama toko</label><input id="sName" type="text" class="form-control" value="Toko Satria" /></div>
+                  <div class="col-md-6"><label for="sEmail" class="form-label small fw-medium">Email</label><input id="sEmail" type="email" class="form-control" value="halo@tokosatria.id" /></div>
+                  <div class="col-md-6"><label for="sPhone" class="form-label small fw-medium">Telepon</label><input id="sPhone" type="tel" class="form-control" value="0812-3456-7890" /></div>
+                  <div class="col-12"><label for="sAddr" class="form-label small fw-medium">Alamat</label><textarea id="sAddr" class="form-control" rows="3">Jl. Merdeka No. 12, Bandung</textarea></div>
+                </div></div>
+                <div class="px-4 py-3 border-top text-end" style="border-color: var(--sa-line) !important"><button type="submit" class="btn btn-primary btn-sm">Simpan perubahan</button></div>
+              </form>
+              <form class="sa-panel" data-toast-form="Preferensi disimpan">
+                <div class="sa-panel-head"><h2>Preferensi</h2></div>
+                <div class="p-4"><div class="row g-3">
+                  <div class="col-md-4"><label for="sLang" class="form-label small fw-medium">Bahasa</label><select id="sLang" class="form-select"><option>Indonesia</option><option>English</option></select></div>
+                  <div class="col-md-4"><label for="sTz" class="form-label small fw-medium">Zona waktu</label><select id="sTz" class="form-select"><option>WIB (UTC+7)</option><option>WITA (UTC+8)</option><option>WIT (UTC+9)</option></select></div>
+                  <div class="col-md-4"><label for="sCur" class="form-label small fw-medium">Mata uang</label><select id="sCur" class="form-select"><option>Rupiah (Rp)</option><option>US Dollar ($)</option></select></div>
+                </div></div>
+                <div class="px-4 py-3 border-top text-end" style="border-color: var(--sa-line) !important"><button type="submit" class="btn btn-primary btn-sm">Simpan perubahan</button></div>
+              </form>
             </div>
-            <div class="table-responsive"><table class="table sa-table"><thead><tr><th>Produk</th><th>Kategori</th><th class="text-end">Harga</th><th class="text-end">Stok</th><th>Status</th></tr></thead><tbody id="saProducts"></tbody></table></div>
-          </section>
+            <div class="col-xl-4">
+              <form class="sa-panel" data-toast-form="Preferensi notifikasi disimpan">
+                <div class="sa-panel-head"><h2>Notifikasi</h2></div>
+                <div class="p-4">
+                  <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nOrder" checked /><label class="form-check-label" for="nOrder">Pesanan baru</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nPay" checked /><label class="form-check-label" for="nPay">Pembayaran diterima</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nStock" checked /><label class="form-check-label" for="nStock">Stok hampir habis</label></div><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" role="switch" id="nNews" /><label class="form-check-label" for="nNews">Berita &amp; pembaruan produk</label></div>
+                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-
       </main>
-    </div>
-
-    <!-- Modal: Tambah Produk -->
-    <div class="modal fade" id="saModal" tabindex="-1" aria-labelledby="saModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content border-0 shadow" id="saProductForm" style="border-radius: 14px">
-          <div class="modal-header border-bottom" style="border-color: var(--sa-line) !important">
-            <h5 class="modal-title fw-semibold" id="saModalLabel" style="font-size: 1rem">Tambah produk</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-          </div>
-          <div class="modal-body d-grid gap-3">
-            <div><label for="pName" class="form-label small fw-medium">Nama produk</label><input id="pName" class="form-control" value="Kaos Oversize Navy" required /></div>
-            <div class="row g-3">
-              <div class="col-6"><label for="pPrice" class="form-label small fw-medium">Harga (Rp)</label><input id="pPrice" type="number" class="form-control" value="129000" min="0" required /></div>
-              <div class="col-6"><label for="pStock" class="form-label small fw-medium">Stok</label><input id="pStock" type="number" class="form-control" value="40" min="0" required /></div>
-            </div>
-            <div>
-              <label for="pCat" class="form-label small fw-medium">Kategori</label>
-              <select id="pCat" class="form-select">
-                <option>Pakaian</option>
-                <option>Aksesoris</option>
-                <option>Tas</option>
-              </select>
-            </div>
-            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="pActive" checked /><label class="form-check-label small" for="pActive">Tampilkan di toko</label></div>
-          </div>
-          <div class="modal-footer border-top" style="border-color: var(--sa-line) !important">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan produk</button>
-          </div>
-        </form>
-      </div>
     </div>
 
     <!-- Toast -->
@@ -246,8 +235,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/products.js"></script>
+    <script src="../assets/js/common.js"></script>
   </body>
 </html>
