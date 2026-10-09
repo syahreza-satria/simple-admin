@@ -600,6 +600,29 @@ body,
 .sa-panel {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+/* Sidebar mobile: meluncur masuk dari kiri, menu muncul berurutan */
+@media (max-width: 991.98px) {
+  .sa-sidebar {
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+    box-shadow: none;
+  }
+  .sa-sidebar.show,
+  .sa-sidebar.showing {
+    box-shadow: 8px 0 32px rgba(15, 27, 45, 0.18);
+  }
+  .sa-sidebar.show .sa-brand,
+  .sa-sidebar.show .sa-nav-label,
+  .sa-sidebar.show .sa-nav li,
+  .sa-sidebar.show .sa-panel {
+    animation: sa-row 0.4s ease both;
+  }
+  .sa-sidebar.show .sa-nav li:nth-child(1) { animation-delay: 0.12s; }
+  .sa-sidebar.show .sa-nav li:nth-child(2) { animation-delay: 0.17s; }
+  .sa-sidebar.show .sa-nav li:nth-child(3) { animation-delay: 0.22s; }
+  .sa-sidebar.show .sa-nav li:nth-child(4) { animation-delay: 0.27s; }
+  .sa-sidebar.show .sa-nav li:nth-child(5) { animation-delay: 0.32s; }
+  .sa-sidebar.show .sa-panel { animation-delay: 0.4s; }
+}
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -728,4 +751,34 @@ body,
 .sa-role {
   width: auto;
   min-width: 130px;
+}
+
+/* SweetAlert2 mengikuti tema */
+.swal2-popup.sa-swal,
+.swal2-popup.sa-swal-toast {
+  background: var(--sa-bg);
+  color: var(--sa-ink);
+  font-family: var(--sa-font);
+  border: 1px solid var(--sa-line);
+}
+.swal2-popup.sa-swal {
+  border-radius: 14px;
+}
+.sa-swal .swal2-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.sa-swal .swal2-html-container,
+.sa-swal-toast .swal2-title {
+  color: var(--sa-ink);
+  font-size: 0.9rem;
+}
+.sa-swal-toast .swal2-close {
+  color: var(--sa-muted);
+}
+.sa-swal-toast .swal2-timer-progress-bar {
+  background: var(--sa-accent);
+}
+.swal2-container {
+  z-index: 2000;
 }

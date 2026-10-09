@@ -2,10 +2,40 @@ const statusLabel = { paid: "Lunas", pending: "Menunggu", process: "Diproses", f
 const rupiah = (n) => "Rp " + n.toLocaleString("id-ID");
 
 /* ---- Toast & aksi umum ---- */
-function showToast(text) {
-  document.getElementById("saToastText").textContent = text;
-  bootstrap.Toast.getOrCreateInstance(document.getElementById("saToast")).show();
+/* ---- Alert (SweetAlert2): toast untuk info singkat, dialog untuk konfirmasi ---- */
+const saToast = Swal.mixin({
+  toast: true,
+  position: "bottom-end",
+  showConfirmButton: false,
+  showCloseButton: true,
+  timer: 3000,
+  timerProgressBar: true,
+  customClass: { popup: "sa-swal-toast" },
+});
+function showToast(text, icon = "success") {
+  saToast.fire({ icon, title: text });
 }
+function confirmDialog({ title, text, confirmText = "Ya", cancelText = "Batal", icon = "question" }) {
+  return Swal.fire({
+    title,
+    text,
+    icon,
+    showCancelButton: true,
+    confirmButtonText: confirmText,
+    cancelButtonText: cancelText,
+    reverseButtons: true,
+    focusCancel: true,
+    customClass: { popup: "sa-swal", confirmButton: "btn btn-primary", cancelButton: "btn btn-light" },
+    buttonsStyling: false,
+  }).then((r) => r.isConfirmed);
+}
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("[data-logout]")) return;
+  e.preventDefault();
+  confirmDialog({ title: "Keluar dari akun?", text: "Anda perlu masuk lagi untuk mengakses dashboard.", confirmText: "Keluar" }).then(
+    (ok) => ok && showToast("Anda telah keluar (demo)", "info"),
+  );
+});
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-toast]");
   if (t) showToast(t.dataset.toast);

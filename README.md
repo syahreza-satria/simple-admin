@@ -29,6 +29,9 @@ Bootstrap dan font dimuat dari CDN, jadi dibutuhkan koneksi internet.
 ```
 simple-admin-v1/
 ├── index.html              Dashboard
+├── docs/
+│   ├── context.md          Konteks proyek untuk anggota baru
+│   └── design-system.md    Token, komponen, dan aturan visual
 ├── pages/
 │   ├── orders.html         Pesanan
 │   ├── products.html       Produk
@@ -40,7 +43,7 @@ simple-admin-v1/
     ├── css/
     │   └── style.css       Seluruh gaya, tema terang/gelap, dan animasi
     └── js/
-        ├── common.js       Dipakai semua halaman: toast, notifikasi, mode gelap, helper
+        ├── common.js       Dipakai semua halaman: alert SweetAlert2, notifikasi, mode gelap, helper
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
             ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
@@ -51,6 +54,8 @@ simple-admin-v1/
 ```
 
 Setiap halaman memuat `common.js`, lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
+
+Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan proyek) dan [docs/design-system.md](docs/design-system.md) (design system).
 
 ## Menyesuaikan
 
@@ -72,5 +77,6 @@ Setiap halaman memuat `common.js`, lalu `data.js` jika butuh data, lalu skrip kh
 ## Teknologi
 
 - [Bootstrap 5.3.3](https://getbootstrap.com/) (CSS dan bundle JS, via CDN)
+- [SweetAlert2](https://sweetalert2.github.io/) 11.14.5 untuk toast dan dialog konfirmasi (via CDN)
 - Font [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) dan [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (Google Fonts)
 - JavaScript tanpa framework
