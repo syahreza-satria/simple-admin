@@ -22,6 +22,9 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 | Laporan | `pages/reports.html` | (tidak ada) | KPI, penjualan per kategori, metode pembayaran, produk terlaris (statis) |
 | Pengguna & Akses | `pages/users.html` | `users.js` | Daftar pengguna, ubah peran lewat dropdown |
 | Pengaturan | `pages/settings.html` | (tidak ada) | Form profil toko, preferensi, saklar notifikasi (statis) |
+| Tombol | `pages/ui/buttons.html` | `ui.js` | Dokumentasi tombol: utama/sekunder, ikon, ukuran, tombol ikon, segmen, memuat, toast & konfirmasi |
+| Form | `pages/ui/forms.html` | `ui.js` | Dokumentasi form: input, select, checkbox/radio/saklar, input group, validasi, form dalam panel |
+| Status & badge | `pages/ui/status.html` | `ui.js` | Dokumentasi status pill, badge, delta KPI, avatar, progress, penanda teks |
 | 404 | `404.html` | `error.js` | Kode 404 beranimasi, alamat yang dicari, tombol kembali, tautan halaman populer |
 | Masuk | `pages/auth/login.html` | `auth.js` | Email + kata sandi, ingat saya, link lupa kata sandi, login sosial (Google, GitHub, Microsoft) |
 | Daftar | `pages/auth/register.html` | `auth.js` | Form pendaftaran dengan meter kekuatan kata sandi, persetujuan syarat, dan daftar via akun sosial |
@@ -37,6 +40,7 @@ README.md, CLAUDE.md
 docs/             context.md, design-system.md
 pages/            orders, products, customers, reports, users, settings (.html)
   auth/           login, register, forgot-password (.html)
+  ui/             buttons, forms, status (.html): UI Toolkit
 assets/
   css/style.css   semua gaya, tema, animasi
   js/

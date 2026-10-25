@@ -155,6 +155,14 @@ Garis waktu vertikal: titik berbingkai aksen yang dihubungkan garis `--sa-line`.
 
 Modal terpusat, radius 14px, tanpa border luar, bayangan Bootstrap. Toast dan dialog konfirmasi memakai SweetAlert2 yang diberi gaya tema (`sa-swal`, `sa-swal-toast`): latar `--sa-bg`, teks `--sa-ink`, border `--sa-line`. Toast muncul di kanan bawah selama 3 detik dengan progress bar `--sa-accent` dan tombol tutup; panggil `showToast(teks, icon)`. Dialog konfirmasi (`confirmDialog(...)`) memakai tombol `btn-primary` dan `btn-light`, dengan fokus awal di "Batal". Untuk aksi destruktif atau tak bisa dibatalkan, selalu minta konfirmasi.
 
+### Halaman UI Toolkit `.sa-example`
+
+Dokumentasi komponen di `pages/ui/`. Header halaman memakai breadcrumb, judul, dan paragraf pengantar `.sa-lead` (maks. 62 karakter per baris, `--sa-muted`), diikuti daftar lompat `.sa-toc` berupa pil bergaris `--sa-line`. Setiap contoh adalah panel `.sa-example`: kepala panel dengan judul dan `.sa-example-desc`, area `.sa-example-preview` (padding 1,5rem × 1,25rem), lalu blok kode `.sa-example-code` berlatar `--sa-surface` dengan label bahasa, tombol Salin, dan kode mono 0,78rem (maks. tinggi 22rem). Pewarnaan sintaks memakai token yang sudah ada: tag `--sa-accent`, atribut `--sa-pending-fg`, nilai `--sa-paid-fg`, komentar `--sa-muted`. Baris `.sa-example-meta` mencantumkan kelas dan token yang dipakai. Kode inline di teks dokumentasi memakai font mono berlatar `--sa-surface`, bukan warna merah muda bawaan Bootstrap.
+
+### Badge `.sa-badge`
+
+Badge hitungan (`badge rounded-pill sa-badge`) berlatar `--sa-accent` dengan teks `--sa-on-accent`. Dipakai di menu sidebar dan tombol. Jangan memakai `text-bg-primary` karena Bootstrap memaksa teks putih yang tidak kontras di mode gelap.
+
 ### Halaman auth
 
 Layout dua kolom mulai `lg`: panel samping berlatar `--sa-accent` (judul, tiga poin keunggulan, ornamen lingkaran transparan) dan kolom formulir di tengah dengan kartu selebar maksimum 400px. Di bawah `lg` panel samping disembunyikan dan logo tampil di atas formulir. Judul 1,55rem/700, subjudul `--sa-muted`. Input memakai padding 0,6rem × 0,8rem. Kolom kata sandi (`.sa-pw`) punya tombol teks "Lihat"/"Sembunyi" di kanan. Meter kekuatan (`.sa-meter`) memakai empat tingkat: `--sa-down`, `--sa-pending-fg`, `--sa-accent`, `--sa-up`. Validasi memakai gaya Bootstrap (`was-validated`) dengan pesan `invalid-feedback` berbahasa Indonesia. Login sosial (Google, GitHub, Microsoft) ada di bawah formulir masuk dan daftar, dipisah pembatas "atau masuk dengan": tombol Google selebar penuh, GitHub dan Microsoft berdampingan, memakai `btn-light` dengan logo 18px. Logo penyedia adalah pengecualian dari aturan token warna: warna merek Google dan Microsoft ditulis langsung di SVG, sedangkan logo GitHub memakai `currentColor` agar ikut tema. Tombol tema melayang di pojok kanan atas. Kartu masuk dengan `sa-rise`, panel samping dengan `sa-fade`.

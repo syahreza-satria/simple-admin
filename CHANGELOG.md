@@ -16,11 +16,15 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 - Submenu yang bisa dibuka-tutup (Bootstrap Collapse); grup berisi halaman aktif terbuka otomatis.
 - Grup menu baru: Aplikasi (submenu Toko) dan Halaman (Autentikasi, Halaman 404).
 - Helper `escapeHtml()` di `common.js`.
+- Bagian **UI Toolkit** dengan tiga halaman dokumentasi interaktif di `pages/ui/`: Tombol, Form, serta Status & badge.
+- Komponen `.sa-example`: preview langsung, kode HTML yang diambil otomatis dari preview (dengan pewarnaan sintaks), blok kode tambahan lewat `<script type="text/plain" data-lang>`, dan tombol Salin (`assets/js/pages/ui.js`).
+- Kelas `.sa-badge` untuk badge hitungan beraksen, `.sa-lead`, dan `.sa-toc`.
 
 ### Diubah
 
 - Markup sidebar dihapus dari ketujuh file HTML; menu aktif dan `aria-current` ditentukan otomatis dari URL.
 - Kartu penyimpanan memakai kelas `.sa-sidebar-card` alih-alih gaya inline.
+- Badge menu sidebar memakai `.sa-badge`, menggantikan penimpaan `.text-bg-primary` dengan `!important`.
 
 ## [1.0.0] - 2026-10-25
 

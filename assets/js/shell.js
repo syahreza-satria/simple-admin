@@ -13,7 +13,7 @@ function saNavLink(item, sub) {
   const here = saIsHere(item);
   return `<li><a class="nav-link${here ? " active" : ""}" href="${saRoot}${item.href}"${here ? ' aria-current="page"' : ""}>${
     sub ? "" : saIcon(item.icon)
-  }<span>${escapeHtml(item.text)}</span>${item.badge ? `<span class="badge rounded-pill text-bg-primary">${escapeHtml(item.badge)}</span>` : ""}</a></li>`;
+  }<span>${escapeHtml(item.text)}</span>${item.badge ? `<span class="badge rounded-pill sa-badge">${escapeHtml(item.badge)}</span>` : ""}</a></li>`;
 }
 
 function saNavGroup(item, id) {

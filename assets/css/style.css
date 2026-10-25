@@ -101,10 +101,6 @@ body {
   --bs-dropdown-link-active-color: var(--sa-on-accent);
   --bs-dropdown-link-active-bg: var(--sa-accent);
 }
-/* .text-bg-primary bawaan Bootstrap memaksa teks putih dengan !important, jadi hanya bisa ditimpa dengan !important */
-.sa-nav .badge.text-bg-primary {
-  color: var(--sa-on-accent) !important;
-}
 .btn-light {
   --bs-btn-bg: var(--sa-bg);
   --bs-btn-border-color: var(--sa-line);
@@ -1215,4 +1211,131 @@ body,
     height: 5rem;
     padding: 0.9rem;
   }
+}
+
+/* ==========================================================================
+   UI Toolkit: halaman dokumentasi komponen (pages/ui/)
+   ========================================================================== */
+.sa-lead {
+  max-width: 62ch;
+  margin: 0.5rem 0 0;
+  color: var(--sa-muted);
+}
+.sa-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+.sa-toc a {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--sa-line);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--sa-muted);
+  text-decoration: none;
+}
+.sa-toc a:hover {
+  color: var(--sa-accent);
+  border-color: var(--sa-accent);
+}
+.sa-example {
+  scroll-margin-top: 5rem;
+  overflow: hidden; /* sudut bulat panel tetap utuh di atas blok kode */
+}
+.sa-example + .sa-example {
+  margin-top: 1.5rem;
+}
+.sa-example-desc {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--sa-muted);
+}
+.sa-example-preview {
+  padding: 1.5rem 1.25rem;
+}
+.sa-example-code {
+  border-top: 1px solid var(--sa-line);
+  background: var(--sa-surface);
+}
+.sa-example-code + .sa-example-code {
+  border-top-style: dashed;
+}
+.sa-example-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.75rem 0.45rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sa-muted);
+}
+.sa-example-bar .btn {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+}
+.sa-example-code pre {
+  margin: 0;
+  max-height: 22rem;
+  overflow: auto;
+  padding: 0 1.25rem 1rem;
+  font-family: var(--sa-mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--sa-ink);
+  tab-size: 2;
+}
+.sa-example-code code {
+  color: inherit;
+}
+.sa-code-tag {
+  color: var(--sa-accent);
+}
+.sa-code-attr {
+  color: var(--sa-pending-fg);
+}
+.sa-code-str {
+  color: var(--sa-paid-fg);
+}
+.sa-code-com {
+  color: var(--sa-muted);
+  font-style: italic;
+}
+.sa-example-meta {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--sa-line);
+  font-size: 0.8rem;
+  color: var(--sa-muted);
+}
+.sa-example-meta code,
+.sa-lead code,
+.sa-example-desc code,
+.sa-doc-table code {
+  font-family: var(--sa-mono);
+  font-size: 0.85em;
+  color: var(--sa-ink);
+  background: var(--sa-surface);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+}
+.sa-example-code + .sa-example-meta {
+  background: var(--sa-bg);
+}
+.sa-doc-table td:first-child {
+  white-space: nowrap;
+}
+.sa-doc-table td {
+  white-space: normal;
+}
+/* Badge hitungan berwarna aksen (menu, tab, tombol) */
+.sa-badge {
+  background: var(--sa-accent);
+  color: var(--sa-on-accent);
+  font-weight: 600;
 }

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      try {
+        var t = localStorage.getItem("sa-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-bs-theme", t);
+      } catch (e) {}
+    </script>
+    <title>Tombol · Simple Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+  </head>
+  <body>
+    <!-- ============ SIDEBAR: isinya dirender shell.js dari assets/js/nav.js ============ -->
+    <aside class="sa-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="saSidebar" aria-labelledby="saSidebarLabel"></aside>
+
+    <!-- ============ MAIN ============ -->
+    <div class="sa-main">
+      <header class="sa-topbar">
+        <div class="container-fluid px-3 px-lg-4 py-2 d-flex align-items-center gap-2 gap-md-3">
+          <button class="btn btn-light sa-icon-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#saSidebar" aria-controls="saSidebar" aria-label="Buka menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          </button>
+          <form class="sa-search position-relative flex-grow-1" role="search" id="saSearchForm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+            <input class="form-control form-control-sm py-2" type="search" id="saSearch" placeholder="Cari pesanan, produk, pelanggan…" aria-label="Cari" />
+            <span class="sa-kbd d-none d-md-inline">/</span>
+          </form>
+          <div class="ms-auto d-flex align-items-center gap-2">
+            <div class="dropdown">
+              <button class="btn btn-light sa-icon-btn" type="button" id="saNotifBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Notifikasi">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.7 21a2 2 0 01-3.4 0" />
+                </svg>
+                <span class="sa-dot" id="saNotifDot"></span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end sa-notif shadow-sm p-0" aria-labelledby="saNotifBtn">
+                <div class="sa-notif-head">
+                  <strong>Notifikasi <span class="text-body-secondary fw-normal sa-num" id="saNotifCount"></span></strong>
+                  <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" id="saNotifReadAll">Tandai semua dibaca</button>
+                </div>
+                <ul class="sa-notif-list" id="saNotifList"></ul>
+                <div class="sa-notif-empty" id="saNotifEmpty" hidden>Tidak ada notifikasi</div>
+              </div>
+            </div>
+            <button class="btn btn-light sa-icon-btn sa-theme-toggle" type="button" id="saThemeToggle" aria-label="Aktifkan mode gelap" aria-pressed="false">
+              <svg class="sa-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+              <svg class="sa-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+              </svg>
+            </button>
+            <div class="dropdown">
+              <button class="btn d-flex align-items-center gap-2 p-1 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu akun">
+                <span class="sa-avatar">SE</span>
+                <span class="d-none d-md-block text-start lh-sm">
+                  <span class="d-block fw-semibold" style="font-size: 0.82rem">Satria Eza</span>
+                  <span class="d-block" style="font-size: 0.72rem; color: var(--sa-muted)">Administrator</span>
+                </span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border" style="border-color: var(--sa-line) !important">
+                <li><a class="dropdown-item" href="../settings.html">Profil saya</a></li>
+                <li><a class="dropdown-item" href="../settings.html">Pengaturan akun</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item text-danger" href="#" data-logout>Keluar</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="sa-content container-fluid px-3 px-lg-4">
+        <div class="sa-page">
+          <div class="mb-3">
+            <div class="sa-crumb mb-1">UI Toolkit / Komponen</div>
+            <h1 class="sa-page-title">Tombol</h1>
+            <p class="sa-lead">Tombol memakai kelas Bootstrap biasa (<code>btn</code>) yang warnanya sudah diatur lewat token tema. Setiap contoh di bawah bisa langsung disalin.</p>
+          </div>
+          <ul class="sa-toc" aria-label="Di halaman ini">
+            <li><a href="#utama">Utama &amp; sekunder</a></li>
+            <li><a href="#ikon">Dengan ikon</a></li>
+            <li><a href="#ukuran">Ukuran</a></li>
+            <li><a href="#tombol-ikon">Tombol ikon</a></li>
+            <li><a href="#segmen">Segmen</a></li>
+            <li><a href="#keadaan">Nonaktif &amp; memuat</a></li>
+            <li><a href="#aksi">Toast &amp; konfirmasi</a></li>
+          </ul>
+
+          <section class="sa-panel sa-example" id="utama">
+            <div class="sa-panel-head"><div><h2>Tombol utama &amp; sekunder</h2><p class="sa-example-desc">Satu halaman hanya punya <strong>satu</strong> tombol utama untuk aksi terpenting. Aksi pendukung memakai tombol sekunder.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-primary btn-sm">Simpan perubahan</button>
+                <button type="button" class="btn btn-light btn-sm">Batal</button>
+              </div>
+            </div>
+            <div class="sa-example-meta">Kelas: <code>btn btn-primary btn-sm</code>, <code>btn btn-light btn-sm</code>. Token: <code>--sa-accent</code>, <code>--sa-on-accent</code>, <code>--sa-accent-hover</code>, <code>--sa-line</code>.</div>
+          </section>
+
+          <section class="sa-panel sa-example" id="ikon">
+            <div class="sa-panel-head"><div><h2>Tombol dengan ikon</h2><p class="sa-example-desc">Ikon 14px di depan teks, dirapikan dengan <code>d-inline-flex align-items-center gap-1</code>.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>Tambah Produk
+                </button>
+                <button type="button" class="btn btn-light btn-sm d-inline-flex align-items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" /></svg>Ekspor
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="sa-panel sa-example" id="ukuran">
+            <div class="sa-panel-head"><div><h2>Ukuran</h2><p class="sa-example-desc">Template memakai <code>btn-sm</code> di header halaman dan panel. Ukuran normal dan besar cocok untuk formulir penuh, misalnya halaman masuk.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="button" class="btn btn-primary btn-sm">Kecil</button>
+                <button type="button" class="btn btn-primary">Normal</button>
+                <button type="button" class="btn btn-primary btn-lg">Besar</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="sa-panel sa-example" id="tombol-ikon">
+            <div class="sa-panel-head"><div><h2>Tombol ikon</h2><p class="sa-example-desc">Kotak 36 × 36px untuk aksi tanpa teks. Wajib diberi <code>aria-label</code> agar terbaca pembaca layar.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-light sa-icon-btn" aria-label="Notifikasi">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 01-3.4 0" /></svg>
+                </button>
+                <button type="button" class="btn btn-light sa-icon-btn" aria-label="Ubah">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="sa-example-meta">Kelas: <code>btn btn-light sa-icon-btn</code>. Ikon bergoyang sedikit saat hover, dan diam saat <em>reduce motion</em> aktif.</div>
+          </section>
+
+          <section class="sa-panel sa-example" id="segmen">
+            <div class="sa-panel-head"><div><h2>Grup segmen</h2><p class="sa-example-desc">Pilihan tunggal yang saling eksklusif, seperti rentang 6 atau 12 bulan di grafik dashboard. Tandai pilihan aktif dengan kelas <code>active</code>.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="btn-group sa-seg" role="group" aria-label="Rentang waktu">
+                <button type="button" class="btn btn-light">7 hari</button>
+                <button type="button" class="btn btn-light active">30 hari</button>
+                <button type="button" class="btn btn-light">12 bulan</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="sa-panel sa-example" id="keadaan">
+            <div class="sa-panel-head"><div><h2>Nonaktif &amp; memuat</h2><p class="sa-example-desc">Saat menunggu proses, nonaktifkan tombol dan tampilkan spinner. Klik tombol "Simpan" untuk mencoba.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-primary btn-sm" disabled>Nonaktif</button>
+                <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-2" data-demo-loading>
+                  <span class="spinner-border spinner-border-sm" aria-hidden="true" hidden></span>Simpan
+                </button>
+              </div>
+            </div>
+            <script type="text/plain" data-lang="JavaScript">
+              button.disabled = true;
+              button.querySelector(".spinner-border").hidden = false;
+              // ... setelah proses selesai:
+              button.disabled = false;
+              button.querySelector(".spinner-border").hidden = true;
+            </script>
+          </section>
+
+          <section class="sa-panel sa-example" id="aksi">
+            <div class="sa-panel-head"><div><h2>Aksi dengan toast &amp; konfirmasi</h2><p class="sa-example-desc">Atribut <code>data-toast</code> menampilkan toast tanpa JavaScript tambahan. Untuk aksi yang tidak bisa dibatalkan, minta konfirmasi dulu dengan <code>confirmDialog()</code>.</p></div></div>
+            <div class="sa-example-preview">
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-light btn-sm" data-toast="Tautan disalin">Bagikan</button>
+                <button type="button" class="btn btn-light btn-sm" data-demo-confirm>Hapus produk</button>
+              </div>
+            </div>
+            <script type="text/plain" data-lang="JavaScript">
+              confirmDialog({
+                title: "Hapus produk ini?",
+                text: "Produk yang dihapus tidak bisa dikembalikan.",
+                confirmText: "Hapus",
+              }).then((ok) => ok && showToast("Produk dihapus"));
+            </script>
+            <div class="sa-example-meta">Fungsi <code>showToast(teks, icon)</code> dan <code>confirmDialog({ title, text, confirmText })</code> ada di <code>common.js</code> dan memakai SweetAlert2 yang mengikuti tema.</div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/nav.js"></script>
+    <script src="../../assets/js/shell.js"></script>
+    <script src="../../assets/js/pages/ui.js"></script>
+  </body>
+</html>

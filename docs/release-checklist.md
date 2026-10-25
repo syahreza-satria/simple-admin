@@ -16,13 +16,13 @@ Ikuti aturan di [CHANGELOG.md](../CHANGELOG.md):
 
 - [ ] Tidak ada `console.log` sisa debugging di `assets/js/`.
 - [ ] Tidak ada warna hex di CSS di luar blok `:root` dan `[data-bs-theme="dark"]`, dan tidak ada hex di JS.
-- [ ] Semua versi CDN dikunci (tanpa `@latest`) dan sama di kesebelas file HTML (7 halaman aplikasi, 3 halaman auth, `404.html`):
+- [ ] Semua versi CDN dikunci (tanpa `@latest`) dan sama di semua file HTML (halaman aplikasi, UI Toolkit, auth, dan `404.html`):
   - `bootstrap@5.3.3` (CSS dan bundle JS)
   - `sweetalert2@11.14.5`
 - [ ] Topbar identik di ketujuh file HTML; setiap halaman aplikasi hanya punya `<aside id="saSidebar">` kosong.
 - [ ] Semua `href` di `assets/js/nav.js` mengarah ke file yang ada.
 - [ ] Setiap file HTML menandai link-nya sendiri dengan `nav-link active` dan `aria-current="page"`.
-- [ ] Ketujuh halaman aplikasi memuat `nav.js` lalu `shell.js` setelah `common.js`; halaman auth dan `404.html` tidak.
+- [ ] Halaman aplikasi dan UI Toolkit memuat `nav.js` lalu `shell.js` setelah `common.js`; halaman auth dan `404.html` tidak.
 - [ ] Semua link antarhalaman berfungsi (dari `index.html` ke `pages/…`, dari `pages/` ke `../index.html`, dari `pages/auth/` ke `../../index.html`).
 
 Pemeriksaan cepat dari terminal (Git Bash atau Linux/macOS):
@@ -32,7 +32,7 @@ grep -rn "console.log" assets/js/
 grep -rn "@latest" index.html 404.html pages/
 grep -rnoE "#[0-9a-fA-F]{3,8}\b" assets/js/
 grep -c "sa-sidebar" index.html pages/*.html
-grep -L "shell.js" index.html pages/*.html   # harus kosong
+grep -L "shell.js" index.html pages/*.html pages/ui/*.html   # harus kosong
 ```
 
 ## 3. Uji manual
@@ -51,6 +51,9 @@ Jalankan `python -m http.server 8000`, lalu buka setiap halaman.
 | Masuk | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Daftar | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Lupa kata sandi | [ ] | [ ] | [ ] | [ ] | [ ] |
+| UI: Tombol | [ ] | [ ] | [ ] | [ ] | [ ] |
+| UI: Form | [ ] | [ ] | [ ] | [ ] | [ ] |
+| UI: Status & badge | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 404 | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 Fitur yang harus dicoba:
@@ -67,6 +70,7 @@ Fitur yang harus dicoba:
 - [ ] Form auth kosong menampilkan pesan validasi; form Masuk yang valid mengarah ke Dashboard.
 - [ ] Meter kekuatan kata sandi berubah saat mengetik; "Ulangi kata sandi" yang berbeda ditolak.
 - [ ] Tombol Lihat/Sembunyi kata sandi dan tombol login sosial berfungsi.
+- [ ] Di halaman UI Toolkit, tombol Salin menyalin kode yang sama dengan preview, dan demo (memuat, konfirmasi, validasi) berjalan.
 - [ ] `404.html` menampilkan alamat yang dicari dan tombol "Halaman sebelumnya" berfungsi.
 - [ ] Sidebar offcanvas di bawah 992 px terbuka dan tertutup dengan benar.
 - [ ] Menu aktif benar di setiap halaman, dan grup submenunya terbuka otomatis.

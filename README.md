@@ -5,6 +5,7 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 ## Fitur
 
 - **7 halaman aplikasi**: Dashboard, Pesanan, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
+- **UI Toolkit**: halaman dokumentasi interaktif (Tombol, Form, Status & badge) berisi contoh langsung, kode siap salin, dan penjelasan kelas serta token yang dipakai
 - **Halaman 404** bertema, dengan alamat yang dicari dan pintasan ke halaman populer
 - **3 halaman auth**: Masuk (email atau Google/GitHub/Microsoft), Daftar (dengan meter kekuatan kata sandi), dan Lupa Kata Sandi, lengkap dengan validasi form (mode demo, belum terhubung backend)
 - **Mode gelap** dengan tombol toggle di topbar. Pilihan disimpan di `localStorage` dan mengikuti pengaturan sistem pada kunjungan pertama
@@ -37,6 +38,7 @@ simple-admin-v1/
 │   ├── context.md          Konteks proyek untuk anggota baru
 │   └── design-system.md    Token, komponen, dan aturan visual
 ├── pages/
+│   ├── ui/                 UI Toolkit: buttons, forms, status
 │   ├── auth/
 │   │   ├── login.html          Masuk
 │   │   ├── register.html       Daftar
@@ -57,6 +59,7 @@ simple-admin-v1/
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
             ├── auth.js        Validasi dan simulasi form auth
+            ├── ui.js          Blok contoh UI Toolkit: kode otomatis dan tombol Salin
             ├── error.js       Halaman 404 (menampilkan alamat yang dicari)
             ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
             ├── orders.js      Filter dan pencarian pesanan

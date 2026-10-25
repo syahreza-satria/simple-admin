@@ -46,6 +46,20 @@ const saNav = [
       { text: "Halaman 404", href: "404.html", icon: "alert" },
     ],
   },
+  {
+    label: "UI Toolkit",
+    items: [
+      {
+        text: "Komponen",
+        icon: "layers",
+        children: [
+          { text: "Tombol", href: "pages/ui/buttons.html" },
+          { text: "Form", href: "pages/ui/forms.html" },
+          { text: "Status & badge", href: "pages/ui/status.html" },
+        ],
+      },
+    ],
+  },
 ];
 
 /* Kartu kecil di dasar sidebar. Isi `null` untuk menyembunyikannya. */
@@ -62,6 +76,7 @@ const saIcons = {
   gear: '<circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />',
   lock: '<rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 018 0v4" />',
   alert: '<circle cx="12" cy="12" r="9" /><path d="M12 8v5" /><path d="M12 16h.01" />',
+  layers: '<path d="M12 2l10 5-10 5L2 7z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />',
   chevron: '<path d="M9 6l6 6-6 6" />',
   logo: '<rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />',
 };
