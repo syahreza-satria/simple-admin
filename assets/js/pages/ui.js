@@ -52,7 +52,8 @@ document.querySelectorAll(".sa-example").forEach((ex) => {
     anchor = block;
   }
   ex.querySelectorAll('script[type="text/plain"][data-lang]').forEach((s) => {
-    const src = saDedent(s.textContent);
+    /* Di dalam <script type="text/plain">, tulis </script> sebagai <\/script> */
+    const src = saDedent(s.textContent.replace(/<\\\//g, "</"));
     const block = saCodeBlock(s.dataset.lang, escapeHtml(src));
     block.dataset.source = src;
     anchor.after(block);

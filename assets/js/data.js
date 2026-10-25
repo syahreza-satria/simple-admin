@@ -45,3 +45,24 @@ const users = [
   { name: "Tomi Hartono", email: "tomi@tokosatria.id", role: "Editor", active: false, last: "3 minggu lalu" },
 ];
 const roles = ["Administrator", "Manajer", "Editor", "Staf Gudang"];
+
+/* ---- Data grafik ---- */
+/* Pendapatan bulanan dalam juta rupiah: tahun ini dan tahun lalu */
+const revenue = {
+  months: ["Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt"],
+  current: [118, 142, 121, 128, 139, 135, 151, 158, 149, 166, 164, 184],
+  previous: [96, 120, 101, 104, 112, 117, 124, 129, 126, 133, 141, 152],
+};
+/* Penjualan per kategori bulan ini (juta rupiah) */
+const salesByCategory = [
+  { name: "Pakaian", value: 132 },
+  { name: "Tas", value: 38 },
+  { name: "Aksesoris", value: 31 },
+];
+/* Porsi metode pembayaran (%) */
+const paymentMethods = [
+  { name: "QRIS", share: 46 },
+  { name: "Transfer bank", share: 31 },
+  { name: "Kartu kredit", share: 15 },
+  { name: "COD", share: 8 },
+];

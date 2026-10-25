@@ -1,8 +1,3 @@
-/* ---- Data contoh (ganti dengan data dari API Anda) ---- */
-const months = ["Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt"];
-const rev2026 = [118, 142, 121, 128, 139, 135, 151, 158, 149, 166, 164, 184]; // juta rupiah
-const rev2025 = [96, 120, 101, 104, 112, 117, 124, 129, 126, 133, 141, 152];
-
 /* ---- Tabel pesanan ---- */
 function renderOrders(filter) {
   const rows = orders.filter((o) => filter === "all" || o.status === filter);
@@ -29,63 +24,59 @@ document.querySelectorAll("#saFilter [data-filter]").forEach((btn) =>
 );
 renderOrders("all");
 
-/* ---- Grafik garis (SVG murni, tanpa library) ---- */
+/* ---- Grafik pendapatan (Chart.js, lewat saChart() di charts.js) ---- */
 let chartRange = 12;
-function chartColors() {
-  const css = getComputedStyle(document.documentElement);
-  const v = (n) => css.getPropertyValue(n).trim();
-  return { line: v("--sa-line"), prev: v("--sa-chart-prev"), accent: v("--sa-accent"), bg: v("--sa-bg"), ink: v("--sa-ink") };
-}
-function renderChart(range, animate = true) {
-  chartRange = range;
-  const c = chartColors();
-  const svg = document.getElementById("saChart");
-  const W = 720,
-    H = 280,
-    L = 44,
-    R = 12,
-    T = 12,
-    B = 30;
-  const a = rev2026.slice(-range),
-    b = rev2025.slice(-range),
-    lab = months.slice(-range);
-  const max = 200,
-    step = 50;
-  const x = (i) => L + (i * (W - L - R)) / (a.length - 1);
-  const y = (v) => T + (H - T - B) * (1 - v / max);
-  const line = (arr) => arr.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  let g = "";
-  for (let v = 0; v <= max; v += step) {
-    g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="${c.line}" stroke-width="1"${v ? ' stroke-dasharray="3 4"' : ""}/>`;
-    g += `<text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}${v ? " jt" : ""}</text>`;
-  }
-  lab.forEach((m, i) => (g += `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${m}</text>`));
-  const area = `${line(a)} L${x(a.length - 1)},${y(0)} L${x(0)},${y(0)} Z`;
-  const li = a.length - 1;
-  svg.classList.toggle("sa-chart-anim", animate);
-  svg.innerHTML = `
-    <defs><clipPath id="saClip"><rect class="sa-clip" x="0" y="0" width="${W}" height="${H}"/></clipPath><linearGradient id="saFill" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0" stop-color="${c.accent}" stop-opacity=".16"/><stop offset="1" stop-color="${c.accent}" stop-opacity="0"/>
-    </linearGradient></defs>
-    ${g}
-    <g clip-path="url(#saClip)">
-    <path d="${area}" fill="url(#saFill)"/>
-    <path d="${line(b)}" fill="none" stroke="${c.prev}" stroke-width="2" stroke-dasharray="5 5"/>
-    <path d="${line(a)}" fill="none" stroke="${c.accent}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-    </g>
-    <circle class="sa-chart-pt" cx="${x(li)}" cy="${y(a[li])}" r="5" fill="${c.bg}" stroke="${c.accent}" stroke-width="2.5"/>
-    <text class="sa-chart-pt" x="${x(li) - 10}" y="${y(a[li]) - 12}" text-anchor="end" style="fill:${c.ink};font-weight:700">${a[li]} jt</text>`;
-}
+const revenueChart = saChart(document.getElementById("saChart"), (c) => {
+  const cur = revenue.current.slice(-chartRange);
+  const last = cur.length - 1;
+  return {
+    type: "line",
+    data: {
+      labels: revenue.months.slice(-chartRange),
+      datasets: [
+        {
+          label: "2026",
+          data: cur,
+          borderColor: c.accent,
+          borderWidth: 2.5,
+          tension: 0.35,
+          fill: true,
+          backgroundColor: saGradient(c.accent),
+          pointRadius: (ctx) => (ctx.dataIndex === last ? 5 : 0),
+          pointBackgroundColor: c.bg,
+          pointBorderWidth: 2.5,
+          pointHoverRadius: 5,
+        },
+        {
+          label: "2025",
+          data: revenue.previous.slice(-chartRange),
+          borderColor: c.prev,
+          borderWidth: 2,
+          borderDash: [5, 5],
+          tension: 0.35,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+        },
+      ],
+    },
+    options: {
+      interaction: { mode: "index", intersect: false },
+      scales: {
+        y: { min: 0, max: 200, ticks: { stepSize: 50, callback: (v) => (v ? `${v} jt` : "0") }, border: { display: false, dash: [3, 4] } },
+        x: { grid: { display: false }, border: { display: false } },
+      },
+      plugins: { tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: Rp ${ctx.parsed.y} jt` } } },
+    },
+  };
+});
 document.querySelectorAll(".sa-seg [data-range]").forEach((btn) =>
   btn.addEventListener("click", () => {
     document.querySelectorAll(".sa-seg .btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
-    renderChart(+btn.dataset.range);
+    chartRange = +btn.dataset.range;
+    revenueChart.render();
   }),
 );
-renderChart(12);
-
-document.addEventListener("themechange", () => renderChart(chartRange, false));
 
 /* ---- Form tambah produk (modal) ---- */
 document.getElementById("saProductForm").addEventListener("submit", (e) => {
