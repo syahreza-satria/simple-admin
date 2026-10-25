@@ -33,7 +33,7 @@ Tidak ada dependensi yang perlu dipasang. Bootstrap, SweetAlert2, dan font dimua
 
 ### Struktur
 
-- Dashboard ada di `index.html`; halaman aplikasi lain di `pages/` (path aset diawali `../`); halaman auth di `pages/auth/` (path aset diawali `../../`); `404.html` di root.
+- Dashboard ada di `index.html`; halaman aplikasi lain (termasuk `order-detail.html`, `error-500.html`, `maintenance.html`) di `pages/` (path aset diawali `../`); halaman auth di `pages/auth/` (path aset diawali `../../`); `404.html` di root.
 - Semua gaya ada di satu file: `assets/css/style.css`.
 - Skrip dimuat berurutan: Bootstrap bundle, SweetAlert2, Chart.js (jika ada grafik), `common.js`, `nav.js` dan `shell.js` (hanya halaman aplikasi), `data.js` (jika perlu), `charts.js` (jika ada grafik), lalu skrip halaman di `assets/js/pages/`.
 - Ikon memakai Bootstrap Icons: `<i class="bi bi-nama" aria-hidden="true"></i>`. Jangan menambah SVG ikon baru.

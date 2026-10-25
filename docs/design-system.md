@@ -116,6 +116,18 @@ Submenu memakai Bootstrap Collapse: tombol `.sa-nav-toggle` (ikon, teks, chevron
 
 Header kecil huruf kapital di atas `--sa-surface`, baris dibatasi `--sa-line`, hover baris `--sa-surface`. Kolom angka rata kanan (`text-end sa-num`). Dibungkus `.table-responsive`. Keadaan kosong memakai `.sa-empty` (satu sel penuh, teks `--sa-muted`).
 
+### Tabel data `.sa-dt`
+
+Dibangun `saDataTable()`. Header yang bisa diurutkan berisi tombol `.sa-dt-sort` (ikon `bi-chevron-expand`, berubah jadi `bi-caret-up-fill`/`bi-caret-down-fill` berwarna `--sa-accent` saat aktif) dan atribut `aria-sort`. Kolom centang `.sa-dt-check` selebar isinya; baris terpilih berlatar `--sa-accent-soft`. Bilah aksi massal `.sa-dt-bulk` muncul di atas tabel saat ada baris terpilih, berlatar `--sa-accent-soft`. Kaki tabel `.sa-dt-foot` berisi info "Menampilkan x–y dari z", pilihan jumlah baris, dan paginasi Bootstrap kecil yang warnanya diarahkan ke token (aktif: `--sa-accent` dengan teks `--sa-on-accent`).
+
+### Invoice `.sa-invoice`
+
+Panel berisi kepala (brand, alamat toko, nomor invoice, tanggal, status), dua kolom pihak (ditagihkan kepada, pembayaran & pengiriman), tabel item, ringkasan `.sa-invoice-total` (grid label–nilai, total 1,05rem/700 dengan garis atas), dan catatan kaki bergaris putus-putus. Label kecil `.sa-invoice-label` 0,72rem kapital `--sa-muted`. Saat dicetak: sidebar, topbar, dan `.sa-no-print` disembunyikan, `.sa-print-full` selebar halaman, tanpa animasi dan bayangan, tema dipaksa terang.
+
+### Halaman 500 dan Maintenance
+
+Memakai kartu `.sa-error` yang sama dengan 404. Halaman 500 menulis "5 ◎ 0" dengan ikon `bi-cloud-slash` di lingkaran; Maintenance hanya menampilkan lingkaran `.sa-error-icon` (8rem) berisi `bi-tools`. Ikon di lingkaran berukuran 3,4rem.
+
 ### Status pill `.sa-status`
 
 Titik berwarna + label, radius penuh. Varian: `.sa-st-paid`, `.sa-st-pending`, `.sa-st-process`, `.sa-st-failed`.

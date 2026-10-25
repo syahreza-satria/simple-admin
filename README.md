@@ -4,10 +4,12 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 
 ## Fitur
 
-- **7 halaman aplikasi**: Dashboard, Pesanan, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
+- **8 halaman aplikasi**: Dashboard, Pesanan, Detail pesanan/invoice, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
+- **Tabel data** tanpa library: sort kolom, paginasi, pencarian, pilih banyak baris dengan aksi massal, dan ekspor CSV (dipakai di halaman Pesanan)
+- **Invoice siap cetak**: tombol Cetak menyembunyikan sidebar dan topbar, dan selalu mencetak dalam mode terang
 - **UI Toolkit**: halaman dokumentasi interaktif (Tombol, Form, Tabel, Status & badge, Modal & alert) berisi contoh langsung, kode siap salin, dan penjelasan kelas serta token yang dipakai
 - **Panduan Memulai** di dalam template, plus **halaman kosong** sebagai titik awal halaman baru
-- **Halaman 404** bertema, dengan alamat yang dicari dan pintasan ke halaman populer
+- **Halaman error**: 404 (dengan alamat yang dicari), 500, dan Maintenance
 - **3 halaman auth**: Masuk (email atau Google/GitHub/Microsoft), Daftar (dengan meter kekuatan kata sandi), dan Lupa Kata Sandi, lengkap dengan validasi form (mode demo, belum terhubung backend)
 - **Mode gelap** dengan tombol toggle di topbar. Pilihan disimpan di `localStorage` dan mengikuti pengaturan sistem pada kunjungan pertama
 - **Notifikasi**: dropdown dengan penanda belum dibaca dan tombol "Tandai semua dibaca"
@@ -43,12 +45,15 @@ simple-admin-v1/
 │   ├── blank.html          Halaman kosong (titik awal halaman baru)
 │   ├── ui/                 UI Toolkit: buttons, forms, tables, status, modals
 │   ├── docs/               Panduan: getting-started
-│   ├── plugins/            Plugin: charts
+│   ├── plugins/            Plugin: charts, datatable
 │   ├── auth/
 │   │   ├── login.html          Masuk
 │   │   ├── register.html       Daftar
 │   │   └── forgot-password.html  Lupa kata sandi
 │   ├── orders.html         Pesanan
+│   ├── order-detail.html   Detail pesanan / invoice (?id=INV-…)
+│   ├── error-500.html      Kesalahan server
+│   ├── maintenance.html    Sedang dalam perawatan
 │   ├── products.html       Produk
 │   ├── customers.html      Pelanggan
 │   ├── reports.html        Laporan
@@ -61,15 +66,17 @@ simple-admin-v1/
         ├── common.js       Dipakai semua halaman: alert SweetAlert2, mode gelap, helper
         ├── nav.js          Konfigurasi kerangka: menu sidebar, pengguna, menu akun
         ├── charts.js       Helper Chart.js: warna dari token, ikut tema
+        ├── datatable.js    Tabel data: sort, paginasi, pilih baris, ekspor CSV
         ├── shell.js        Kerangka aplikasi: render sidebar, notifikasi, pencarian, dropdown, keluar akun
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
             ├── auth.js        Validasi dan simulasi form auth
             ├── ui.js          Blok contoh UI Toolkit: kode otomatis dan tombol Salin
-            ├── error.js       Halaman 404 (menampilkan alamat yang dicari)
+            ├── error.js       Halaman 404, 500, maintenance
             ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
             ├── reports.js     Grafik kategori dan metode pembayaran
-            ├── orders.js      Filter dan pencarian pesanan
+            ├── orders.js      Tabel data pesanan: filter, sort, paginasi, ekspor
+            ├── order-detail.js Invoice dan status pesanan
             ├── products.js    Daftar produk dan form tambah produk
             ├── customers.js   Daftar pelanggan
             └── users.js       Daftar pengguna dan pergantian peran
@@ -81,7 +88,7 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 
 ## Menyesuaikan
 
-**Ganti data contoh.** Semua data ada di [assets/js/data.js](assets/js/data.js) (`orders`, `allOrders`, `products`, `customers`, `users`). Data grafik (`revenue`, `salesByCategory`, `paymentMethods`) juga ada di sana. Notifikasi ada di array `notifs` di [assets/js/shell.js](assets/js/shell.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
+**Ganti data contoh.** Semua data ada di [assets/js/data.js](assets/js/data.js) (`orders`, `allOrders`, `orderDetails`, `products`, `customers`, `users`). Data grafik (`revenue`, `salesByCategory`, `paymentMethods`) juga ada di sana. Notifikasi ada di array `notifs` di [assets/js/shell.js](assets/js/shell.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
 
 **Ganti warna.** Semua warna adalah variabel CSS di awal [assets/css/style.css](assets/css/style.css). Blok `:root` untuk mode terang, `[data-bs-theme="dark"]` untuk mode gelap. Warna aksen utama adalah `--sa-accent`.
 

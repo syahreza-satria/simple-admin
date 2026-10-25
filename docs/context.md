@@ -16,7 +16,8 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 | Halaman | File | Skrip halaman | Isi |
 |---|---|---|---|
 | Dashboard | `index.html` | `dashboard.js` | 4 KPI, grafik pendapatan Chart.js 6/12 bulan, target bulanan, 6 pesanan terbaru dengan filter, aktivitas |
-| Pesanan | `pages/orders.html` | `orders.js` | 12 pesanan, filter status, pencarian |
+| Pesanan | `pages/orders.html` | `orders.js` | 12 pesanan dalam tabel data: filter status, pencarian, sort, paginasi, pilih baris + "Tandai lunas", ekspor CSV |
+| Detail pesanan | `pages/order-detail.html?id=…` | `order-detail.js` | Invoice siap cetak, status dan garis waktu, info pelanggan |
 | Produk | `pages/products.html` | `products.js` | Daftar produk, pencarian, filter kategori, modal Tambah Produk |
 | Pelanggan | `pages/customers.html` | `customers.js` | Daftar pelanggan dengan pencarian |
 | Laporan | `pages/reports.html` | `reports.js` | KPI, donat penjualan per kategori, batang metode pembayaran (Chart.js), produk terlaris |
@@ -30,6 +31,9 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 | Memulai | `pages/docs/getting-started.html` | `ui.js` | Panduan: menjalankan, struktur, menambah halaman, menu, warna, data dari API |
 | Halaman kosong | `pages/blank.html` | (tidak ada) | Titik awal untuk halaman baru |
 | Status & badge | `pages/ui/status.html` | `ui.js` | Dokumentasi status pill, badge, delta KPI, avatar, progress, penanda teks |
+| 500 | `pages/error-500.html` | `error.js` | Kesalahan server, tombol coba lagi, kode referensi |
+| Maintenance | `pages/maintenance.html` | `error.js` | Pemberitahuan perawatan dengan perkiraan selesai |
+| Tabel data | `pages/plugins/datatable.html` | `plugin-datatable.js` | Contoh dan dokumentasi `saDataTable()` |
 | 404 | `404.html` | `error.js` | Kode 404 beranimasi, alamat yang dicari, tombol kembali, tautan halaman populer |
 | Masuk | `pages/auth/login.html` | `auth.js` | Email + kata sandi, ingat saya, link lupa kata sandi, login sosial (Google, GitHub, Microsoft) |
 | Daftar | `pages/auth/register.html` | `auth.js` | Form pendaftaran dengan meter kekuatan kata sandi, persetujuan syarat, dan daftar via akun sosial |
@@ -71,7 +75,7 @@ Urutan muat skrip: bundle Bootstrap → SweetAlert2 → Chart.js (jika ada grafi
 - Notifikasi: array `notifs`, `renderNotifs()`, tandai dibaca per item atau semua
 - Shortcut `/` untuk fokus ke pencarian topbar
 
-**`data.js`**: `orders` (6, untuk dashboard), `allOrders` (12), `products`, `customers`, `users`, `roles`.
+**`data.js`**: `orders` (6, untuk dashboard), `allOrders` (12), `orderDetails` (rincian invoice per pesanan), `products`, `customers`, `users`, `roles`, dan data grafik.
 
 **Skrip halaman**: tiap file mendefinisikan fungsi `render…()` yang membangun `innerHTML` tabel dari data, memasang listener filter/pencarian, lalu memanggil render pertama. `dashboard.js` juga memuat data grafik (`months`, `rev2026`, `rev2025`), `renderChart()`, dan animasi hitung KPI.
 
@@ -109,7 +113,7 @@ Detail visual ada di [design-system.md](design-system.md).
 
 - Belum ada backend, autentikasi sungguhan, atau penyimpanan permanen. Halaman auth hanya simulasi: login langsung mengarah ke dashboard dan halaman aplikasi tidak dijaga.
 - Sidebar dan topbar butuh JavaScript untuk tampil.
-- Tombol Ekspor, Unduh PDF, dan Undang Pengguna hanya menampilkan toast. "Keluar" membuka dialog konfirmasi lalu toast, tanpa sesi sungguhan.
+- Tombol Unduh PDF dan Undang Pengguna hanya menampilkan toast. Ekspor CSV di halaman Pesanan sudah berfungsi. "Keluar" membuka dialog konfirmasi lalu toast, tanpa sesi sungguhan.
 - Pencarian global di topbar belum mencari apa pun; pencarian yang bekerja ada di tiap tabel.
 - Halaman Laporan dan Pengaturan berisi data statis dan form tanpa penyimpanan.
 - Bootstrap dan font dimuat dari CDN, jadi butuh internet.
@@ -118,7 +122,6 @@ Detail visual ada di [design-system.md](design-system.md).
 ## Ide pengembangan
 
 - Menghubungkan `data.js` ke API dan menyimpan perubahan.
-- Paginasi dan pengurutan tabel, serta halaman detail pesanan.
 - Menjadikan pencarian global berfungsi.
 - Menyimpan status notifikasi di server atau `localStorage`.
 

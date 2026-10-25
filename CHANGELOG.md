@@ -10,6 +10,25 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-10-26
+
+Tabel data, invoice siap cetak, dan halaman error lengkap.
+
+### Ditambahkan
+
+- Modul **tabel data** `saDataTable()` di `assets/js/datatable.js`, tanpa library: sort kolom (klik atau keyboard, dengan `aria-sort`), paginasi dengan pilihan jumlah baris, pencarian, filter luar, pilih banyak baris dengan aksi massal, dan ekspor CSV (semua atau yang dipilih, dengan BOM agar terbaca Excel).
+- Halaman **Plugin › Tabel data** (`pages/plugins/datatable.html`) dengan contoh produk dan dokumentasi opsi serta method.
+- Halaman **Detail pesanan / invoice** (`pages/order-detail.html?id=…`): rincian item, ongkir, total, alamat, kurir, garis waktu status, aksi sesuai status, dan tombol Cetak dengan tampilan cetak khusus.
+- Data `orderDetails` di `data.js`; subtotal + ongkir setiap pesanan sama dengan total di daftar.
+- Halaman **Error 500** dan **Maintenance**, serta grup menu Error (404, 500, Maintenance).
+- Properti `match` pada item `nav.js` agar menu ikut aktif di halaman turunan (Pesanan aktif di halaman detail).
+
+### Diubah
+
+- Halaman Pesanan memakai tabel data: 5 baris per halaman, urut terbaru, aksi massal "Tandai lunas", dan tombol "Ekspor CSV" yang benar-benar mengunduh file.
+- Nomor pesanan di Dashboard dan Pesanan menjadi tautan ke halaman detail.
+- `error.js` dipakai bersama oleh 404, 500, dan Maintenance.
+
 ## [1.2.0] - 2026-10-25
 
 Kerangka sepenuhnya dari konfigurasi, Bootstrap Icons, dan Chart.js.
@@ -85,7 +104,8 @@ Rilis pertama.
 - Token warna, tipografi, dan komponen di `assets/css/style.css`, dengan prefix `sa-` untuk semua kelas dan id buatan sendiri.
 - Dokumentasi: `README.md`, `docs/context.md`, `docs/design-system.md`, dan `CLAUDE.md`.
 
-[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/syahreza-satria/simple-admin/releases/tag/v1.0.0

@@ -45,6 +45,7 @@ Jalankan `python -m http.server 8000`, lalu buka setiap halaman.
 | --- | --- | --- | --- | --- | --- |
 | Dashboard (`index.html`) | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Pesanan | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Detail pesanan (`?id=INV-10488`) | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Produk | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Pelanggan | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Laporan | [ ] | [ ] | [ ] | [ ] | [ ] |
@@ -62,6 +63,9 @@ Jalankan `python -m http.server 8000`, lalu buka setiap halaman.
 | Panduan: Memulai | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Halaman kosong | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 404 | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 500 | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Maintenance | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Plugin: Tabel data | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 Fitur yang harus dicoba:
 
@@ -70,6 +74,8 @@ Fitur yang harus dicoba:
 - [ ] Grafik Dashboard, Laporan, dan Plugin › Grafik tampil; pilihan 6/12 bulan berfungsi; warna ikut berganti saat tema diganti.
 - [ ] Semua ikon tampil (tidak ada kotak kosong); menu akun dan notifikasi di topbar berfungsi.
 - [ ] Filter status dan pencarian di Dashboard dan Pesanan; keadaan kosong tampil saat tidak ada hasil.
+- [ ] Tabel Pesanan: sort tiap kolom (klik dan Enter), pindah halaman, ubah jumlah baris, pilih semua, "Tandai lunas", "Ekspor terpilih", dan Ekspor CSV mengunduh file yang benar.
+- [ ] Detail pesanan: klik nomor pesanan membuka invoice yang totalnya sama dengan daftar; Cetak (Ctrl+P) hanya menampilkan invoice; `?id=` yang salah menampilkan pesan tidak ditemukan.
 - [ ] Filter kategori, pencarian, dan modal Tambah Produk di halaman Produk.
 - [ ] Ubah peran di Pengguna & Akses memunculkan toast.
 - [ ] Notifikasi: tandai satu dibaca, tandai semua dibaca, titik lonceng hilang.
