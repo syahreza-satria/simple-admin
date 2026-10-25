@@ -5,7 +5,7 @@ Panduan visual dan komponen untuk template Simple Admin. Semua nilai di bawah di
 ## Prinsip
 
 1. **Putih bersih, satu aksen.** Latar putih (atau navy gelap), teks gelap, dan satu warna aksen biru. Warna lain hanya untuk status (hijau, kuning, merah).
-2. **Garis tipis, bukan bayangan.** Pemisahan area memakai border 1px `--sa-line`. Bayangan hanya muncul saat hover panel dan pada dropdown.
+2. **Garis tipis, bukan bayangan.** Pemisahan area memakai border 1px `--sa-line`. Bayangan hanya muncul saat hover panel (`--sa-shadow-panel`), pada sidebar mobile yang terbuka (`--sa-shadow-drawer`), dan pada dropdown.
 3. **Padat tetapi lega.** Teks dasar kecil (0,9rem) untuk menampung banyak data, dengan padding panel yang cukup.
 4. **Satu sumber warna.** Semua warna adalah variabel CSS. Mode gelap hanya mengganti nilai variabel, bukan menulis ulang komponen.
 5. **Gerak membantu, tidak wajib.** Animasi memberi urutan baca, dan semuanya mati saat pengguna memilih _reduce motion_.
@@ -21,11 +21,16 @@ Didefinisikan di `:root` (terang) dan `[data-bs-theme="dark"]` (gelap).
 | `--sa-bg`          | `#ffffff`               | `#0b1220`              | Latar halaman, panel, sidebar                              |
 | `--sa-surface`     | `#f7f9fc`               | `#111a2b`              | Latar sekunder: header tabel, hover baris, input pencarian |
 | `--sa-ink`         | `#0f1b2d`               | `#e6ecf5`              | Teks utama                                                 |
-| `--sa-muted`       | `#66748a`               | `#93a1b8`              | Teks sekunder, label, ikon nonaktif                        |
+| `--sa-muted`       | `#627086`               | `#93a1b8`              | Teks sekunder, label, ikon nonaktif                        |
 | `--sa-line`        | `#e6ebf2`               | `#22304a`              | Border dan pemisah                                         |
-| `--sa-accent`      | `#1f5eff`               | `#5b8cff`              | Aksen: tombol utama, link, menu aktif, garis grafik        |
+| `--sa-accent`      | `#1a56f0`               | `#5b8cff`              | Aksen: tombol utama, link, menu aktif, garis grafik        |
+| `--sa-accent-hover` | `#1a4fd9`              | `#7aa2ff`              | Latar tombol utama saat hover                              |
+| `--sa-accent-active` | `#1745c0`             | `#8fb0ff`              | Latar tombol utama saat ditekan                            |
+| `--sa-on-accent` | `#ffffff` | `#0b1220` | Teks dan ikon di atas latar aksen: tombol utama, badge menu, tab aktif, logo, panel samping auth |
 | `--sa-accent-soft` | `#eaf0ff`               | `rgba(91,140,255,.16)` | Latar lembut aksen: menu aktif, notifikasi belum dibaca    |
 | `--sa-topbar-bg`   | `rgba(255,255,255,.92)` | `rgba(11,18,32,.92)`   | Latar topbar (dengan blur)                                 |
+| `--sa-shadow-panel` | `0 6px 20px` navy 6% | `0 6px 20px` hitam 35% | Bayangan panel saat hover |
+| `--sa-shadow-drawer` | `8px 0 32px` navy 18% | `8px 0 32px` hitam 50% | Bayangan sidebar mobile saat terbuka |
 
 ### Semantik
 
@@ -33,7 +38,7 @@ Didefinisikan di `:root` (terang) dan `[data-bs-theme="dark"]` (gelap).
 | ------------------------- | --------------------- | ---------------------- | ------------------------------------------ |
 | `--sa-up` / `--sa-down`   | `#12805c` / `#c2362f` | `#3ecf9b` / `#ff7a73`  | Perubahan naik / turun pada KPI            |
 | `--sa-chart-prev`         | `#b8c4d6`             | `#4a5a78`              | Garis periode pembanding di grafik         |
-| `--sa-paid-fg` / `-bg`    | `#12805c` / `#e7f6ef` | `#3ecf9b` / hijau 14%  | Status berhasil: Lunas, Aktif              |
+| `--sa-paid-fg` / `-bg`    | `#0f7553` / `#e7f6ef` | `#3ecf9b` / hijau 14%  | Status berhasil: Lunas, Aktif              |
 | `--sa-pending-fg` / `-bg` | `#a15c00` / `#fff4e0` | `#f5b556` / kuning 14% | Status menunggu: Menunggu, Draft, Nonaktif |
 | `--sa-failed-fg` / `-bg`  | `#c2362f` / `#fdecea` | `#ff7a73` / merah 14%  | Status gagal: Gagal                        |
 
@@ -99,7 +104,7 @@ Logo (`.sa-brand`), grup menu berlabel, link dengan ikon SVG 18px. Menu aktif: t
 
 ### Tombol
 
-- **Utama** `btn btn-primary btn-sm`: aksi utama halaman (Tambah Produk, Simpan).
+- **Utama** `btn btn-primary btn-sm`: aksi utama halaman (Tambah Produk, Simpan). Teks memakai `--sa-on-accent` (putih di mode terang, navy di mode gelap) di atas `--sa-accent`; hover `--sa-accent-hover`, ditekan `--sa-accent-active`, disabled tetap `--sa-accent` dengan opacity Bootstrap.
 - **Sekunder** `btn btn-light btn-sm`: aksi pendukung (Ekspor). Border `--sa-line`.
 - **Ikon** `.sa-icon-btn`: 36 × 36px, ikon SVG 18px, dipakai untuk notifikasi dan toggle tema.
 - Tombol mengecil sedikit saat ditekan (`scale(.97)`).
@@ -148,6 +153,14 @@ Garis waktu vertikal: titik berbingkai aksen yang dihubungkan garis `--sa-line`.
 
 Modal terpusat, radius 14px, tanpa border luar, bayangan Bootstrap. Toast dan dialog konfirmasi memakai SweetAlert2 yang diberi gaya tema (`sa-swal`, `sa-swal-toast`): latar `--sa-bg`, teks `--sa-ink`, border `--sa-line`. Toast muncul di kanan bawah selama 3 detik dengan progress bar `--sa-accent` dan tombol tutup; panggil `showToast(teks, icon)`. Dialog konfirmasi (`confirmDialog(...)`) memakai tombol `btn-primary` dan `btn-light`, dengan fokus awal di "Batal". Untuk aksi destruktif atau tak bisa dibatalkan, selalu minta konfirmasi.
 
+### Halaman auth
+
+Layout dua kolom mulai `lg`: panel samping berlatar `--sa-accent` (judul, tiga poin keunggulan, ornamen lingkaran transparan) dan kolom formulir di tengah dengan kartu selebar maksimum 400px. Di bawah `lg` panel samping disembunyikan dan logo tampil di atas formulir. Judul 1,55rem/700, subjudul `--sa-muted`. Input memakai padding 0,6rem × 0,8rem. Kolom kata sandi (`.sa-pw`) punya tombol teks "Lihat"/"Sembunyi" di kanan. Meter kekuatan (`.sa-meter`) memakai empat tingkat: `--sa-down`, `--sa-pending-fg`, `--sa-accent`, `--sa-up`. Validasi memakai gaya Bootstrap (`was-validated`) dengan pesan `invalid-feedback` berbahasa Indonesia. Login sosial (Google, GitHub, Microsoft) ada di bawah formulir masuk dan daftar, dipisah pembatas "atau masuk dengan": tombol Google selebar penuh, GitHub dan Microsoft berdampingan, memakai `btn-light` dengan logo 18px. Logo penyedia adalah pengecualian dari aturan token warna: warna merek Google dan Microsoft ditulis langsung di SVG, sedangkan logo GitHub memakai `currentColor` agar ikut tema. Tombol tema melayang di pojok kanan atas. Kartu masuk dengan `sa-rise`, panel samping dengan `sa-fade`.
+
+### Halaman error (404)
+
+Kartu terpusat selebar maksimum 480px. Kode "4 ◎ 4" berukuran 8rem/700 berwarna `--sa-accent`, dengan angka nol diganti ikon pencarian dalam lingkaran `--sa-accent-soft` yang melayang pelan (`sa-float`, 3,2s). Alamat yang dicari ditampilkan dalam `code` ber-font mono (`.sa-error-path`). Aksi utama "Kembali ke Dashboard" (`btn-primary`) dan sekunder "Halaman sebelumnya" (`btn-light`), diikuti tautan halaman populer. Di HP kode mengecil ke 5,5rem.
+
 ## Mode gelap
 
 - Diaktifkan lewat atribut `data-bs-theme="dark"` pada `<html>`; tombol toggle ada di topbar (ikon matahari untuk terang, bulan untuk gelap).
@@ -166,7 +179,7 @@ Modal terpusat, radius 14px, tanpa border luar, bayangan Bootstrap. Toast dan di
 | Isi progress     | `sa-grow`                  | 1s, delay 0,4s                           | Bar progress terisi dari kiri                               |
 | Ungkap grafik    | `sa-reveal`                | 1,1s, delay 0,35s                        | Grafik terungkap kiri ke kanan; titik akhir fade setelahnya |
 | Hitung KPI       | JS `requestAnimationFrame` | 1,1s, easing kubik                       | Angka naik dari 0                                           |
-| Detak notifikasi | `sa-pulse`                 | 2s, berulang                             | Titik notifikasi                                            |
+| Detak notifikasi | `sa-pulse`                 | 2s, berulang                             | Titik notifikasi; warna cincin diturunkan dari `--sa-accent` lewat `color-mix()` |
 | Goyang ikon      | `sa-wiggle`                | 0,5s                                     | Ikon tombol saat hover                                      |
 | Transisi tema    | `transition`               | 0,3s                                     | Warna latar, teks, border                                   |
 
@@ -184,7 +197,7 @@ Aturan:
 - SVG dekoratif di dalam tombol tidak perlu teks; grafik memakai `role="img"` dan `aria-label`.
 - SweetAlert2 mengelola `role` dan `aria-live` toast serta fokus dialog; jangan menggantinya dengan elemen buatan sendiri.
 - Warna status tidak berdiri sendiri: selalu disertai label teks.
-- Kontras: teks utama `--sa-ink` di atas `--sa-bg`; `--sa-muted` hanya untuk teks sekunder berukuran ≥ 0,72rem.
+- Kontras: semua pasangan teks/latar memenuhi WCAG 2.1 AA (≥ 4,5:1) di mode terang dan gelap, termasuk tombol utama dalam keadaan normal, hover, dan ditekan. Teks di atas latar aksen selalu memakai `--sa-on-accent`, bukan putih tetap. `--sa-muted` hanya untuk teks sekunder berukuran ≥ 0,72rem. Saat mengubah token, hitung ulang kontrasnya.
 
 ## Penamaan
 

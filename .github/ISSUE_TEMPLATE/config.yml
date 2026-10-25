@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Laporkan celah keamanan
+    url: https://github.com/syahreza-satria/simple-admin/security/advisories/new
+    about: Laporkan masalah keamanan secara pribadi, bukan lewat issue publik.

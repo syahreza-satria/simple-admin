@@ -8,15 +8,18 @@ Buka `index.html` di browser atau `python -m http.server 8000`. Tidak ada perint
 
 ## Struktur
 
-- `index.html` (dashboard) di root; halaman lain di `pages/` (`orders`, `products`, `customers`, `reports`, `users`, `settings`). Path aset dari `pages/` diawali `../`; link ke dashboard `../index.html`, ke halaman lain relatif satu folder.
+- `index.html` (dashboard) di root; halaman lain di `pages/` (`orders`, `products`, `customers`, `reports`, `users`, `settings`). `404.html` di root berdiri sendiri (tanpa sidebar/topbar, memuat `common.js` dan `pages/error.js`); path asetnya relatif terhadap root, jadi di hosting statis hanya benar untuk URL yang salah di tingkat root (untuk URL bersarang, ganti ke path absolut sesuai tempat deploy). Halaman auth (`login`, `register`, `forgot-password`) ada di `pages/auth/` dengan path aset `../../`. Path aset dari `pages/` diawali `../`; link ke dashboard `../index.html`, ke halaman lain relatif satu folder.
 - `assets/css/style.css`: satu file untuk semua gaya, tema, dan animasi.
-- `assets/js/common.js` dimuat di semua halaman (alert SweetAlert2, notifikasi, mode gelap, shortcut `/`, helper `rupiah`, `initials`, `norm`, `emptyRow`, `statusLabel`).
+- `assets/js/common.js` dimuat di **semua** halaman, termasuk auth (alert SweetAlert2, mode gelap, helper `rupiah`, `initials`, `norm`, `emptyRow`, `statusLabel`, konstanta `saRoot`). Jangan menaruh kode yang butuh sidebar/topbar di sini.
+- `assets/js/shell.js`: perilaku kerangka aplikasi (notifikasi, pencarian topbar, shortcut `/`, animasi dropdown, dialog keluar). Dimuat setelah `common.js` di 7 halaman aplikasi, **tidak** di halaman auth.
+- `assets/js/pages/auth.js`: validasi form, tampil/sembunyi kata sandi, meter kekuatan, simulasi submit (mode demo).
 - `assets/js/data.js`: data contoh. Dimuat hanya oleh halaman yang butuh data.
-- `assets/js/pages/<halaman>.js`: logika khusus halaman. Urutan muat: Bootstrap bundle, `common.js`, `data.js` (jika perlu), skrip halaman.
+- `assets/js/pages/<halaman>.js`: logika khusus halaman. Urutan muat: Bootstrap bundle, SweetAlert2, `common.js`, `shell.js` (halaman aplikasi), `data.js` (jika perlu), skrip halaman.
 
 ## Aturan penting
 
 - **Sidebar dan topbar diduplikasi di ketujuh file HTML (`index.html` + `pages/*.html`).** Mengubah menu, topbar, atau markup bersama berarti mengedit semua file. Cek ketujuhnya sebelum menyatakan selesai. Modal "Tambah Produk" ada di `index.html` dan `products.html`.
+- Halaman auth berdiri sendiri (tanpa sidebar/topbar); tombol tema `#saThemeToggle` ditaruh melayang di pojok. Tombol login sosial memakai atribut `data-provider="Nama"` dan hanya simulasi; sambungkan ke OAuth saat ada backend. Logo penyedia boleh memakai warna merek langsung di SVG. Form auth memakai `novalidate` + kelas `was-validated` Bootstrap. Belum ada backend: login hanya mensimulasikan sukses lalu menuju `index.html`, dan tidak ada penjagaan akses halaman.
 - Menu aktif ditandai statis per file (`nav-link active` + `aria-current="page"`). Halaman baru harus memindahkan penanda ini ke link-nya sendiri.
 - Prefix `sa-` untuk semua kelas dan id buatan sendiri (`.sa-panel`, `#saChart`). Jangan menimpa kelas Bootstrap secara global; override lewat variabel `--bs-*` atau selector `.sa-…`.
 - **Warna harus lewat variabel CSS** di `:root` dan `[data-bs-theme="dark"]` di `assets/css/style.css`. Jangan hardcode hex di CSS maupun JS. Grafik membaca warna dari variabel lewat `chartColors()` di `dashboard.js`.

@@ -22,8 +22,12 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 | Laporan | `pages/reports.html` | (tidak ada) | KPI, penjualan per kategori, metode pembayaran, produk terlaris (statis) |
 | Pengguna & Akses | `pages/users.html` | `users.js` | Daftar pengguna, ubah peran lewat dropdown |
 | Pengaturan | `pages/settings.html` | (tidak ada) | Form profil toko, preferensi, saklar notifikasi (statis) |
+| 404 | `404.html` | `error.js` | Kode 404 beranimasi, alamat yang dicari, tombol kembali, tautan halaman populer |
+| Masuk | `pages/auth/login.html` | `auth.js` | Email + kata sandi, ingat saya, link lupa kata sandi, login sosial (Google, GitHub, Microsoft) |
+| Daftar | `pages/auth/register.html` | `auth.js` | Form pendaftaran dengan meter kekuatan kata sandi, persetujuan syarat, dan daftar via akun sosial |
+| Lupa kata sandi | `pages/auth/forgot-password.html` | `auth.js` | Kirim tautan reset ke email |
 
-Semua halaman berbagi kerangka yang sama: sidebar, topbar (pencarian, notifikasi, toggle tema, menu akun), area konten. Alert ditampilkan lewat SweetAlert2.
+Tujuh halaman aplikasi berbagi kerangka yang sama: sidebar, topbar (pencarian, notifikasi, toggle tema, menu akun), area konten. Alert ditampilkan lewat SweetAlert2.
 
 ## Struktur berkas
 
@@ -32,19 +36,21 @@ index.html
 README.md, CLAUDE.md
 docs/             context.md, design-system.md
 pages/            orders, products, customers, reports, users, settings (.html)
+  auth/           login, register, forgot-password (.html)
 assets/
   css/style.css   semua gaya, tema, animasi
   js/
-    common.js     dimuat di semua halaman
+    common.js     dimuat di semua halaman (termasuk auth)
+    shell.js      kerangka aplikasi: notifikasi, pencarian, dropdown, keluar
     data.js       data contoh
     pages/        dashboard, orders, products, customers, users (.js)
 ```
 
-Urutan muat skrip di setiap halaman: bundle Bootstrap → `common.js` → `data.js` (jika perlu) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
+Urutan muat skrip: bundle Bootstrap → SweetAlert2 → `common.js` → `shell.js` (halaman aplikasi saja) → `data.js` (jika perlu) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
 
 ## Isi skrip bersama
 
-**`common.js`**
+**`common.js`** (semua halaman) dan **`shell.js`** (halaman aplikasi). `common.js` berisi:
 - `rupiah(n)`, `statusLabel`, `initials(nama)`, `norm(teks)`, `emptyRow(kolom, teks)`: helper
 - `showToast(teks, icon)`: toast SweetAlert2. Elemen `[data-toast]` memanggilnya saat diklik; form `[data-toast-form]` saat submit
 - `confirmDialog({title, text, confirmText})`: dialog konfirmasi (Promise<boolean>); dipakai oleh link `[data-logout]` untuk keluar akun
@@ -87,7 +93,7 @@ Detail visual ada di [design-system.md](design-system.md).
 
 ## Keterbatasan yang diketahui
 
-- Belum ada backend, autentikasi, atau penyimpanan permanen.
+- Belum ada backend, autentikasi sungguhan, atau penyimpanan permanen. Halaman auth hanya simulasi: login langsung mengarah ke dashboard dan halaman aplikasi tidak dijaga.
 - Navigasi, sidebar, dan topbar diduplikasi per halaman.
 - Tombol Ekspor, Unduh PDF, dan Undang Pengguna hanya menampilkan toast. "Keluar" membuka dialog konfirmasi lalu toast, tanpa sesi sungguhan.
 - Pencarian global di topbar belum mencari apa pun; pencarian yang bekerja ada di tiap tabel.

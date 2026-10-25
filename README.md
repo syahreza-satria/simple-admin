@@ -4,7 +4,9 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 
 ## Fitur
 
-- **7 halaman**: Dashboard, Pesanan, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
+- **7 halaman aplikasi**: Dashboard, Pesanan, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
+- **Halaman 404** bertema, dengan alamat yang dicari dan pintasan ke halaman populer
+- **3 halaman auth**: Masuk (email atau Google/GitHub/Microsoft), Daftar (dengan meter kekuatan kata sandi), dan Lupa Kata Sandi, lengkap dengan validasi form (mode demo, belum terhubung backend)
 - **Mode gelap** dengan tombol toggle di topbar. Pilihan disimpan di `localStorage` dan mengikuti pengaturan sistem pada kunjungan pertama
 - **Notifikasi**: dropdown dengan penanda belum dibaca dan tombol "Tandai semua dibaca"
 - **Grafik garis SVG** tanpa library, dengan pilihan rentang 6 atau 12 bulan
@@ -29,10 +31,15 @@ Bootstrap dan font dimuat dari CDN, jadi dibutuhkan koneksi internet.
 ```
 simple-admin-v1/
 ├── index.html              Dashboard
+├── 404.html                Halaman tidak ditemukan
 ├── docs/
 │   ├── context.md          Konteks proyek untuk anggota baru
 │   └── design-system.md    Token, komponen, dan aturan visual
 ├── pages/
+│   ├── auth/
+│   │   ├── login.html          Masuk
+│   │   ├── register.html       Daftar
+│   │   └── forgot-password.html  Lupa kata sandi
 │   ├── orders.html         Pesanan
 │   ├── products.html       Produk
 │   ├── customers.html      Pelanggan
@@ -43,9 +50,12 @@ simple-admin-v1/
     ├── css/
     │   └── style.css       Seluruh gaya, tema terang/gelap, dan animasi
     └── js/
-        ├── common.js       Dipakai semua halaman: alert SweetAlert2, notifikasi, mode gelap, helper
+        ├── common.js       Dipakai semua halaman: alert SweetAlert2, mode gelap, helper
+        ├── shell.js        Kerangka aplikasi: notifikasi, pencarian, dropdown, keluar akun
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
+            ├── auth.js        Validasi dan simulasi form auth
+            ├── error.js       Halaman 404 (menampilkan alamat yang dicari)
             ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
             ├── orders.js      Filter dan pencarian pesanan
             ├── products.js    Daftar produk dan form tambah produk
@@ -53,7 +63,7 @@ simple-admin-v1/
             └── users.js       Daftar pengguna dan pergantian peran
 ```
 
-Setiap halaman memuat `common.js`, lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
+Setiap halaman memuat `common.js`; halaman aplikasi menambah `shell.js`; lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
 
 Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan proyek) dan [docs/design-system.md](docs/design-system.md) (design system).
 
@@ -80,3 +90,15 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 - [SweetAlert2](https://sweetalert2.github.io/) 11.14.5 untuk toast dan dialog konfirmasi (via CDN)
 - Font [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) dan [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (Google Fonts)
 - JavaScript tanpa framework
+
+## Unduh
+
+Unduh versi terbaru dari halaman [Releases](https://github.com/syahreza-satria/simple-admin/releases), ekstrak, lalu buka `index.html`. Riwayat perubahan ada di [CHANGELOG.md](CHANGELOG.md).
+
+## Kontribusi
+
+Laporan bug, usulan fitur, dan pull request sangat diterima. Baca [CONTRIBUTING.md](CONTRIBUTING.md) dan [Kode Etik](CODE_OF_CONDUCT.md) sebelum mulai. Masalah keamanan dilaporkan secara pribadi sesuai [SECURITY.md](SECURITY.md).
+
+## Lisensi
+
+[MIT](LICENSE) © 2026 Syahreza Satria Alfath. Bebas dipakai untuk proyek pribadi maupun komersial.

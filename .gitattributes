@@ -1,0 +1,5 @@
+* text=auto
+
+# Tidak ikut di arsip ZIP/TAR rilis GitHub
+/.github export-ignore
+/.gitattributes export-ignore
