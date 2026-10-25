@@ -35,15 +35,16 @@ Tidak ada dependensi yang perlu dipasang. Bootstrap, SweetAlert2, dan font dimua
 
 - Dashboard ada di `index.html`; halaman aplikasi lain di `pages/` (path aset diawali `../`); halaman auth di `pages/auth/` (path aset diawali `../../`); `404.html` di root.
 - Semua gaya ada di satu file: `assets/css/style.css`.
-- Skrip dimuat berurutan: Bootstrap bundle, SweetAlert2, `common.js`, `nav.js` dan `shell.js` (hanya halaman aplikasi), `data.js` (jika perlu), lalu skrip halaman di `assets/js/pages/`.
+- Skrip dimuat berurutan: Bootstrap bundle, SweetAlert2, Chart.js (jika ada grafik), `common.js`, `nav.js` dan `shell.js` (hanya halaman aplikasi), `data.js` (jika perlu), `charts.js` (jika ada grafik), lalu skrip halaman di `assets/js/pages/`.
+- Ikon memakai Bootstrap Icons: `<i class="bi bi-nama" aria-hidden="true"></i>`. Jangan menambah SVG ikon baru.
 - `common.js` dimuat di semua halaman termasuk auth, jadi jangan menaruh kode yang butuh sidebar atau topbar di sana. Kode seperti itu masuk ke `shell.js`.
-- Data contoh ada di `assets/js/data.js`, notifikasi di `common.js`, dan data grafik di `pages/dashboard.js`.
+- Data contoh, termasuk data grafik, ada di `assets/js/data.js`; notifikasi di `shell.js`.
 
 ### Sidebar dan topbar
 
 Sidebar dirender dari `assets/js/nav.js`. Menambah atau mengubah menu cukup di file itu; jangan menulis markup menu di HTML. Menu aktif dan grup submenu yang terbuka ditentukan otomatis dari URL.
 
-Topbar masih ditulis ulang di **ketujuh** file HTML (`index.html` dan enam file di `pages/`). Jika mengubah topbar atau markup bersama lainnya, ubah ketujuhnya dan periksa satu per satu. Modal "Tambah Produk" ada di `index.html` dan `pages/products.html`.
+Topbar juga dirender dari `nav.js` (`saUser`, `saAccountMenu`, `saSearchPlaceholder`). Setiap halaman aplikasi cukup berisi `<aside id="saSidebar">` dan `<header id="saTopbar">` yang kosong. Modal "Tambah Produk" ada di `index.html` dan `pages/products.html`.
 
 ### CSS
 
@@ -57,7 +58,7 @@ Topbar masih ditulis ulang di **ketujuh** file HTML (`index.html` dan enam file 
 - JavaScript modern tanpa modul (skrip klasik yang berbagi scope global). Jangan menambah build step atau `import`.
 - Indentasi 2 spasi. Baris tabel dibuat dengan template string.
 - Pakai `showToast(teks, icon)` untuk info singkat dan `confirmDialog({ title, text, confirmText })` untuk konfirmasi. Jangan memakai `alert()`, `confirm()`, atau toast Bootstrap.
-- Grafik membaca warna lewat `chartColors()` dan mendengarkan event `themechange` untuk menggambar ulang.
+- Grafik dibuat lewat `saChart(canvas, (c) => config)` di `charts.js`; ambil warna dari `c`, bukan hex. Penggambaran ulang saat ganti tema sudah otomatis.
 
 ### Bahasa
 
@@ -89,7 +90,7 @@ Belum ada pengujian otomatis, jadi setiap perubahan diuji manual:
 - [ ] Tidak ada error di console browser.
 - [ ] Semua kontrol bisa dipakai dengan keyboard dan fokusnya terlihat.
 - [ ] Tidak ada animasi saat *reduce motion* aktif, dan keadaan akhir tetap tampil.
-- [ ] Jika mengubah topbar atau markup bersama: ketujuh file HTML sudah diubah.
+- [ ] Jika mengubah markup bersama di HTML (misalnya modal): semua file yang memakainya sudah diubah.
 - [ ] Teks dinamis yang masuk `innerHTML` memakai `escapeHtml()`.
 - [ ] Diuji minimal di Chrome atau Edge, dan Firefox.
 

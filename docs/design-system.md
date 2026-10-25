@@ -100,7 +100,7 @@ Satu panel berisi empat `.sa-kpi` yang dipisah garis vertikal, bukan empat kartu
 
 ### Sidebar dan menu `.sa-sidebar`, `.sa-nav`
 
-Logo (`.sa-brand`), grup menu berlabel, link dengan ikon SVG 18px. Menu aktif: teks `--sa-accent` di atas `--sa-accent-soft`. Hover: latar `--sa-surface`. Badge hitungan di kanan link. Kartu `.sa-sidebar-card` di dasar sidebar.
+Logo (`.sa-brand`), grup menu berlabel, link dengan ikon Bootstrap Icons sekitar 17px (`.bi`, lebar 18px). Menu aktif: teks `--sa-accent` di atas `--sa-accent-soft`. Hover: latar `--sa-surface`. Badge hitungan di kanan link. Kartu `.sa-sidebar-card` di dasar sidebar.
 
 Submenu memakai Bootstrap Collapse: tombol `.sa-nav-toggle` (ikon, teks, chevron `.sa-chev` 14px yang berputar 90° saat terbuka) membuka daftar `.sa-subnav` yang menjorok 1,35rem dengan garis kiri `--sa-line`. Link submenu tanpa ikon, 0,86rem. Grup yang berisi halaman aktif terbuka otomatis dan judulnya memakai `--sa-ink`. Seluruh isi sidebar dirender dari `assets/js/nav.js`.
 
@@ -108,7 +108,7 @@ Submenu memakai Bootstrap Collapse: tombol `.sa-nav-toggle` (ikon, teks, chevron
 
 - **Utama** `btn btn-primary btn-sm`: aksi utama halaman (Tambah Produk, Simpan). Teks memakai `--sa-on-accent` (putih di mode terang, navy di mode gelap) di atas `--sa-accent`; hover `--sa-accent-hover`, ditekan `--sa-accent-active`, disabled tetap `--sa-accent` dengan opacity Bootstrap.
 - **Sekunder** `btn btn-light btn-sm`: aksi pendukung (Ekspor). Border `--sa-line`.
-- **Ikon** `.sa-icon-btn`: 36 × 36px, ikon SVG 18px, dipakai untuk notifikasi dan toggle tema.
+- **Ikon** `.sa-icon-btn`: 36 × 36px, ikon Bootstrap Icons 1,1rem, dipakai untuk notifikasi dan toggle tema.
 - Tombol mengecil sedikit saat ditekan (`scale(.97)`).
 - Satu halaman hanya punya satu tombol utama.
 
@@ -139,9 +139,19 @@ Lingkaran 34px, inisial 2 huruf, latar `--sa-accent-soft`, teks `--sa-accent`. D
 
 Dropdown 340px (maks lebar layar − 2rem). Kepala berisi judul dengan hitungan dan tombol "Tandai semua dibaca". Item belum dibaca: latar `--sa-accent-soft` dan titik aksen di kiri. Keadaan kosong: "Tidak ada notifikasi". Titik `.sa-dot` pada ikon lonceng berdenyut dan hilang saat semua terbaca.
 
-### Grafik `.sa-chart`
+### Grafik (Chart.js)
 
-SVG murni tanpa library, `viewBox` 720 × 280. Garis tahun ini memakai `--sa-accent` (tebal 2,5, ujung bulat) dengan area gradien; garis pembanding putus-putus `--sa-chart-prev`. Grid horizontal putus-putus `--sa-line`. Warna dibaca dari variabel CSS saat render, dan grafik digambar ulang saat tema berganti.
+Dibuat dengan `saChart()` di `assets/js/charts.js`. Canvas dibungkus `.sa-chart-box` (280px) atau `.sa-chart-box-sm` (220px). Seri utama `--sa-accent` (garis tebal 2,5 dengan area gradien 16% → 0), pembanding putus-putus `--sa-chart-prev`, garis bantu putus-putus `--sa-line`, label sumbu 11px `--sa-muted`, angka berformat `id-ID`. Warna kategori (donat, batang berseri) memakai `--sa-chart-1` … `--sa-chart-5`. Tooltip berlatar `--sa-ink` dengan teks `--sa-bg`, radius 8px. Legenda kustom `.sa-chart-legend` (titik warna, nama, nilai, persen). Grafik digambar ulang saat tema berganti dan tidak beranimasi saat *reduce motion*.
+
+| Token | Terang | Gelap |
+| --- | --- | --- |
+| `--sa-chart-1` | `#1a56f0` | `#5b8cff` |
+| `--sa-chart-2` | `#0e9f8a` | `#3ecfb8` |
+| `--sa-chart-3` | `#c27a12` | `#f5b556` |
+| `--sa-chart-4` | `#8b5cf6` | `#a78bfa` |
+| `--sa-chart-5` | `#8a99b3` | `#6b7c99` |
+
+Warna kategori bersifat grafis (bukan teks), jadi targetnya kontras ≥ 3:1 terhadap latar.
 
 ### Progress `.progress` / `.sa-goal`
 
@@ -195,7 +205,7 @@ Kartu terpusat selebar maksimum 480px. Kode "4 ◎ 4" berukuran 8rem/700 berwarn
 | Fade             | `sa-fade`                  | 0,4 – 0,45s                              | Sidebar, topbar, halaman                                    |
 | Baris masuk      | `sa-row`                   | 0,4 – 0,45s                              | Baris tabel (delay 55ms per baris) dan item aktivitas       |
 | Isi progress     | `sa-grow`                  | 1s, delay 0,4s                           | Bar progress terisi dari kiri                               |
-| Ungkap grafik    | `sa-reveal`                | 1,1s, delay 0,35s                        | Grafik terungkap kiri ke kanan; titik akhir fade setelahnya |
+| Grafik           | Chart.js                   | bawaan Chart.js                          | Grafik tumbuh saat dimuat; mati saat *reduce motion*        |
 | Hitung KPI       | JS `requestAnimationFrame` | 1,1s, easing kubik                       | Angka naik dari 0                                           |
 | Detak notifikasi | `sa-pulse`                 | 2s, berulang                             | Titik notifikasi; warna cincin diturunkan dari `--sa-accent` lewat `color-mix()` |
 | Goyang ikon      | `sa-wiggle`                | 0,5s                                     | Ikon tombol saat hover                                      |
@@ -212,7 +222,7 @@ Aturan:
 - Fokus keyboard selalu terlihat: `:focus-visible` memberi outline 2px `--sa-accent` dengan offset 2px.
 - Tombol ikon wajib punya `aria-label`. Toggle tema memakai `aria-pressed` dan label yang berubah ("Aktifkan mode gelap" / "terang").
 - Menu aktif memakai `aria-current="page"`.
-- SVG dekoratif di dalam tombol tidak perlu teks; grafik memakai `role="img"` dan `aria-label`.
+- Ikon dekoratif (`.bi`) memakai `aria-hidden="true"`; canvas grafik memakai `role="img"` dan `aria-label` yang merangkum datanya.
 - SweetAlert2 mengelola `role` dan `aria-live` toast serta fokus dialog; jangan menggantinya dengan elemen buatan sendiri.
 - Warna status tidak berdiri sendiri: selalu disertai label teks.
 - Kontras: semua pasangan teks/latar memenuhi WCAG 2.1 AA (≥ 4,5:1) di mode terang dan gelap, termasuk tombol utama dalam keadaan normal, hover, dan ditekan. Teks di atas latar aksen selalu memakai `--sa-on-accent`, bukan putih tetap. `--sa-muted` hanya untuk teks sekunder berukuran ≥ 0,72rem. Saat mengubah token, hitung ulang kontrasnya.

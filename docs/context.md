@@ -15,17 +15,18 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 
 | Halaman | File | Skrip halaman | Isi |
 |---|---|---|---|
-| Dashboard | `index.html` | `dashboard.js` | 4 KPI, grafik pendapatan 6/12 bulan, target bulanan, 6 pesanan terbaru dengan filter, aktivitas |
+| Dashboard | `index.html` | `dashboard.js` | 4 KPI, grafik pendapatan Chart.js 6/12 bulan, target bulanan, 6 pesanan terbaru dengan filter, aktivitas |
 | Pesanan | `pages/orders.html` | `orders.js` | 12 pesanan, filter status, pencarian |
 | Produk | `pages/products.html` | `products.js` | Daftar produk, pencarian, filter kategori, modal Tambah Produk |
 | Pelanggan | `pages/customers.html` | `customers.js` | Daftar pelanggan dengan pencarian |
-| Laporan | `pages/reports.html` | (tidak ada) | KPI, penjualan per kategori, metode pembayaran, produk terlaris (statis) |
+| Laporan | `pages/reports.html` | `reports.js` | KPI, donat penjualan per kategori, batang metode pembayaran (Chart.js), produk terlaris |
 | Pengguna & Akses | `pages/users.html` | `users.js` | Daftar pengguna, ubah peran lewat dropdown |
 | Pengaturan | `pages/settings.html` | (tidak ada) | Form profil toko, preferensi, saklar notifikasi (statis) |
 | Tombol | `pages/ui/buttons.html` | `ui.js` | Dokumentasi tombol: utama/sekunder, ikon, ukuran, tombol ikon, segmen, memuat, toast & konfirmasi |
 | Form | `pages/ui/forms.html` | `ui.js` | Dokumentasi form: input, select, checkbox/radio/saklar, input group, validasi, form dalam panel |
 | Tabel | `pages/ui/tables.html` | `ui.js` | Dokumentasi tabel: dasar, kolom pengguna, keadaan kosong, render dari data dengan pencarian |
 | Modal & alert | `pages/ui/modals.html` | `ui.js` | Dokumentasi alert `.sa-alert`, toast, dialog konfirmasi, modal form `.sa-modal` |
+| Grafik | `pages/plugins/charts.html` | `plugin-charts.js` | Contoh Chart.js: garis, batang, donat, dan tabel token warna |
 | Memulai | `pages/docs/getting-started.html` | `ui.js` | Panduan: menjalankan, struktur, menambah halaman, menu, warna, data dari API |
 | Halaman kosong | `pages/blank.html` | (tidak ada) | Titik awal untuk halaman baru |
 | Status & badge | `pages/ui/status.html` | `ui.js` | Dokumentasi status pill, badge, delta KPI, avatar, progress, penanda teks |
@@ -46,6 +47,7 @@ pages/            orders, products, customers, reports, users, settings (.html)
   auth/           login, register, forgot-password (.html)
   ui/             buttons, forms, tables, status, modals (.html): UI Toolkit
   docs/           getting-started (.html): Panduan
+  plugins/        charts (.html): Plugin
   blank.html      halaman kosong
 assets/
   css/style.css   semua gaya, tema, animasi
@@ -57,7 +59,7 @@ assets/
     pages/        dashboard, orders, products, customers, users (.js)
 ```
 
-Urutan muat skrip: bundle Bootstrap → SweetAlert2 → `common.js` → `nav.js` → `shell.js` (halaman aplikasi saja) → `data.js` (jika perlu) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
+Urutan muat skrip: bundle Bootstrap → SweetAlert2 → Chart.js (jika ada grafik) → `common.js` → `nav.js` → `shell.js` (halaman aplikasi saja) → `data.js` (jika perlu) → `charts.js` (jika ada grafik) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
 
 ## Isi skrip bersama
 
@@ -87,7 +89,8 @@ Tidak ada penyimpanan. Perubahan (produk baru, peran pengguna, status notifikasi
 
 - **Satu file HTML per halaman.** Awalnya semua halaman satu `index.html` dengan router hash; diubah atas permintaan pemilik menjadi file terpisah. Konsekuensinya kerangka sempat diduplikasi di tujuh file. Sejak setelah v1.0.0, sidebar dirender dari `assets/js/nav.js` sehingga menu cukup diubah di satu tempat; topbar masih diduplikasi.
 - **CSS dan JS dipisah dari HTML**, lalu folder dirapikan menjadi `pages/` dan `assets/`.
-- **Grafik SVG buatan sendiri** agar tidak butuh library; warnanya dibaca dari variabel CSS sehingga ikut tema.
+- **Grafik dengan Chart.js** (sejak v1.2.0, sebelumnya SVG buatan sendiri) agar mudah membuat jenis grafik lain; warnanya tetap dibaca dari variabel CSS lewat `charts.js` sehingga ikut tema.
+- **Bootstrap Icons** (sejak v1.2.0) menggantikan SVG inline agar HTML lebih ringkas dan ikon mudah dipilih dari katalog.
 - **Warna lewat variabel CSS** supaya mode gelap cukup mengganti nilai variabel.
 - **Prefix `sa-`** untuk semua kelas dan id buatan sendiri agar tidak bentrok dengan Bootstrap.
 - **Tidak ada build step** supaya bisa dibuka langsung dari file dan mudah dipahami pemula.
@@ -105,7 +108,7 @@ Detail visual ada di [design-system.md](design-system.md).
 ## Keterbatasan yang diketahui
 
 - Belum ada backend, autentikasi sungguhan, atau penyimpanan permanen. Halaman auth hanya simulasi: login langsung mengarah ke dashboard dan halaman aplikasi tidak dijaga.
-- Topbar masih diduplikasi per halaman. Sidebar butuh JavaScript untuk tampil.
+- Sidebar dan topbar butuh JavaScript untuk tampil.
 - Tombol Ekspor, Unduh PDF, dan Undang Pengguna hanya menampilkan toast. "Keluar" membuka dialog konfirmasi lalu toast, tanpa sesi sungguhan.
 - Pencarian global di topbar belum mencari apa pun; pencarian yang bekerja ada di tiap tabel.
 - Halaman Laporan dan Pengaturan berisi data statis dan form tanpa penyimpanan.
@@ -114,7 +117,6 @@ Detail visual ada di [design-system.md](design-system.md).
 
 ## Ide pengembangan
 
-- Merender topbar dari konfigurasi seperti sidebar.
 - Menghubungkan `data.js` ke API dan menyimpan perubahan.
 - Paginasi dan pengurutan tabel, serta halaman detail pesanan.
 - Menjadikan pencarian global berfungsi.

@@ -10,6 +10,31 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-25
+
+Kerangka sepenuhnya dari konfigurasi, Bootstrap Icons, dan Chart.js.
+
+### Ditambahkan
+
+- Topbar dirender dari `assets/js/nav.js` (`saUser`, `saAccountMenu`, `saSearchPlaceholder`), sehingga tidak ada lagi markup kerangka yang diduplikasi di file HTML.
+- Grafik dengan Chart.js 4.4.6 dan helper `saChart()` di `assets/js/charts.js`: warna dari token, digambar ulang saat tema berganti, tanpa animasi saat *reduce motion*, angka berformat Indonesia.
+- Halaman Laporan kini punya grafik donat penjualan per kategori (dengan legenda nilai dan persen) dan grafik batang metode pembayaran.
+- Halaman **Plugin › Grafik** (`pages/plugins/charts.html`) berisi contoh garis, batang, dan donat beserta tabel token warna.
+- Token warna kategori grafik `--sa-chart-1` … `--sa-chart-5` (terang dan gelap).
+- Kelas `.sa-chart-box`, `.sa-chart-box-sm`, `.sa-chart-legend`, `.sa-account-name`, `.sa-account-role`, dan `.sa-text-danger`.
+
+### Diubah
+
+- Semua ikon memakai Bootstrap Icons 1.11.3 (CDN). Di `nav.js`, `icon` cukup nama ikon tanpa `bi-` (misalnya `"house"`); objek `saIcons` dihapus dan logo brand dipindah ke `saLogo`.
+- Grafik pendapatan Dashboard memakai Chart.js, menggantikan SVG buatan sendiri.
+- Data grafik (`revenue`, `salesByCategory`, `paymentMethods`) dipindah ke `assets/js/data.js`.
+- Toggle tema ditangani lewat delegasi event di `common.js`, sehingga tombolnya boleh dirender belakangan.
+- Menu "Keluar" memakai warna token `--sa-failed-fg` (kontras di mode gelap) alih-alih `text-danger` bawaan Bootstrap.
+
+### Dihapus
+
+- Gaya grafik SVG lama (`.sa-chart`, `.sa-chart-anim`, keyframe `sa-reveal`).
+
 ## [1.1.0] - 2026-10-25
 
 Menu dari satu konfigurasi, UI Toolkit, dan panduan Memulai.
@@ -60,6 +85,7 @@ Rilis pertama.
 - Token warna, tipografi, dan komponen di `assets/css/style.css`, dengan prefix `sa-` untuk semua kelas dan id buatan sendiri.
 - Dokumentasi: `README.md`, `docs/context.md`, `docs/design-system.md`, dan `CLAUDE.md`.
 
-[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/syahreza-satria/simple-admin/releases/tag/v1.0.0

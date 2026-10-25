@@ -11,10 +11,11 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 - **3 halaman auth**: Masuk (email atau Google/GitHub/Microsoft), Daftar (dengan meter kekuatan kata sandi), dan Lupa Kata Sandi, lengkap dengan validasi form (mode demo, belum terhubung backend)
 - **Mode gelap** dengan tombol toggle di topbar. Pilihan disimpan di `localStorage` dan mengikuti pengaturan sistem pada kunjungan pertama
 - **Notifikasi**: dropdown dengan penanda belum dibaca dan tombol "Tandai semua dibaca"
-- **Grafik garis SVG** tanpa library, dengan pilihan rentang 6 atau 12 bulan
+- **Grafik Chart.js** yang warnanya ikut tema: garis pendapatan 6/12 bulan di Dashboard, donat kategori dan batang metode pembayaran di Laporan, plus halaman contoh Plugin › Grafik
+- **Bootstrap Icons** untuk semua ikon
 - **Tabel interaktif**: filter status, pencarian, dan filter kategori
 - **Animasi** halaman, angka KPI (count-up), bar progres, dan grafik. Semuanya dimatikan otomatis jika pengguna mengaktifkan *reduce motion*
-- **Menu dari satu konfigurasi**: sidebar dengan submenu dibangun dari `assets/js/nav.js`; menu aktif dan grup yang terbuka ditentukan otomatis
+- **Kerangka dari satu konfigurasi**: sidebar (dengan submenu) dan topbar dibangun dari `assets/js/nav.js`; menu aktif dan grup yang terbuka ditentukan otomatis
 - **Responsif**: sidebar menjadi offcanvas di layar kecil
 - Shortcut <kbd>/</kbd> untuk fokus ke kolom pencarian
 
@@ -42,6 +43,7 @@ simple-admin-v1/
 │   ├── blank.html          Halaman kosong (titik awal halaman baru)
 │   ├── ui/                 UI Toolkit: buttons, forms, tables, status, modals
 │   ├── docs/               Panduan: getting-started
+│   ├── plugins/            Plugin: charts
 │   ├── auth/
 │   │   ├── login.html          Masuk
 │   │   ├── register.html       Daftar
@@ -57,7 +59,8 @@ simple-admin-v1/
     │   └── style.css       Seluruh gaya, tema terang/gelap, dan animasi
     └── js/
         ├── common.js       Dipakai semua halaman: alert SweetAlert2, mode gelap, helper
-        ├── nav.js          Konfigurasi menu sidebar (grup, submenu, ikon, badge)
+        ├── nav.js          Konfigurasi kerangka: menu sidebar, pengguna, menu akun
+        ├── charts.js       Helper Chart.js: warna dari token, ikut tema
         ├── shell.js        Kerangka aplikasi: render sidebar, notifikasi, pencarian, dropdown, keluar akun
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
@@ -65,6 +68,7 @@ simple-admin-v1/
             ├── ui.js          Blok contoh UI Toolkit: kode otomatis dan tombol Salin
             ├── error.js       Halaman 404 (menampilkan alamat yang dicari)
             ├── dashboard.js   Tabel pesanan ringkas, grafik, count-up KPI
+            ├── reports.js     Grafik kategori dan metode pembayaran
             ├── orders.js      Filter dan pencarian pesanan
             ├── products.js    Daftar produk dan form tambah produk
             ├── customers.js   Daftar pelanggan
@@ -77,7 +81,7 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 
 ## Menyesuaikan
 
-**Ganti data contoh.** Semua data ada di [assets/js/data.js](assets/js/data.js) (`orders`, `allOrders`, `products`, `customers`, `users`). Notifikasi ada di array `notifs` di [assets/js/common.js](assets/js/common.js), dan data grafik (`months`, `rev2026`, `rev2025`) di [assets/js/pages/dashboard.js](assets/js/pages/dashboard.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
+**Ganti data contoh.** Semua data ada di [assets/js/data.js](assets/js/data.js) (`orders`, `allOrders`, `products`, `customers`, `users`). Data grafik (`revenue`, `salesByCategory`, `paymentMethods`) juga ada di sana. Notifikasi ada di array `notifs` di [assets/js/shell.js](assets/js/shell.js). Ganti dengan hasil panggilan API Anda, lalu panggil fungsi `render…` yang sesuai.
 
 **Ganti warna.** Semua warna adalah variabel CSS di awal [assets/css/style.css](assets/css/style.css). Blok `:root` untuk mode terang, `[data-bs-theme="dark"]` untuk mode gelap. Warna aksen utama adalah `--sa-accent`.
 
@@ -85,7 +89,7 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 1. Salin `pages/blank.html`, lalu ubah judul dan isi `<main>`. Path aset di halaman dalam `pages/` diawali `../`.
 2. Tambahkan link di [assets/js/nav.js](assets/js/nav.js), misalnya `{ text: "Kategori", href: "pages/categories.html", icon: "box" }`. `href` ditulis relatif terhadap akar proyek. Untuk submenu, pakai `children: [...]`. Menu aktif ditandai otomatis.
 
-**Ubah menu.** Seluruh isi sidebar (nama brand, grup, item, submenu, badge, ikon, dan kartu penyimpanan) diatur di `assets/js/nav.js`. Tidak perlu mengedit file HTML.
+**Ubah menu.** Seluruh isi sidebar (nama brand, grup, item, submenu, badge, ikon, dan kartu penyimpanan) serta topbar (nama pengguna, peran, menu akun, teks pencarian) diatur di `assets/js/nav.js`. Ikon memakai nama [Bootstrap Icons](https://icons.getbootstrap.com/) tanpa awalan `bi-`. Tidak perlu mengedit file HTML.
 3. Jika perlu skrip sendiri, buat file di `assets/js/pages/` dan muat setelah `common.js`.
 
 ## Konvensi
@@ -98,6 +102,8 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 
 - [Bootstrap 5.3.3](https://getbootstrap.com/) (CSS dan bundle JS, via CDN)
 - [SweetAlert2](https://sweetalert2.github.io/) 11.14.5 untuk toast dan dialog konfirmasi (via CDN)
+- [Chart.js](https://www.chartjs.org/) 4.4.6 untuk grafik (via CDN, hanya di halaman bergrafik)
+- [Bootstrap Icons](https://icons.getbootstrap.com/) 1.11.3 (via CDN)
 - Font [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) dan [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (Google Fonts)
 - JavaScript tanpa framework
 

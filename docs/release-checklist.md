@@ -19,7 +19,9 @@ Ikuti aturan di [CHANGELOG.md](../CHANGELOG.md):
 - [ ] Semua versi CDN dikunci (tanpa `@latest`) dan sama di semua file HTML (halaman aplikasi, UI Toolkit, auth, dan `404.html`):
   - `bootstrap@5.3.3` (CSS dan bundle JS)
   - `sweetalert2@11.14.5`
-- [ ] Topbar identik di ketujuh file HTML; setiap halaman aplikasi hanya punya `<aside id="saSidebar">` kosong.
+  - `bootstrap-icons@1.11.3` (semua halaman)
+  - `chart.js@4.4.6` (Dashboard, Laporan, Plugin › Grafik)
+- [ ] Setiap halaman aplikasi hanya punya `<aside id="saSidebar">` dan `<header id="saTopbar">` yang kosong.
 - [ ] Semua `href` di `assets/js/nav.js` mengarah ke file yang ada.
 - [ ] Setiap file HTML menandai link-nya sendiri dengan `nav-link active` dan `aria-current="page"`.
 - [ ] Halaman aplikasi dan UI Toolkit memuat `nav.js` lalu `shell.js` setelah `common.js`; halaman auth dan `404.html` tidak.
@@ -32,7 +34,7 @@ grep -rn "console.log" assets/js/
 grep -rn "@latest" index.html 404.html pages/
 grep -rnoE "#[0-9a-fA-F]{3,8}\b" assets/js/
 grep -c "sa-sidebar" index.html pages/*.html
-grep -L "shell.js" index.html pages/*.html pages/ui/*.html pages/docs/*.html   # harus kosong
+grep -L "shell.js" index.html pages/*.html pages/ui/*.html pages/docs/*.html pages/plugins/*.html   # harus kosong
 ```
 
 ## 3. Uji manual
@@ -56,6 +58,7 @@ Jalankan `python -m http.server 8000`, lalu buka setiap halaman.
 | UI: Tabel | [ ] | [ ] | [ ] | [ ] | [ ] |
 | UI: Status & badge | [ ] | [ ] | [ ] | [ ] | [ ] |
 | UI: Modal & alert | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Plugin: Grafik | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Panduan: Memulai | [ ] | [ ] | [ ] | [ ] | [ ] |
 | Halaman kosong | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 404 | [ ] | [ ] | [ ] | [ ] | [ ] |
@@ -64,7 +67,8 @@ Fitur yang harus dicoba:
 
 - [ ] Toggle tema berpindah tanpa kedip, dan pilihan bertahan setelah halaman dimuat ulang.
 - [ ] Kunjungan pertama (hapus `localStorage` kunci `sa-theme`) mengikuti tema sistem.
-- [ ] Grafik dashboard: pilihan 6 dan 12 bulan, dan warna ikut berganti saat tema diganti.
+- [ ] Grafik Dashboard, Laporan, dan Plugin › Grafik tampil; pilihan 6/12 bulan berfungsi; warna ikut berganti saat tema diganti.
+- [ ] Semua ikon tampil (tidak ada kotak kosong); menu akun dan notifikasi di topbar berfungsi.
 - [ ] Filter status dan pencarian di Dashboard dan Pesanan; keadaan kosong tampil saat tidak ada hasil.
 - [ ] Filter kategori, pencarian, dan modal Tambah Produk di halaman Produk.
 - [ ] Ubah peran di Pengguna & Akses memunculkan toast.
