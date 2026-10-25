@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <script>
+      try {
+        var t = localStorage.getItem("sa-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-bs-theme", t);
+      } catch (e) {}
+    </script>
+    <title>Halaman Tidak Ditemukan · Simple Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <button class="btn btn-light sa-icon-btn sa-theme-toggle sa-auth-theme" type="button" id="saThemeToggle" aria-label="Aktifkan mode gelap" aria-pressed="false">
+      <svg class="sa-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+      <svg class="sa-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+      </svg>
+    </button>
+
+    <main class="sa-error">
+      <div class="sa-error-card">
+        <a href="index.html" class="sa-brand justify-content-center mb-4">
+          <span class="sa-brand-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+            </svg>
+          </span>
+          simple-admin
+        </a>
+
+        <div class="sa-error-code" aria-hidden="true">
+          <span>4</span>
+          <span class="sa-error-zero">
+            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+          </span>
+          <span>4</span>
+        </div>
+
+        <h1 class="sa-error-title">Halaman tidak ditemukan</h1>
+        <p class="sa-error-text">Alamat <code id="saMissingPath" class="sa-error-path">/halaman-ini</code> tidak ada atau sudah dipindahkan. Periksa kembali alamatnya, atau kembali ke halaman yang tersedia.</p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <a href="index.html" class="btn btn-primary">Kembali ke Dashboard</a>
+          <button type="button" class="btn btn-light" id="saGoBack">Halaman sebelumnya</button>
+        </div>
+
+        <nav class="sa-error-links" aria-label="Halaman populer">
+          <span>Halaman populer:</span>
+          <a href="pages/orders.html">Pesanan</a>
+          <a href="pages/products.html">Produk</a>
+          <a href="pages/customers.html">Pelanggan</a>
+          <a href="pages/reports.html">Laporan</a>
+        </nav>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/pages/error.js"></script>
+  </body>
+</html>

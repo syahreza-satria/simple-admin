@@ -3,15 +3,20 @@
   --sa-bg: #ffffff;
   --sa-surface: #f7f9fc;
   --sa-ink: #0f1b2d;
-  --sa-muted: #66748a;
+  --sa-muted: #627086;
   --sa-line: #e6ebf2;
-  --sa-accent: #1f5eff;
+  --sa-accent: #1a56f0;
+  --sa-accent-hover: #1a4fd9;
+  --sa-accent-active: #1745c0;
   --sa-accent-soft: #eaf0ff;
+  --sa-on-accent: #ffffff;
   --sa-topbar-bg: rgba(255, 255, 255, 0.92);
+  --sa-shadow-panel: 0 6px 20px rgba(15, 27, 45, 0.06);
+  --sa-shadow-drawer: 8px 0 32px rgba(15, 27, 45, 0.18);
   --sa-up: #12805c;
   --sa-down: #c2362f;
   --sa-chart-prev: #b8c4d6;
-  --sa-paid-fg: #12805c;
+  --sa-paid-fg: #0f7553;
   --sa-paid-bg: #e7f6ef;
   --sa-pending-fg: #a15c00;
   --sa-pending-bg: #fff4e0;
@@ -22,15 +27,15 @@
   --sa-sidebar-w: 248px;
 
   /* Bootstrap overrides so components follow the accent */
-  --bs-primary: #1f5eff;
-  --bs-primary-rgb: 31, 94, 255;
+  --bs-primary: #1a56f0;
+  --bs-primary-rgb: 26, 86, 240;
   --bs-body-font-family: var(--sa-font);
   --bs-body-color: var(--sa-ink);
   --bs-body-bg: var(--sa-bg);
   --bs-border-color: var(--sa-line);
-  --bs-link-color: #1f5eff;
-  --bs-link-color-rgb: 31, 94, 255;
-  --bs-focus-ring-color: rgba(31, 94, 255, 0.25);
+  --bs-link-color: #1a56f0;
+  --bs-link-color-rgb: 26, 86, 240;
+  --bs-focus-ring-color: rgba(26, 86, 240, 0.25);
   color-scheme: light;
 }
 [data-bs-theme="dark"] {
@@ -40,8 +45,13 @@
   --sa-muted: #93a1b8;
   --sa-line: #22304a;
   --sa-accent: #5b8cff;
+  --sa-accent-hover: #7aa2ff;
+  --sa-accent-active: #8fb0ff;
   --sa-accent-soft: rgba(91, 140, 255, 0.16);
+  --sa-on-accent: #0b1220;
   --sa-topbar-bg: rgba(11, 18, 32, 0.92);
+  --sa-shadow-panel: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --sa-shadow-drawer: 8px 0 32px rgba(0, 0, 0, 0.5);
   --sa-up: #3ecf9b;
   --sa-down: #ff7a73;
   --sa-chart-prev: #4a5a78;
@@ -69,11 +79,31 @@ body {
   font-size: 0.9rem;
 }
 .btn-primary {
+  --bs-btn-color: var(--sa-on-accent);
   --bs-btn-bg: var(--sa-accent);
   --bs-btn-border-color: var(--sa-accent);
-  --bs-btn-hover-bg: #1a4fd9;
-  --bs-btn-hover-border-color: #1a4fd9;
-  --bs-btn-active-bg: #1745c0;
+  --bs-btn-hover-color: var(--sa-on-accent);
+  --bs-btn-hover-bg: var(--sa-accent-hover);
+  --bs-btn-hover-border-color: var(--sa-accent-hover);
+  --bs-btn-active-color: var(--sa-on-accent);
+  --bs-btn-active-bg: var(--sa-accent-active);
+  --bs-btn-active-border-color: var(--sa-accent-active);
+  --bs-btn-disabled-color: var(--sa-on-accent);
+  --bs-btn-disabled-bg: var(--sa-accent);
+  --bs-btn-disabled-border-color: var(--sa-accent);
+}
+/* Komponen Bootstrap lain yang menaruh teks di atas aksen */
+.nav-pills {
+  --bs-nav-pills-link-active-color: var(--sa-on-accent);
+  --bs-nav-pills-link-active-bg: var(--sa-accent);
+}
+.dropdown-menu {
+  --bs-dropdown-link-active-color: var(--sa-on-accent);
+  --bs-dropdown-link-active-bg: var(--sa-accent);
+}
+/* .text-bg-primary bawaan Bootstrap memaksa teks putih dengan !important, jadi hanya bisa ditimpa dengan !important */
+.sa-nav .badge.text-bg-primary {
+  color: var(--sa-on-accent) !important;
 }
 .btn-light {
   --bs-btn-bg: var(--sa-bg);
@@ -131,7 +161,7 @@ body {
   background: var(--sa-accent);
   display: grid;
   place-items: center;
-  color: #fff;
+  color: var(--sa-on-accent);
 }
 .sa-nav-label {
   font-size: 0.68rem;
@@ -545,10 +575,7 @@ body {
   transition: box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .sa-content .sa-panel:hover {
-  box-shadow: 0 6px 20px rgba(15, 27, 45, 0.06);
-}
-[data-bs-theme="dark"] .sa-content .sa-panel:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--sa-shadow-panel);
 }
 .progress-bar {
   animation: sa-grow 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.4s both;
@@ -591,8 +618,8 @@ body {
   animation: sa-pulse 2s ease-out infinite;
 }
 @keyframes sa-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(31, 94, 255, 0.5); }
-  70%, 100% { box-shadow: 0 0 0 7px rgba(31, 94, 255, 0); }
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sa-accent) 50%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--sa-accent) 0%, transparent); }
 }
 body,
 .sa-sidebar,
@@ -608,7 +635,7 @@ body,
   }
   .sa-sidebar.show,
   .sa-sidebar.showing {
-    box-shadow: 8px 0 32px rgba(15, 27, 45, 0.18);
+    box-shadow: var(--sa-shadow-drawer);
   }
   .sa-sidebar.show .sa-brand,
   .sa-sidebar.show .sa-nav-label,
@@ -622,6 +649,49 @@ body,
   .sa-sidebar.show .sa-nav li:nth-child(4) { animation-delay: 0.27s; }
   .sa-sidebar.show .sa-nav li:nth-child(5) { animation-delay: 0.32s; }
   .sa-sidebar.show .sa-panel { animation-delay: 0.4s; }
+}
+/* Dropdown topbar (notifikasi & akun): mekar dari pojok kanan atas, isi muncul berurutan, lonceng berayun */
+@keyframes sa-pop {
+  from {
+    opacity: 0;
+    scale: 0.9;
+    translate: 0 -8px;
+  }
+}
+@keyframes sa-ring {
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-12deg); }
+  45% { transform: rotate(8deg); }
+  60% { transform: rotate(-5deg); }
+  75% { transform: rotate(2deg); }
+}
+.sa-topbar .dropdown-menu {
+  transform-origin: top right;
+}
+.sa-dd-anim {
+  animation: sa-pop 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.sa-dd-anim .sa-notif-head {
+  animation: sa-fade 0.3s ease 0.08s both;
+}
+.sa-dd-anim .sa-notif-list li {
+  animation: sa-row 0.35s ease both;
+}
+.sa-dd-anim .sa-notif-list li:nth-child(1) { animation-delay: 0.1s; }
+.sa-dd-anim .sa-notif-list li:nth-child(2) { animation-delay: 0.15s; }
+.sa-dd-anim .sa-notif-list li:nth-child(3) { animation-delay: 0.2s; }
+.sa-dd-anim .sa-notif-list li:nth-child(4) { animation-delay: 0.25s; }
+.sa-dd-anim .sa-notif-list li:nth-child(n + 5) { animation-delay: 0.3s; }
+.sa-dd-anim > li {
+  animation: sa-row 0.35s ease both;
+}
+.sa-dd-anim > li:nth-child(1) { animation-delay: 0.06s; }
+.sa-dd-anim > li:nth-child(2) { animation-delay: 0.1s; }
+.sa-dd-anim > li:nth-child(3) { animation-delay: 0.14s; }
+.sa-dd-anim > li:nth-child(4) { animation-delay: 0.18s; }
+.sa-icon-btn.sa-ringing svg {
+  transform-origin: 50% 10%;
+  animation: sa-ring 0.7s ease both;
 }
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -781,4 +851,322 @@ body,
 }
 .swal2-container {
   z-index: 2000;
+}
+
+/* Auth (login, daftar, lupa kata sandi) */
+.sa-auth {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 992px) {
+  .sa-auth {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+.sa-auth-theme {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+.sa-auth-aside {
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 3rem;
+  overflow: hidden;
+  background: var(--sa-accent);
+  color: var(--sa-on-accent);
+  animation: sa-fade 0.6s ease both;
+}
+.sa-auth-aside::before,
+.sa-auth-aside::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--sa-on-accent) 10%, transparent);
+  pointer-events: none;
+}
+.sa-auth-aside::before {
+  width: 420px;
+  height: 420px;
+  right: -140px;
+  top: -120px;
+}
+.sa-auth-aside::after {
+  width: 300px;
+  height: 300px;
+  left: -90px;
+  bottom: -100px;
+}
+.sa-auth-aside > * {
+  position: relative;
+  z-index: 1;
+}
+.sa-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: inherit;
+  text-decoration: none;
+}
+.sa-auth-brand .sa-brand-mark {
+  background: color-mix(in srgb, var(--sa-on-accent) 20%, transparent);
+  color: inherit;
+}
+.sa-auth-headline {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  text-wrap: balance;
+  margin: 0 0 1.5rem;
+}
+.sa-auth-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+.sa-auth-points li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  opacity: 0.92;
+}
+.sa-auth-points svg {
+  flex-shrink: 0;
+  padding: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--sa-on-accent) 20%, transparent);
+}
+.sa-auth-foot {
+  opacity: 0.75;
+}
+.sa-auth-main {
+  display: grid;
+  place-items: center;
+  padding: 4.5rem 1rem 2.5rem;
+}
+.sa-auth-card {
+  width: 100%;
+  max-width: 400px;
+  animation: sa-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+}
+.sa-auth-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+.sa-auth-sub {
+  color: var(--sa-muted);
+  margin: 0 0 1.75rem;
+}
+.sa-auth-switch {
+  text-align: center;
+  color: var(--sa-muted);
+  margin: 1.5rem 0 0;
+}
+.sa-auth-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--sa-muted);
+  margin: 1rem 0 0;
+}
+.sa-auth .form-control {
+  padding: 0.6rem 0.8rem;
+}
+.sa-auth .sa-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Kolom kata sandi dengan tombol lihat/sembunyi */
+.sa-pw {
+  position: relative;
+}
+.sa-pw .form-control {
+  padding-right: 4.5rem;
+}
+.sa-pw-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2.6rem;
+  padding: 0 0.85rem;
+  border: 0;
+  background: transparent;
+  color: var(--sa-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.sa-pw-toggle:hover {
+  text-decoration: underline;
+}
+
+/* Meter kekuatan kata sandi */
+.sa-meter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.sa-meter-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sa-line);
+  overflow: hidden;
+}
+.sa-meter-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 2px;
+  background: var(--sa-muted);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.sa-meter-bar i.lvl-1 { width: 25%; background: var(--sa-down); }
+.sa-meter-bar i.lvl-2 { width: 50%; background: var(--sa-pending-fg); }
+.sa-meter-bar i.lvl-3 { width: 75%; background: var(--sa-accent); }
+.sa-meter-bar i.lvl-4 { width: 100%; background: var(--sa-up); }
+.sa-meter-text {
+  min-width: 7.5rem;
+  text-align: right;
+  color: var(--sa-muted);
+  font-size: 0.75rem;
+}
+
+/* Login sosial */
+.sa-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 1.1rem;
+  color: var(--sa-muted);
+  font-size: 0.75rem;
+}
+.sa-divider::before,
+.sa-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--sa-line);
+}
+.sa-social {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+.sa-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  font-weight: 600;
+}
+.sa-social-btn svg {
+  flex-shrink: 0;
+}
+.sa-social-main {
+  grid-column: 1 / -1;
+}
+.sa-social-btn:disabled {
+  opacity: 0.7;
+}
+
+/* Halaman error (404) */
+.sa-error {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 4.5rem 1rem 2.5rem;
+  text-align: center;
+}
+.sa-error-card {
+  width: 100%;
+  max-width: 480px;
+  animation: sa-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.sa-error-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  height: 8.5rem;
+  margin-bottom: 1rem;
+  color: var(--sa-accent);
+  font-size: 8rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.sa-error-zero {
+  width: 7rem;
+  height: 7rem;
+  padding: 1.2rem;
+  border-radius: 50%;
+  background: var(--sa-accent-soft);
+  animation: sa-float 3.2s ease-in-out infinite;
+}
+.sa-error-zero svg {
+  display: block;
+}
+@keyframes sa-float {
+  50% {
+    transform: translateY(-10px) rotate(-6deg);
+  }
+}
+.sa-error-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+.sa-error-text {
+  color: var(--sa-muted);
+  margin: 0 auto 1.75rem;
+  max-width: 38ch;
+}
+.sa-error-path {
+  font-family: var(--sa-mono);
+  font-size: 0.8rem;
+  color: var(--sa-ink);
+  background: var(--sa-surface);
+  border: 1px solid var(--sa-line);
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  word-break: break-all;
+}
+.sa-error-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+  font-size: 0.82rem;
+  color: var(--sa-muted);
+}
+.sa-error-links a {
+  font-weight: 600;
+  text-decoration: none;
+}
+@media (max-width: 575.98px) {
+  .sa-error-code {
+    font-size: 5.5rem;
+    height: 6rem;
+  }
+  .sa-error-zero {
+    width: 5rem;
+    height: 5rem;
+    padding: 0.9rem;
+  }
 }
