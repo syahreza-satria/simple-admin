@@ -44,15 +44,18 @@ document.querySelectorAll("[data-toast-form]").forEach((f) =>
   }),
 );
 
-/* ---- Mode gelap ---- */
-const themeBtn = document.getElementById("saThemeToggle");
+/* ---- Mode gelap ----
+   Tombol #saThemeToggle boleh dirender belakangan (topbar dari shell.js), jadi
+   klik ditangani lewat delegasi dan syncThemeBtn() dipanggil ulang setelah render. */
 function syncThemeBtn() {
-  if (!themeBtn) return;
+  const btn = document.getElementById("saThemeToggle");
+  if (!btn) return;
   const dark = document.documentElement.getAttribute("data-bs-theme") === "dark";
-  themeBtn.setAttribute("aria-pressed", dark);
-  themeBtn.setAttribute("aria-label", dark ? "Aktifkan mode terang" : "Aktifkan mode gelap");
+  btn.setAttribute("aria-pressed", dark);
+  btn.setAttribute("aria-label", dark ? "Aktifkan mode terang" : "Aktifkan mode gelap");
 }
-themeBtn?.addEventListener("click", () => {
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#saThemeToggle")) return;
   const next = document.documentElement.getAttribute("data-bs-theme") === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-bs-theme", next);
   try {

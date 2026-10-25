@@ -1,13 +1,10 @@
-/* Perilaku kerangka aplikasi (topbar & sidebar). Tidak dimuat di halaman auth. */
+/* Kerangka aplikasi: render sidebar dan topbar dari nav.js, lalu perilakunya. Tidak dimuat di halaman auth. */
 
 /* ---- Sidebar: dirender dari konfigurasi di assets/js/nav.js ---- */
 const saPath = (href) => new URL(href, location.href).pathname.replace(/index\.html$/, "");
 const saHere = saPath(location.href);
 const saIsHere = (item) => !!item.href && saPath(saRoot + item.href) === saHere;
-const saIcon = (name, size = 18, cls = "") =>
-  saIcons[name]
-    ? `<svg${cls ? ` class="${cls}"` : ""} width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${saIcons[name]}</svg>`
-    : "";
+const saIcon = (name, cls = "") => (name ? `<i class="bi bi-${name}${cls ? ` ${cls}` : ""}" aria-hidden="true"></i>` : "");
 
 function saNavLink(item, sub) {
   const here = saIsHere(item);
@@ -18,9 +15,7 @@ function saNavLink(item, sub) {
 
 function saNavGroup(item, id) {
   const open = item.children.some(saIsHere);
-  return `<li><button type="button" class="nav-link sa-nav-toggle${open ? " sa-nav-current" : " collapsed"}" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="${open}" aria-controls="${id}">${saIcon(
-    item.icon,
-  )}<span>${escapeHtml(item.text)}</span>${saIcon("chevron", 14, "sa-chev")}</button>
+  return `<li><button type="button" class="nav-link sa-nav-toggle${open ? " sa-nav-current" : " collapsed"}" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="${open}" aria-controls="${id}">${saIcon(item.icon)}<span>${escapeHtml(item.text)}</span>${saIcon("chevron-right", "sa-chev")}</button>
     <div class="collapse${open ? " show" : ""}" id="${id}"><ul class="nav flex-column sa-subnav">${item.children.map((c) => saNavLink(c, true)).join("")}</ul></div></li>`;
 }
 
@@ -45,7 +40,7 @@ function renderSidebar() {
     : "";
   aside.innerHTML = `<div class="d-flex flex-column h-100 p-3">
       <div class="d-flex align-items-center justify-content-between px-2 py-1">
-        <a href="${saRoot}index.html" class="sa-brand" id="saSidebarLabel"><span class="sa-brand-mark">${saIcon("logo", 16)}</span>${escapeHtml(saBrand)}</a>
+        <a href="${saRoot}index.html" class="sa-brand" id="saSidebarLabel"><span class="sa-brand-mark">${saLogo}</span>${escapeHtml(saBrand)}</a>
         <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#saSidebar" aria-label="Tutup menu"></button>
       </div>
       <nav class="sa-nav flex-grow-1 overflow-auto mt-2" aria-label="Menu utama">${sections}</nav>
@@ -53,6 +48,59 @@ function renderSidebar() {
     </div>`;
 }
 renderSidebar();
+
+/* ---- Topbar: dirender dari konfigurasi di assets/js/nav.js ---- */
+function renderTopbar() {
+  const bar = document.getElementById("saTopbar");
+  if (!bar) return;
+  const menu = saAccountMenu
+    .map((m) =>
+      m.divider
+        ? `<li><hr class="dropdown-divider" /></li>`
+        : m.logout
+          ? `<li><a class="dropdown-item sa-text-danger" href="#" data-logout>${escapeHtml(m.text)}</a></li>`
+          : `<li><a class="dropdown-item" href="${saRoot}${m.href}">${escapeHtml(m.text)}</a></li>`,
+    )
+    .join("");
+  bar.innerHTML = `<div class="container-fluid px-3 px-lg-4 py-2 d-flex align-items-center gap-2 gap-md-3">
+      <button class="btn btn-light sa-icon-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#saSidebar" aria-controls="saSidebar" aria-label="Buka menu">${saIcon("list")}</button>
+      <form class="sa-search position-relative flex-grow-1" role="search" id="saSearchForm">
+        ${saIcon("search")}
+        <input class="form-control form-control-sm py-2" type="search" id="saSearch" placeholder="${escapeHtml(saSearchPlaceholder)}" aria-label="Cari" />
+        <span class="sa-kbd d-none d-md-inline">/</span>
+      </form>
+      <div class="ms-auto d-flex align-items-center gap-2">
+        <div class="dropdown">
+          <button class="btn btn-light sa-icon-btn" type="button" id="saNotifBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" aria-label="Notifikasi">
+            ${saIcon("bell")}<span class="sa-dot" id="saNotifDot"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end sa-notif shadow-sm p-0" aria-labelledby="saNotifBtn">
+            <div class="sa-notif-head">
+              <strong>Notifikasi <span class="text-body-secondary fw-normal sa-num" id="saNotifCount"></span></strong>
+              <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" id="saNotifReadAll">Tandai semua dibaca</button>
+            </div>
+            <ul class="sa-notif-list" id="saNotifList"></ul>
+            <div class="sa-notif-empty" id="saNotifEmpty" hidden>Tidak ada notifikasi</div>
+          </div>
+        </div>
+        <button class="btn btn-light sa-icon-btn sa-theme-toggle" type="button" id="saThemeToggle" aria-label="Aktifkan mode gelap" aria-pressed="false">
+          ${saIcon("sun", "sa-icon-sun")}${saIcon("moon", "sa-icon-moon")}
+        </button>
+        <div class="dropdown">
+          <button class="btn d-flex align-items-center gap-2 p-1 border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu akun">
+            <span class="sa-avatar">${escapeHtml(initials(saUser.name))}</span>
+            <span class="d-none d-md-block text-start lh-sm">
+              <span class="d-block sa-account-name">${escapeHtml(saUser.name)}</span>
+              <span class="d-block sa-account-role">${escapeHtml(saUser.role)}</span>
+            </span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm">${menu}</ul>
+        </div>
+      </div>
+    </div>`;
+  syncThemeBtn();
+}
+renderTopbar();
 
 /* ---- Keluar akun ---- */
 document.addEventListener("click", (e) => {
