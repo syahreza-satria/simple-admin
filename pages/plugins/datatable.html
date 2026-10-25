@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      try {
+        var t = localStorage.getItem("sa-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-bs-theme", t);
+      } catch (e) {}
+    </script>
+    <title>Tabel data · Simple Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+  </head>
+  <body>
+    <!-- ============ SIDEBAR: isinya dirender shell.js dari assets/js/nav.js ============ -->
+    <aside class="sa-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="saSidebar" aria-labelledby="saSidebarLabel"></aside>
+
+    <!-- ============ MAIN ============ -->
+    <div class="sa-main">
+      <!-- Topbar: isinya dirender shell.js dari assets/js/nav.js -->
+      <header class="sa-topbar" id="saTopbar"></header>
+
+      <main class="sa-content container-fluid px-3 px-lg-4">
+        <div class="sa-page">
+          <div class="mb-3">
+            <div class="sa-crumb mb-1">Plugin</div>
+            <h1 class="sa-page-title">Tabel data</h1>
+            <p class="sa-lead">Modul <code>assets/js/datatable.js</code> mengubah array data menjadi tabel dengan sort kolom, paginasi, pencarian, pilih banyak baris, dan ekspor CSV. JavaScript murni, tanpa jQuery atau library lain. Halaman Pesanan memakai modul ini.</p>
+          </div>
+          <ul class="sa-toc" aria-label="Di halaman ini">
+            <li><a href="#contoh">Contoh</a></li>
+            <li><a href="#memasang">Memasang</a></li>
+            <li><a href="#kolom">Opsi kolom</a></li>
+            <li><a href="#opsi">Opsi tabel</a></li>
+            <li><a href="#api">Method</a></li>
+          </ul>
+
+          <section class="sa-panel sa-example" id="contoh">
+            <div class="sa-panel-head"><div><h2>Contoh: daftar produk</h2><p class="sa-example-desc">Klik judul kolom untuk mengurutkan, centang baris untuk memunculkan aksi massal, lalu coba "Ekspor terpilih". Data dari <code>products</code> di <code>data.js</code>.</p></div></div>
+            <div class="sa-example-preview">
+              <section class="sa-panel">
+                <div class="sa-panel-head">
+                  <h2>Produk</h2>
+                  <input type="search" class="form-control form-control-sm" id="exDtSearch" style="max-width: 220px" placeholder="Cari produk atau kategori…" aria-label="Cari produk" />
+                </div>
+                <div id="exDt"></div>
+              </section>
+            </div>
+            <script type="text/plain" data-lang="JavaScript">
+              const productTable = saDataTable(document.getElementById("exDt"), {
+                rows: products,
+                label: "Daftar produk",
+                rowId: (p) => p.name,
+                pageSize: 5,
+                selectable: true,
+                csvName: "produk.csv",
+                search: (p) => `${p.name} ${p.cat}`,
+                columns: [
+                  { key: "name", label: "Produk", className: "fw-medium" },
+                  { key: "cat", label: "Kategori", className: "text-body-secondary" },
+                  { key: "price", label: "Harga", align: "end", className: "sa-num", render: (p) => rupiah(p.price) },
+                  { key: "stock", label: "Stok", align: "end", render: (p) => `<span class="sa-num${p.stock < 10 ? " sa-low" : ""}">${p.stock}</span>` },
+                  {
+                    key: "active",
+                    label: "Status",
+                    render: (p) => `<span class="sa-status ${p.active ? "sa-st-paid" : "sa-st-pending"}">${p.active ? "Aktif" : "Draft"}</span>`,
+                    csv: (p) => (p.active ? "Aktif" : "Draft"),
+                  },
+                ],
+                bulkActions: [{ text: "Arsipkan", action: (rows, table) => (table.clearSelection(), showToast(`${rows.length} produk diarsipkan`)) }],
+              });
+              document.getElementById("exDtSearch").addEventListener("input", (e) => productTable.setQuery(e.target.value));
+            </script>
+          </section>
+
+          <section class="sa-panel sa-example" id="memasang">
+            <div class="sa-panel-head"><div><h2>Memasang</h2><p class="sa-example-desc">Siapkan satu elemen kosong sebagai wadah, muat <code>datatable.js</code> setelah <code>common.js</code>, lalu panggil <code>saDataTable()</code>. Header, isi, aksi massal, dan paginasi dibuat otomatis.</p></div></div>
+            <script type="text/plain" data-lang="HTML">
+              <section class="sa-panel">
+                <div class="sa-panel-head"><h2>Produk</h2></div>
+                <div id="exDt"></div>
+              </section>
+
+              <script src="../assets/js/common.js"><\/script>
+              <script src="../assets/js/data.js"><\/script>
+              <script src="../assets/js/datatable.js"><\/script>
+              <script src="../assets/js/pages/halaman-anda.js"><\/script>
+            </script>
+          </section>
+
+          <section class="sa-panel sa-example" id="kolom">
+            <div class="sa-panel-head"><div><h2>Opsi kolom</h2><p class="sa-example-desc">Setiap item di <code>columns</code>.</p></div></div>
+            <div class="table-responsive">
+              <table class="table sa-table sa-doc-table">
+                <thead><tr><th>Opsi</th><th>Keterangan</th></tr></thead>
+                <tbody>
+                  <tr><td><code>key</code></td><td>Nama properti data. Dipakai untuk isi sel, sort, dan CSV bila opsi lain tidak diisi.</td></tr>
+                  <tr><td><code>label</code></td><td>Teks header kolom.</td></tr>
+                  <tr><td><code>align: "end"</code></td><td>Rata kanan, untuk angka dan uang.</td></tr>
+                  <tr><td><code>render(row)</code></td><td>HTML isi sel. Teks dari data wajib dibungkus <code>escapeHtml()</code>.</td></tr>
+                  <tr><td><code>sortValue(row)</code></td><td>Nilai pembanding saat sort, misalnya tanggal dalam format ISO.</td></tr>
+                  <tr><td><code>csv(row)</code></td><td>Nilai di file CSV, misalnya label status alih-alih kodenya.</td></tr>
+                  <tr><td><code>sortable: false</code></td><td>Matikan sort untuk kolom ini.</td></tr>
+                  <tr><td><code>className</code></td><td>Kelas tambahan untuk setiap <code>&lt;td&gt;</code>.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="sa-panel sa-example" id="opsi">
+            <div class="sa-panel-head"><div><h2>Opsi tabel</h2></div></div>
+            <div class="table-responsive">
+              <table class="table sa-table sa-doc-table">
+                <thead><tr><th>Opsi</th><th>Bawaan</th><th>Keterangan</th></tr></thead>
+                <tbody>
+                  <tr><td><code>rows</code></td><td><code>[]</code></td><td>Array data.</td></tr>
+                  <tr><td><code>columns</code></td><td><code>[]</code></td><td>Daftar kolom (lihat di atas).</td></tr>
+                  <tr><td><code>search(row)</code></td><td>–</td><td>Teks yang dicocokkan dengan <code>setQuery()</code>.</td></tr>
+                  <tr><td><code>filter(row)</code></td><td>–</td><td>Filter tambahan, misalnya tab status. Panggil <code>refresh()</code> setelah kondisinya berubah.</td></tr>
+                  <tr><td><code>sort</code></td><td><code>null</code></td><td>Urutan awal, misalnya <code>{ key: "id", dir: "desc" }</code>.</td></tr>
+                  <tr><td><code>pageSize</code>, <code>pageSizes</code></td><td><code>10</code>, <code>[5, 10, 25]</code></td><td>Jumlah baris per halaman dan pilihannya.</td></tr>
+                  <tr><td><code>selectable</code></td><td><code>false</code></td><td>Tampilkan kotak centang dan bilah aksi massal.</td></tr>
+                  <tr><td><code>rowId(row)</code></td><td>indeks</td><td>ID unik baris, agar pilihan tetap tersimpan saat pindah halaman.</td></tr>
+                  <tr><td><code>bulkActions</code></td><td><code>[]</code></td><td>Tombol aksi massal: <code>{ text, action(rows, table) }</code>.</td></tr>
+                  <tr><td><code>csvName</code>, <code>csvSeparator</code></td><td><code>"data.csv"</code>, <code>","</code></td><td>Nama file dan pemisah CSV. Pakai <code>";"</code> jika Excel Anda berbahasa Indonesia.</td></tr>
+                  <tr><td><code>label</code>, <code>empty</code></td><td>–</td><td>Nama tabel untuk pembaca layar dan teks saat tidak ada data.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="sa-panel sa-example" id="api">
+            <div class="sa-panel-head"><div><h2>Method</h2><p class="sa-example-desc"><code>saDataTable()</code> mengembalikan objek untuk mengendalikan tabel dari luar.</p></div></div>
+            <script type="text/plain" data-lang="JavaScript">
+              table.setQuery("kemeja");        // cari, kembali ke halaman 1
+              table.refresh();                 // render ulang setelah filter luar berubah
+              table.setRows(dataBaru);         // ganti data, misalnya hasil fetch()
+              table.selected();                // array baris yang dicentang
+              table.clearSelection();
+              table.exportCsv();               // unduh CSV sesuai filter dan urutan
+              table.exportCsv(true);           // hanya baris yang dicentang
+            </script>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/nav.js"></script>
+    <script src="../../assets/js/shell.js"></script>
+    <script src="../../assets/js/data.js"></script>
+    <script src="../../assets/js/datatable.js"></script>
+    <script src="../../assets/js/pages/ui.js"></script>
+    <script src="../../assets/js/pages/plugin-datatable.js"></script>
+  </body>
+</html>

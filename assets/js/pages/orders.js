@@ -1,25 +1,43 @@
+/* ---- Halaman Pesanan: tabel data dengan filter status, pencarian, sort, paginasi, dan ekspor ---- */
 let ordFilter = "all";
-function renderAllOrders() {
-  const q = norm(document.getElementById("saOrdSearch").value);
-  const rows = allOrders.filter((o) => (ordFilter === "all" || o.status === ordFilter) && norm(o.id + " " + o.name).includes(q));
-  document.getElementById("saOrdersAll").innerHTML = rows.length
-    ? rows
-        .map(
-          (o, i) => `<tr style="--i:${i}"><td><span class="sa-id">#${o.id}</span></td><td class="fw-medium">${o.name}</td>
-      <td class="text-body-secondary">${o.date}</td><td><span class="sa-status sa-st-${o.status}">${statusLabel[o.status]}</span></td>
-      <td class="text-end sa-num fw-semibold">${rupiah(o.total)}</td></tr>`,
-        )
-        .join("")
-    : emptyRow(5, "Tidak ada pesanan yang cocok");
-  document.getElementById("saOrdCount").textContent = `Menampilkan ${rows.length} dari ${allOrders.length} pesanan`;
-}
+
+const ordersTable = saDataTable(document.getElementById("saOrdersTable"), {
+  rows: allOrders,
+  label: "Daftar pesanan",
+  rowId: (o) => o.id,
+  pageSize: 5,
+  selectable: true,
+  csvName: "pesanan.csv",
+  empty: "Tidak ada pesanan yang cocok",
+  search: (o) => `${o.id} ${o.name}`,
+  filter: (o) => ordFilter === "all" || o.status === ordFilter,
+  sort: { key: "id", dir: "desc" },
+  columns: [
+    { key: "id", label: "No. Pesanan", render: (o) => `<a class="sa-id text-decoration-none" href="order-detail.html?id=${encodeURIComponent(o.id)}">#${escapeHtml(o.id)}</a>` },
+    { key: "name", label: "Pelanggan", className: "fw-medium" },
+    { key: "date", label: "Tanggal", sortValue: (o) => o.id, className: "text-body-secondary" },
+    { key: "status", label: "Status", render: (o) => `<span class="sa-status sa-st-${o.status}">${statusLabel[o.status]}</span>`, csv: (o) => statusLabel[o.status] },
+    { key: "total", label: "Total", align: "end", className: "sa-num fw-semibold", render: (o) => rupiah(o.total) },
+  ],
+  bulkActions: [
+    {
+      text: "Tandai lunas",
+      action: (rows, table) => {
+        rows.forEach((o) => (o.status = "paid"));
+        table.clearSelection();
+        showToast(`${rows.length} pesanan ditandai lunas`);
+      },
+    },
+  ],
+});
+
 document.querySelectorAll("#saOrdFilter [data-filter]").forEach((btn) =>
   btn.addEventListener("click", () => {
     document.querySelectorAll("#saOrdFilter .nav-link").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     ordFilter = btn.dataset.filter;
-    renderAllOrders();
+    ordersTable.refresh();
   }),
 );
-document.getElementById("saOrdSearch").addEventListener("input", renderAllOrders);
-renderAllOrders();
+document.getElementById("saOrdSearch").addEventListener("input", (e) => ordersTable.setQuery(e.target.value));
+document.getElementById("saOrdExport").addEventListener("click", () => ordersTable.exportCsv());

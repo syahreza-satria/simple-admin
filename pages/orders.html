@@ -33,7 +33,7 @@
               <div class="sa-crumb mb-1">Beranda / Pesanan</div>
               <h1 class="sa-page-title">Pesanan</h1>
             </div>
-            <div class="d-flex gap-2 flex-wrap"><button class="btn btn-light btn-sm d-inline-flex align-items-center gap-1" type="button" data-toast="Ekspor pesanan dimulai"><i class="bi bi-download" aria-hidden="true"></i>Ekspor</button></div>
+            <div class="d-flex gap-2 flex-wrap"><button class="btn btn-light btn-sm d-inline-flex align-items-center gap-1" type="button" id="saOrdExport"><i class="bi bi-download" aria-hidden="true"></i>Ekspor CSV</button></div>
           </div>
 
           <section class="sa-panel">
@@ -47,8 +47,7 @@
               </ul>
               <input type="search" class="form-control form-control-sm" id="saOrdSearch" placeholder="Cari pesanan atau pelanggan…" aria-label="Cari pesanan atau pelanggan…" style="width: 220px; max-width: 100%" />
             </div>
-            <div class="table-responsive"><table class="table sa-table"><thead><tr><th>No. Pesanan</th><th>Pelanggan</th><th>Tanggal</th><th>Status</th><th class="text-end">Total</th></tr></thead><tbody id="saOrdersAll"></tbody></table></div>
-            <div class="px-4 py-3 border-top" style="border-color: var(--sa-line) !important"><small class="text-body-secondary" id="saOrdCount"></small></div>
+            <div id="saOrdersTable"></div>
           </section>
         </div>
 
@@ -61,6 +60,7 @@
     <script src="../assets/js/nav.js"></script>
     <script src="../assets/js/shell.js"></script>
     <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/datatable.js"></script>
     <script src="../assets/js/pages/orders.js"></script>
   </body>
 </html>
