@@ -3,6 +3,8 @@ const saRoot = document.currentScript.src.replace(/assets\/js\/common\.js.*$/, "
 
 const statusLabel = { paid: "Lunas", pending: "Menunggu", process: "Diproses", failed: "Gagal" };
 const rupiah = (n) => "Rp " + n.toLocaleString("id-ID");
+/* Escape teks sebelum dimasukkan ke innerHTML (wajib untuk data dari API atau masukan pengguna) */
+const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 /* ---- Alert (SweetAlert2): toast untuk info singkat, dialog untuk konfirmasi ---- */
 const saToast = Swal.mixin({

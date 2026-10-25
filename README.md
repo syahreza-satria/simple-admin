@@ -12,6 +12,7 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 - **Grafik garis SVG** tanpa library, dengan pilihan rentang 6 atau 12 bulan
 - **Tabel interaktif**: filter status, pencarian, dan filter kategori
 - **Animasi** halaman, angka KPI (count-up), bar progres, dan grafik. Semuanya dimatikan otomatis jika pengguna mengaktifkan *reduce motion*
+- **Menu dari satu konfigurasi**: sidebar dengan submenu dibangun dari `assets/js/nav.js`; menu aktif dan grup yang terbuka ditentukan otomatis
 - **Responsif**: sidebar menjadi offcanvas di layar kecil
 - Shortcut <kbd>/</kbd> untuk fokus ke kolom pencarian
 
@@ -51,7 +52,8 @@ simple-admin-v1/
     │   └── style.css       Seluruh gaya, tema terang/gelap, dan animasi
     └── js/
         ├── common.js       Dipakai semua halaman: alert SweetAlert2, mode gelap, helper
-        ├── shell.js        Kerangka aplikasi: notifikasi, pencarian, dropdown, keluar akun
+        ├── nav.js          Konfigurasi menu sidebar (grup, submenu, ikon, badge)
+        ├── shell.js        Kerangka aplikasi: render sidebar, notifikasi, pencarian, dropdown, keluar akun
         ├── data.js         Data contoh (pesanan, produk, pelanggan, pengguna)
         └── pages/          Skrip khusus tiap halaman
             ├── auth.js        Validasi dan simulasi form auth
@@ -63,7 +65,7 @@ simple-admin-v1/
             └── users.js       Daftar pengguna dan pergantian peran
 ```
 
-Setiap halaman memuat `common.js`; halaman aplikasi menambah `shell.js`; lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
+Setiap halaman memuat `common.js`; halaman aplikasi menambah `nav.js` dan `shell.js`; lalu `data.js` jika butuh data, lalu skrip khusus halamannya. Laporan dan Pengaturan hanya memakai `common.js`.
 
 Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan proyek) dan [docs/design-system.md](docs/design-system.md) (design system).
 
@@ -75,7 +77,9 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 
 **Tambah halaman.**
 1. Salin salah satu file di `pages/`, misalnya `reports.html`, lalu ubah judul dan isi `<main>`. Path aset di halaman dalam `pages/` diawali `../`.
-2. Tambahkan link di sidebar. Sidebar ditulis ulang di setiap file, jadi menu harus diubah di ketujuh file HTML (`index.html` dan enam file di `pages/`).
+2. Tambahkan link di [assets/js/nav.js](assets/js/nav.js), misalnya `{ text: "Kategori", href: "pages/categories.html", icon: "box" }`. `href` ditulis relatif terhadap akar proyek. Untuk submenu, pakai `children: [...]`. Menu aktif ditandai otomatis.
+
+**Ubah menu.** Seluruh isi sidebar (nama brand, grup, item, submenu, badge, ikon, dan kartu penyimpanan) diatur di `assets/js/nav.js`. Tidak perlu mengedit file HTML.
 3. Jika perlu skrip sendiri, buat file di `assets/js/pages/` dan muat setelah `common.js`.
 
 ## Konvensi

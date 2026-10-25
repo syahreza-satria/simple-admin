@@ -1,5 +1,59 @@
 /* Perilaku kerangka aplikasi (topbar & sidebar). Tidak dimuat di halaman auth. */
 
+/* ---- Sidebar: dirender dari konfigurasi di assets/js/nav.js ---- */
+const saPath = (href) => new URL(href, location.href).pathname.replace(/index\.html$/, "");
+const saHere = saPath(location.href);
+const saIsHere = (item) => !!item.href && saPath(saRoot + item.href) === saHere;
+const saIcon = (name, size = 18, cls = "") =>
+  saIcons[name]
+    ? `<svg${cls ? ` class="${cls}"` : ""} width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${saIcons[name]}</svg>`
+    : "";
+
+function saNavLink(item, sub) {
+  const here = saIsHere(item);
+  return `<li><a class="nav-link${here ? " active" : ""}" href="${saRoot}${item.href}"${here ? ' aria-current="page"' : ""}>${
+    sub ? "" : saIcon(item.icon)
+  }<span>${escapeHtml(item.text)}</span>${item.badge ? `<span class="badge rounded-pill text-bg-primary">${escapeHtml(item.badge)}</span>` : ""}</a></li>`;
+}
+
+function saNavGroup(item, id) {
+  const open = item.children.some(saIsHere);
+  return `<li><button type="button" class="nav-link sa-nav-toggle${open ? " sa-nav-current" : " collapsed"}" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="${open}" aria-controls="${id}">${saIcon(
+    item.icon,
+  )}<span>${escapeHtml(item.text)}</span>${saIcon("chevron", 14, "sa-chev")}</button>
+    <div class="collapse${open ? " show" : ""}" id="${id}"><ul class="nav flex-column sa-subnav">${item.children.map((c) => saNavLink(c, true)).join("")}</ul></div></li>`;
+}
+
+function renderSidebar() {
+  const aside = document.getElementById("saSidebar");
+  if (!aside || typeof saNav === "undefined") return;
+  let n = 0;
+  const sections = saNav
+    .map(
+      (sec) => `<div class="sa-nav-label">${escapeHtml(sec.label)}</div>
+      <ul class="nav flex-column gap-1">${sec.items.map((it) => (it.children ? saNavGroup(it, `saNavGroup${n++}`) : saNavLink(it))).join("")}</ul>`,
+    )
+    .join("");
+  const card = saSidebarCard
+    ? `<div class="sa-sidebar-card">
+        <div class="sa-sidebar-card-title">${escapeHtml(saSidebarCard.title)}</div>
+        <div class="progress" role="progressbar" aria-label="${escapeHtml(saSidebarCard.title)}" aria-valuenow="${saSidebarCard.percent}" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" style="width: ${Number(saSidebarCard.percent)}%"></div>
+        </div>
+        <div class="sa-sidebar-card-text sa-num">${escapeHtml(saSidebarCard.text)}</div>
+      </div>`
+    : "";
+  aside.innerHTML = `<div class="d-flex flex-column h-100 p-3">
+      <div class="d-flex align-items-center justify-content-between px-2 py-1">
+        <a href="${saRoot}index.html" class="sa-brand" id="saSidebarLabel"><span class="sa-brand-mark">${saIcon("logo", 16)}</span>${escapeHtml(saBrand)}</a>
+        <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#saSidebar" aria-label="Tutup menu"></button>
+      </div>
+      <nav class="sa-nav flex-grow-1 overflow-auto mt-2" aria-label="Menu utama">${sections}</nav>
+      ${card}
+    </div>`;
+}
+renderSidebar();
+
 /* ---- Keluar akun ---- */
 document.addEventListener("click", (e) => {
   if (!e.target.closest("[data-logout]")) return;

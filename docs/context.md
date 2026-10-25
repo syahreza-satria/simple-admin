@@ -41,12 +41,13 @@ assets/
   css/style.css   semua gaya, tema, animasi
   js/
     common.js     dimuat di semua halaman (termasuk auth)
-    shell.js      kerangka aplikasi: notifikasi, pencarian, dropdown, keluar
+    nav.js        konfigurasi menu sidebar
+    shell.js      kerangka aplikasi: render sidebar, notifikasi, pencarian, dropdown, keluar
     data.js       data contoh
     pages/        dashboard, orders, products, customers, users (.js)
 ```
 
-Urutan muat skrip: bundle Bootstrap → SweetAlert2 → `common.js` → `shell.js` (halaman aplikasi saja) → `data.js` (jika perlu) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
+Urutan muat skrip: bundle Bootstrap → SweetAlert2 → `common.js` → `nav.js` → `shell.js` (halaman aplikasi saja) → `data.js` (jika perlu) → skrip halaman. Semua skrip klasik (bukan ES module), sehingga berbagi scope global. Fungsi dan konstanta di `common.js` dan `data.js` langsung bisa dipakai skrip halaman.
 
 ## Isi skrip bersama
 
@@ -74,7 +75,7 @@ Tidak ada penyimpanan. Perubahan (produk baru, peran pengguna, status notifikasi
 
 ## Keputusan desain dan alasannya
 
-- **Satu file HTML per halaman.** Awalnya semua halaman satu `index.html` dengan router hash; diubah atas permintaan pemilik menjadi file terpisah. Konsekuensinya sidebar dan topbar diduplikasi di tujuh file, dan mengubah menu berarti mengedit ketujuhnya.
+- **Satu file HTML per halaman.** Awalnya semua halaman satu `index.html` dengan router hash; diubah atas permintaan pemilik menjadi file terpisah. Konsekuensinya kerangka sempat diduplikasi di tujuh file. Sejak setelah v1.0.0, sidebar dirender dari `assets/js/nav.js` sehingga menu cukup diubah di satu tempat; topbar masih diduplikasi.
 - **CSS dan JS dipisah dari HTML**, lalu folder dirapikan menjadi `pages/` dan `assets/`.
 - **Grafik SVG buatan sendiri** agar tidak butuh library; warnanya dibaca dari variabel CSS sehingga ikut tema.
 - **Warna lewat variabel CSS** supaya mode gelap cukup mengganti nilai variabel.
@@ -94,7 +95,7 @@ Detail visual ada di [design-system.md](design-system.md).
 ## Keterbatasan yang diketahui
 
 - Belum ada backend, autentikasi sungguhan, atau penyimpanan permanen. Halaman auth hanya simulasi: login langsung mengarah ke dashboard dan halaman aplikasi tidak dijaga.
-- Navigasi, sidebar, dan topbar diduplikasi per halaman.
+- Topbar masih diduplikasi per halaman. Sidebar butuh JavaScript untuk tampil.
 - Tombol Ekspor, Unduh PDF, dan Undang Pengguna hanya menampilkan toast. "Keluar" membuka dialog konfirmasi lalu toast, tanpa sesi sungguhan.
 - Pencarian global di topbar belum mencari apa pun; pencarian yang bekerja ada di tiap tabel.
 - Halaman Laporan dan Pengaturan berisi data statis dan form tanpa penyimpanan.
@@ -103,7 +104,7 @@ Detail visual ada di [design-system.md](design-system.md).
 
 ## Ide pengembangan
 
-- Menggabungkan kerangka bersama (sidebar/topbar) dengan include atau generator statis agar tidak diduplikasi.
+- Merender topbar dari konfigurasi seperti sidebar.
 - Menghubungkan `data.js` ke API dan menyimpan perubahan.
 - Paginasi dan pengurutan tabel, serta halaman detail pesanan.
 - Menjadikan pencarian global berfungsi.

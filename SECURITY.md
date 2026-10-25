@@ -25,7 +25,7 @@ Laporan akan ditanggapi dalam 7 hari. Perbaikan dirilis sebagai versi patch dan 
 
 Template ini aman untuk data contoh bawaannya, tetapi perlu disesuaikan sebelum dipakai dengan data sungguhan:
 
-- **Escape data sebelum masuk `innerHTML`.** Baris tabel, notifikasi, dan isi lain dibangun dengan template string lalu dimasukkan lewat `innerHTML`. Jika data berasal dari API atau masukan pengguna (misalnya form Tambah Produk), escape karakter `< > & " '` terlebih dulu, atau pakai `textContent`, untuk mencegah XSS.
+- **Escape data sebelum masuk `innerHTML`.** Baris tabel, notifikasi, dan isi lain dibangun dengan template string lalu dimasukkan lewat `innerHTML`. Jika data berasal dari API atau masukan pengguna (misalnya form Tambah Produk), escape terlebih dulu dengan helper `escapeHtml()` dari `common.js` (sidebar sudah memakainya), atau pakai `textContent`, untuk mencegah XSS.
 - **Validasi di server.** Validasi form di template hanya di sisi browser. Proyek sungguhan wajib memvalidasi ulang di backend.
 - **Autentikasi dan otorisasi.** Halaman Masuk, Daftar, dan Lupa Kata Sandi hanya simulasi: kata sandi apa pun diterima, login sosial belum memakai OAuth, dan halaman aplikasi bisa dibuka tanpa login. Sambungkan form ke backend, lindungi halaman di sisi server, dan pakai HTTPS. Halaman Pengguna & Akses juga hanya tampilan; hak akses harus diperiksa di backend, bukan dengan menyembunyikan menu.
 - **Meter kekuatan kata sandi** hanya membantu pengguna. Aturan kata sandi tetap harus ditegakkan di backend.

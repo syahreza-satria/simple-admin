@@ -196,6 +196,52 @@ body {
   margin-left: auto;
   font-weight: 600;
 }
+/* Submenu sidebar (Bootstrap Collapse) */
+.sa-nav .sa-nav-toggle {
+  width: 100%;
+  text-align: start;
+}
+.sa-nav .sa-nav-toggle.sa-nav-current {
+  color: var(--sa-ink);
+}
+.sa-chev {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+.sa-nav-toggle:not(.collapsed) .sa-chev {
+  transform: rotate(90deg);
+}
+.sa-subnav {
+  gap: 2px;
+  margin: 0.15rem 0 0.35rem 1.35rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--sa-line);
+}
+.sa-subnav .nav-link {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.86rem;
+}
+/* Kartu di dasar sidebar */
+.sa-sidebar-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--sa-surface);
+}
+.sa-sidebar-card-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.sa-sidebar-card .progress {
+  height: 6px;
+  margin-bottom: 0.5rem;
+  background: var(--sa-line);
+}
+.sa-sidebar-card-text {
+  font-size: 0.75rem;
+  color: var(--sa-muted);
+}
 
 /* Topbar */
 .sa-topbar {
@@ -639,16 +685,16 @@ body,
   }
   .sa-sidebar.show .sa-brand,
   .sa-sidebar.show .sa-nav-label,
-  .sa-sidebar.show .sa-nav li,
-  .sa-sidebar.show .sa-panel {
+  .sa-sidebar.show .sa-nav > .nav > li,
+  .sa-sidebar.show .sa-sidebar-card {
     animation: sa-row 0.4s ease both;
   }
-  .sa-sidebar.show .sa-nav li:nth-child(1) { animation-delay: 0.12s; }
-  .sa-sidebar.show .sa-nav li:nth-child(2) { animation-delay: 0.17s; }
-  .sa-sidebar.show .sa-nav li:nth-child(3) { animation-delay: 0.22s; }
-  .sa-sidebar.show .sa-nav li:nth-child(4) { animation-delay: 0.27s; }
-  .sa-sidebar.show .sa-nav li:nth-child(5) { animation-delay: 0.32s; }
-  .sa-sidebar.show .sa-panel { animation-delay: 0.4s; }
+  .sa-sidebar.show .sa-nav > .nav > li:nth-child(1) { animation-delay: 0.12s; }
+  .sa-sidebar.show .sa-nav > .nav > li:nth-child(2) { animation-delay: 0.17s; }
+  .sa-sidebar.show .sa-nav > .nav > li:nth-child(3) { animation-delay: 0.22s; }
+  .sa-sidebar.show .sa-nav > .nav > li:nth-child(4) { animation-delay: 0.27s; }
+  .sa-sidebar.show .sa-nav > .nav > li:nth-child(5) { animation-delay: 0.32s; }
+  .sa-sidebar.show .sa-sidebar-card { animation-delay: 0.4s; }
 }
 /* Dropdown topbar (notifikasi & akun): mekar dari pojok kanan atas, isi muncul berurutan, lonceng berayun */
 @keyframes sa-pop {

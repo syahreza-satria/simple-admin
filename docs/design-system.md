@@ -100,7 +100,9 @@ Satu panel berisi empat `.sa-kpi` yang dipisah garis vertikal, bukan empat kartu
 
 ### Sidebar dan menu `.sa-sidebar`, `.sa-nav`
 
-Logo (`.sa-brand`), grup menu berlabel, link dengan ikon SVG 18px. Menu aktif: teks `--sa-accent` di atas `--sa-accent-soft`. Hover: latar `--sa-surface`. Badge hitungan di kanan link. Kartu penyimpanan di dasar sidebar.
+Logo (`.sa-brand`), grup menu berlabel, link dengan ikon SVG 18px. Menu aktif: teks `--sa-accent` di atas `--sa-accent-soft`. Hover: latar `--sa-surface`. Badge hitungan di kanan link. Kartu `.sa-sidebar-card` di dasar sidebar.
+
+Submenu memakai Bootstrap Collapse: tombol `.sa-nav-toggle` (ikon, teks, chevron `.sa-chev` 14px yang berputar 90° saat terbuka) membuka daftar `.sa-subnav` yang menjorok 1,35rem dengan garis kiri `--sa-line`. Link submenu tanpa ikon, 0,86rem. Grup yang berisi halaman aktif terbuka otomatis dan judulnya memakai `--sa-ink`. Seluruh isi sidebar dirender dari `assets/js/nav.js`.
 
 ### Tombol
 

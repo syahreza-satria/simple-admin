@@ -19,9 +19,10 @@ Ikuti aturan di [CHANGELOG.md](../CHANGELOG.md):
 - [ ] Semua versi CDN dikunci (tanpa `@latest`) dan sama di kesebelas file HTML (7 halaman aplikasi, 3 halaman auth, `404.html`):
   - `bootstrap@5.3.3` (CSS dan bundle JS)
   - `sweetalert2@11.14.5`
-- [ ] Sidebar dan topbar identik di ketujuh file HTML, kecuali penanda menu aktif.
+- [ ] Topbar identik di ketujuh file HTML; setiap halaman aplikasi hanya punya `<aside id="saSidebar">` kosong.
+- [ ] Semua `href` di `assets/js/nav.js` mengarah ke file yang ada.
 - [ ] Setiap file HTML menandai link-nya sendiri dengan `nav-link active` dan `aria-current="page"`.
-- [ ] Ketujuh halaman aplikasi memuat `shell.js` setelah `common.js`; halaman auth dan `404.html` tidak.
+- [ ] Ketujuh halaman aplikasi memuat `nav.js` lalu `shell.js` setelah `common.js`; halaman auth dan `404.html` tidak.
 - [ ] Semua link antarhalaman berfungsi (dari `index.html` ke `pages/…`, dari `pages/` ke `../index.html`, dari `pages/auth/` ke `../../index.html`).
 
 Pemeriksaan cepat dari terminal (Git Bash atau Linux/macOS):
@@ -68,6 +69,7 @@ Fitur yang harus dicoba:
 - [ ] Tombol Lihat/Sembunyi kata sandi dan tombol login sosial berfungsi.
 - [ ] `404.html` menampilkan alamat yang dicari dan tombol "Halaman sebelumnya" berfungsi.
 - [ ] Sidebar offcanvas di bawah 992 px terbuka dan tertutup dengan benar.
+- [ ] Menu aktif benar di setiap halaman, dan grup submenunya terbuka otomatis.
 - [ ] Dengan *reduce motion* aktif, tidak ada animasi dan angka KPI langsung tampil.
 - [ ] Navigasi keyboard (Tab, Enter, Esc) bekerja di menu, dropdown, dan modal.
 - [ ] Membuka `index.html` langsung dari file (tanpa server) tetap berfungsi.

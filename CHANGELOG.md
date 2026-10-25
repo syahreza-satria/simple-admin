@@ -10,6 +10,18 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 
 ## [Unreleased]
 
+### Ditambahkan
+
+- Sidebar dirender dari satu konfigurasi di `assets/js/nav.js` (brand, grup, item, submenu, badge, ikon, kartu bawah).
+- Submenu yang bisa dibuka-tutup (Bootstrap Collapse); grup berisi halaman aktif terbuka otomatis.
+- Grup menu baru: Aplikasi (submenu Toko) dan Halaman (Autentikasi, Halaman 404).
+- Helper `escapeHtml()` di `common.js`.
+
+### Diubah
+
+- Markup sidebar dihapus dari ketujuh file HTML; menu aktif dan `aria-current` ditentukan otomatis dari URL.
+- Kartu penyimpanan memakai kelas `.sa-sidebar-card` alih-alih gaya inline.
+
 ## [1.0.0] - 2026-10-25
 
 Rilis pertama.
