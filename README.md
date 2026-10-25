@@ -5,7 +5,8 @@ Template dashboard admin sederhana berbahasa Indonesia, dibuat dengan HTML, CSS,
 ## Fitur
 
 - **7 halaman aplikasi**: Dashboard, Pesanan, Produk, Pelanggan, Laporan, Pengguna & Akses, Pengaturan
-- **UI Toolkit**: halaman dokumentasi interaktif (Tombol, Form, Status & badge) berisi contoh langsung, kode siap salin, dan penjelasan kelas serta token yang dipakai
+- **UI Toolkit**: halaman dokumentasi interaktif (Tombol, Form, Tabel, Status & badge, Modal & alert) berisi contoh langsung, kode siap salin, dan penjelasan kelas serta token yang dipakai
+- **Panduan Memulai** di dalam template, plus **halaman kosong** sebagai titik awal halaman baru
 - **Halaman 404** bertema, dengan alamat yang dicari dan pintasan ke halaman populer
 - **3 halaman auth**: Masuk (email atau Google/GitHub/Microsoft), Daftar (dengan meter kekuatan kata sandi), dan Lupa Kata Sandi, lengkap dengan validasi form (mode demo, belum terhubung backend)
 - **Mode gelap** dengan tombol toggle di topbar. Pilihan disimpan di `localStorage` dan mengikuti pengaturan sistem pada kunjungan pertama
@@ -38,7 +39,9 @@ simple-admin-v1/
 │   ├── context.md          Konteks proyek untuk anggota baru
 │   └── design-system.md    Token, komponen, dan aturan visual
 ├── pages/
-│   ├── ui/                 UI Toolkit: buttons, forms, status
+│   ├── blank.html          Halaman kosong (titik awal halaman baru)
+│   ├── ui/                 UI Toolkit: buttons, forms, tables, status, modals
+│   ├── docs/               Panduan: getting-started
 │   ├── auth/
 │   │   ├── login.html          Masuk
 │   │   ├── register.html       Daftar
@@ -79,7 +82,7 @@ Dokumentasi lanjutan: [docs/context.md](docs/context.md) (konteks dan keputusan 
 **Ganti warna.** Semua warna adalah variabel CSS di awal [assets/css/style.css](assets/css/style.css). Blok `:root` untuk mode terang, `[data-bs-theme="dark"]` untuk mode gelap. Warna aksen utama adalah `--sa-accent`.
 
 **Tambah halaman.**
-1. Salin salah satu file di `pages/`, misalnya `reports.html`, lalu ubah judul dan isi `<main>`. Path aset di halaman dalam `pages/` diawali `../`.
+1. Salin `pages/blank.html`, lalu ubah judul dan isi `<main>`. Path aset di halaman dalam `pages/` diawali `../`.
 2. Tambahkan link di [assets/js/nav.js](assets/js/nav.js), misalnya `{ text: "Kategori", href: "pages/categories.html", icon: "box" }`. `href` ditulis relatif terhadap akar proyek. Untuk submenu, pakai `children: [...]`. Menu aktif ditandai otomatis.
 
 **Ubah menu.** Seluruh isi sidebar (nama brand, grup, item, submenu, badge, ikon, dan kartu penyimpanan) diatur di `assets/js/nav.js`. Tidak perlu mengedit file HTML.

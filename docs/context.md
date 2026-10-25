@@ -24,6 +24,10 @@ Template dashboard admin berbahasa Indonesia untuk toko online fiktif ("Toko Sat
 | Pengaturan | `pages/settings.html` | (tidak ada) | Form profil toko, preferensi, saklar notifikasi (statis) |
 | Tombol | `pages/ui/buttons.html` | `ui.js` | Dokumentasi tombol: utama/sekunder, ikon, ukuran, tombol ikon, segmen, memuat, toast & konfirmasi |
 | Form | `pages/ui/forms.html` | `ui.js` | Dokumentasi form: input, select, checkbox/radio/saklar, input group, validasi, form dalam panel |
+| Tabel | `pages/ui/tables.html` | `ui.js` | Dokumentasi tabel: dasar, kolom pengguna, keadaan kosong, render dari data dengan pencarian |
+| Modal & alert | `pages/ui/modals.html` | `ui.js` | Dokumentasi alert `.sa-alert`, toast, dialog konfirmasi, modal form `.sa-modal` |
+| Memulai | `pages/docs/getting-started.html` | `ui.js` | Panduan: menjalankan, struktur, menambah halaman, menu, warna, data dari API |
+| Halaman kosong | `pages/blank.html` | (tidak ada) | Titik awal untuk halaman baru |
 | Status & badge | `pages/ui/status.html` | `ui.js` | Dokumentasi status pill, badge, delta KPI, avatar, progress, penanda teks |
 | 404 | `404.html` | `error.js` | Kode 404 beranimasi, alamat yang dicari, tombol kembali, tautan halaman populer |
 | Masuk | `pages/auth/login.html` | `auth.js` | Email + kata sandi, ingat saya, link lupa kata sandi, login sosial (Google, GitHub, Microsoft) |
@@ -40,7 +44,9 @@ README.md, CLAUDE.md
 docs/             context.md, design-system.md
 pages/            orders, products, customers, reports, users, settings (.html)
   auth/           login, register, forgot-password (.html)
-  ui/             buttons, forms, status (.html): UI Toolkit
+  ui/             buttons, forms, tables, status, modals (.html): UI Toolkit
+  docs/           getting-started (.html): Panduan
+  blank.html      halaman kosong
 assets/
   css/style.css   semua gaya, tema, animasi
   js/

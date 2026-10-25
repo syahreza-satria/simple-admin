@@ -32,7 +32,7 @@ grep -rn "console.log" assets/js/
 grep -rn "@latest" index.html 404.html pages/
 grep -rnoE "#[0-9a-fA-F]{3,8}\b" assets/js/
 grep -c "sa-sidebar" index.html pages/*.html
-grep -L "shell.js" index.html pages/*.html pages/ui/*.html   # harus kosong
+grep -L "shell.js" index.html pages/*.html pages/ui/*.html pages/docs/*.html   # harus kosong
 ```
 
 ## 3. Uji manual
@@ -53,7 +53,11 @@ Jalankan `python -m http.server 8000`, lalu buka setiap halaman.
 | Lupa kata sandi | [ ] | [ ] | [ ] | [ ] | [ ] |
 | UI: Tombol | [ ] | [ ] | [ ] | [ ] | [ ] |
 | UI: Form | [ ] | [ ] | [ ] | [ ] | [ ] |
+| UI: Tabel | [ ] | [ ] | [ ] | [ ] | [ ] |
 | UI: Status & badge | [ ] | [ ] | [ ] | [ ] | [ ] |
+| UI: Modal & alert | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Panduan: Memulai | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Halaman kosong | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 404 | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 Fitur yang harus dicoba:

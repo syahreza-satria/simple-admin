@@ -159,6 +159,14 @@ Modal terpusat, radius 14px, tanpa border luar, bayangan Bootstrap. Toast dan di
 
 Dokumentasi komponen di `pages/ui/`. Header halaman memakai breadcrumb, judul, dan paragraf pengantar `.sa-lead` (maks. 62 karakter per baris, `--sa-muted`), diikuti daftar lompat `.sa-toc` berupa pil bergaris `--sa-line`. Setiap contoh adalah panel `.sa-example`: kepala panel dengan judul dan `.sa-example-desc`, area `.sa-example-preview` (padding 1,5rem × 1,25rem), lalu blok kode `.sa-example-code` berlatar `--sa-surface` dengan label bahasa, tombol Salin, dan kode mono 0,78rem (maks. tinggi 22rem). Pewarnaan sintaks memakai token yang sudah ada: tag `--sa-accent`, atribut `--sa-pending-fg`, nilai `--sa-paid-fg`, komentar `--sa-muted`. Baris `.sa-example-meta` mencantumkan kelas dan token yang dipakai. Kode inline di teks dokumentasi memakai font mono berlatar `--sa-surface`, bukan warna merah muda bawaan Bootstrap.
 
+### Alert `.sa-alert`
+
+Pesan yang menetap di halaman. Flex dengan ikon 18px di kiri, radius 12px, padding 0,85rem × 1rem, teks 0,875rem `--sa-ink`. Judul `.sa-alert-title` tebal 600. Varian memakai pasangan token status: `.sa-alert-info` (`--sa-accent` di atas `--sa-accent-soft`), `.sa-alert-success` (`--sa-paid-*`), `.sa-alert-warning` (`--sa-pending-*`), `.sa-alert-danger` (`--sa-failed-*`); warna hanya pada ikon dan judul, isi tetap `--sa-ink`. `role="alert"` hanya untuk pesan penting.
+
+### Modal `.sa-modal`
+
+Tambahkan `sa-modal` pada `div.modal`: sudut 14px, tanpa border luar, bayangan Bootstrap, garis header/footer `--sa-line`, judul 1rem/600. Markup modal diletakkan langsung di `<body>`.
+
 ### Badge `.sa-badge`
 
 Badge hitungan (`badge rounded-pill sa-badge`) berlatar `--sa-accent` dengan teks `--sa-on-accent`. Dipakai di menu sidebar dan tombol. Jangan memakai `text-bg-primary` karena Bootstrap memaksa teks putih yang tidak kontras di mode gelap.

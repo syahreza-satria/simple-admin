@@ -10,13 +10,20 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-25
+
+Menu dari satu konfigurasi, UI Toolkit, dan panduan Memulai.
+
 ### Ditambahkan
 
 - Sidebar dirender dari satu konfigurasi di `assets/js/nav.js` (brand, grup, item, submenu, badge, ikon, kartu bawah).
 - Submenu yang bisa dibuka-tutup (Bootstrap Collapse); grup berisi halaman aktif terbuka otomatis.
-- Grup menu baru: Aplikasi (submenu Toko) dan Halaman (Autentikasi, Halaman 404).
+- Grup menu baru: Aplikasi (submenu Toko), Halaman (Autentikasi, Halaman 404, Halaman kosong), UI Toolkit, dan Panduan.
 - Helper `escapeHtml()` di `common.js`.
-- Bagian **UI Toolkit** dengan tiga halaman dokumentasi interaktif di `pages/ui/`: Tombol, Form, serta Status & badge.
+- Bagian **UI Toolkit** dengan lima halaman dokumentasi interaktif di `pages/ui/`: Tombol, Form, Tabel, Status & badge, serta Modal & alert.
+- Halaman **Panduan › Memulai** (`pages/docs/getting-started.html`): menjalankan, struktur, menambah halaman, mengubah menu, mengganti warna, dan mengambil data dari API.
+- **Halaman kosong** (`pages/blank.html`) sebagai titik awal halaman baru.
+- Komponen `.sa-alert` (info, success, warning, danger) dan `.sa-modal`.
 - Komponen `.sa-example`: preview langsung, kode HTML yang diambil otomatis dari preview (dengan pewarnaan sintaks), blok kode tambahan lewat `<script type="text/plain" data-lang>`, dan tombol Salin (`assets/js/pages/ui.js`).
 - Kelas `.sa-badge` untuk badge hitungan beraksen, `.sa-lead`, dan `.sa-toc`.
 
@@ -25,6 +32,7 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/), da
 - Markup sidebar dihapus dari ketujuh file HTML; menu aktif dan `aria-current` ditentukan otomatis dari URL.
 - Kartu penyimpanan memakai kelas `.sa-sidebar-card` alih-alih gaya inline.
 - Badge menu sidebar memakai `.sa-badge`, menggantikan penimpaan `.text-bg-primary` dengan `!important`.
+- Modal Tambah Produk memakai `.sa-modal` alih-alih gaya inline.
 
 ## [1.0.0] - 2026-10-25
 
@@ -52,5 +60,6 @@ Rilis pertama.
 - Token warna, tipografi, dan komponen di `assets/css/style.css`, dengan prefix `sa-` untuk semua kelas dan id buatan sendiri.
 - Dokumentasi: `README.md`, `docs/context.md`, `docs/design-system.md`, dan `CLAUDE.md`.
 
-[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/syahreza-satria/simple-admin/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/syahreza-satria/simple-admin/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/syahreza-satria/simple-admin/releases/tag/v1.0.0
