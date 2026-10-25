@@ -1314,6 +1314,7 @@ body,
   color: var(--sa-muted);
 }
 .sa-example-meta code,
+.sa-alert code,
 .sa-lead code,
 .sa-example-desc code,
 .sa-doc-table code {
@@ -1338,4 +1339,80 @@ body,
   background: var(--sa-accent);
   color: var(--sa-on-accent);
   font-weight: 600;
+}
+/* Modal bertema */
+.sa-modal .modal-content {
+  border: 0;
+  border-radius: 14px;
+  box-shadow: var(--bs-box-shadow);
+}
+.sa-modal .modal-header,
+.sa-modal .modal-footer {
+  border-color: var(--sa-line);
+}
+.sa-modal .modal-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+/* Alert di dalam halaman */
+.sa-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  color: var(--sa-ink);
+}
+.sa-alert > svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.sa-alert-title {
+  display: block;
+  font-weight: 600;
+}
+.sa-alert-info {
+  background: var(--sa-accent-soft);
+}
+.sa-alert-info > svg,
+.sa-alert-info .sa-alert-title {
+  color: var(--sa-accent);
+}
+.sa-alert-success {
+  background: var(--sa-paid-bg);
+}
+.sa-alert-success > svg,
+.sa-alert-success .sa-alert-title {
+  color: var(--sa-paid-fg);
+}
+.sa-alert-warning {
+  background: var(--sa-pending-bg);
+}
+.sa-alert-warning > svg,
+.sa-alert-warning .sa-alert-title {
+  color: var(--sa-pending-fg);
+}
+.sa-alert-danger {
+  background: var(--sa-failed-bg);
+}
+.sa-alert-danger > svg,
+.sa-alert-danger .sa-alert-title {
+  color: var(--sa-failed-fg);
+}
+/* Langkah bernomor di halaman panduan */
+.sa-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.sa-steps li + li {
+  margin-top: 0.5rem;
+}
+.sa-steps code {
+  font-family: var(--sa-mono);
+  font-size: 0.85em;
+  color: var(--sa-ink);
+  background: var(--sa-surface);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
 }

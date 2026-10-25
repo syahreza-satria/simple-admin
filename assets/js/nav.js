@@ -44,6 +44,7 @@ const saNav = [
         ],
       },
       { text: "Halaman 404", href: "404.html", icon: "alert" },
+      { text: "Halaman kosong", href: "pages/blank.html", icon: "file" },
     ],
   },
   {
@@ -55,10 +56,16 @@ const saNav = [
         children: [
           { text: "Tombol", href: "pages/ui/buttons.html" },
           { text: "Form", href: "pages/ui/forms.html" },
+          { text: "Tabel", href: "pages/ui/tables.html" },
           { text: "Status & badge", href: "pages/ui/status.html" },
+          { text: "Modal & alert", href: "pages/ui/modals.html" },
         ],
       },
     ],
+  },
+  {
+    label: "Panduan",
+    items: [{ text: "Memulai", href: "pages/docs/getting-started.html", icon: "book" }],
   },
 ];
 
@@ -77,6 +84,8 @@ const saIcons = {
   lock: '<rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 018 0v4" />',
   alert: '<circle cx="12" cy="12" r="9" /><path d="M12 8v5" /><path d="M12 16h.01" />',
   layers: '<path d="M12 2l10 5-10 5L2 7z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />',
+  file: '<path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z" /><path d="M14 3v6h6" />',
+  book: '<path d="M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5z" /><path d="M4 19.5A2.5 2.5 0 006.5 22H20v-5" />',
   chevron: '<path d="M9 6l6 6-6 6" />',
   logo: '<rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />',
 };

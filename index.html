@@ -247,11 +247,11 @@
     </div>
 
     <!-- Modal: Tambah Produk -->
-    <div class="modal fade" id="saModal" tabindex="-1" aria-labelledby="saModalLabel" aria-hidden="true">
+    <div class="modal fade sa-modal" id="saModal" tabindex="-1" aria-labelledby="saModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content border-0 shadow" id="saProductForm" style="border-radius: 14px">
-          <div class="modal-header border-bottom" style="border-color: var(--sa-line) !important">
-            <h5 class="modal-title fw-semibold" id="saModalLabel" style="font-size: 1rem">Tambah produk</h5>
+        <form class="modal-content" id="saProductForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="saModalLabel">Tambah produk</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body d-grid gap-3">
@@ -270,7 +270,7 @@
             </div>
             <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="pActive" checked /><label class="form-check-label small" for="pActive">Tampilkan di toko</label></div>
           </div>
-          <div class="modal-footer border-top" style="border-color: var(--sa-line) !important">
+          <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary">Simpan produk</button>
           </div>

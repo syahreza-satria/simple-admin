@@ -42,9 +42,9 @@ function saCodeBlock(label, html) {
 
 document.querySelectorAll(".sa-example").forEach((ex) => {
   const preview = ex.querySelector(".sa-example-preview");
-  if (!preview) return;
-  let anchor = preview;
-  if (!ex.hasAttribute("data-no-code")) {
+  let anchor = preview || ex.querySelector(".sa-panel-head");
+  if (!anchor) return;
+  if (preview && !ex.hasAttribute("data-no-code")) {
     const src = saDedent(preview.innerHTML.replace(saBoolAttrs, " $1"));
     const block = saCodeBlock("HTML", saHighlightHtml(src));
     block.dataset.source = src;
@@ -58,6 +58,8 @@ document.querySelectorAll(".sa-example").forEach((ex) => {
     anchor.after(block);
     anchor = block;
   });
+  /* Modal harus berada langsung di <body> agar tidak terpotong panel yang beranimasi */
+  preview?.querySelectorAll(".modal").forEach((m) => document.body.append(m));
 });
 
 /* Tombol Salin */
@@ -111,3 +113,33 @@ document.querySelectorAll(".sa-example-preview form[data-demo-validate]").forEac
     else f.querySelector(":invalid")?.focus();
   }),
 );
+document.querySelectorAll(".sa-example-preview [data-demo-toast]").forEach((b) =>
+  b.addEventListener("click", () => showToast(b.dataset.demoToast, b.dataset.icon)),
+);
+
+/* Contoh tabel yang dirender dari data, dengan pencarian */
+const saDemoRows = [
+  { name: "Putri Ananda", email: "putri@contoh.id", city: "Bandung", orders: 14 },
+  { name: "Rizky Pratama", email: "rizky@contoh.id", city: "Jakarta", orders: 9 },
+  { name: "Ayu Lestari", email: "ayu@contoh.id", city: "Surabaya", orders: 21 },
+  { name: "Dimas Saputra", email: "dimas@contoh.id", city: "Yogyakarta", orders: 3 },
+  { name: "Nadia Putri", email: "nadia@contoh.id", city: "Malang", orders: 7 },
+];
+document.querySelectorAll("[data-demo-table]").forEach((wrap) => {
+  const body = wrap.querySelector("tbody");
+  const input = wrap.querySelector("input[type=search]");
+  const render = () => {
+    const q = norm(input.value);
+    const rows = saDemoRows.filter((r) => norm(r.name + r.city).includes(q));
+    body.innerHTML = rows.length
+      ? rows
+          .map(
+            (r) => `<tr><td><div class="sa-user"><span class="sa-avatar">${initials(r.name)}</span><div><span class="fw-medium">${escapeHtml(r.name)}</span><small>${escapeHtml(r.email)}</small></div></div></td>
+            <td>${escapeHtml(r.city)}</td><td class="text-end sa-num">${r.orders}</td></tr>`,
+          )
+          .join("")
+      : emptyRow(3, "Pelanggan tidak ditemukan");
+  };
+  input.addEventListener("input", render);
+  render();
+});
