@@ -3,7 +3,8 @@
 /* ---- Sidebar: dirender dari konfigurasi di assets/js/nav.js ---- */
 const saPath = (href) => new URL(href, location.href).pathname.replace(/index\.html$/, "");
 const saHere = saPath(location.href);
-const saIsHere = (item) => !!item.href && saPath(saRoot + item.href) === saHere;
+/* `match` (opsional): halaman lain yang juga menandai item ini aktif, mis. halaman detail */
+const saIsHere = (item) => [item.href, ...(item.match || [])].some((h) => h && saPath(saRoot + h) === saHere);
 const saIcon = (name, cls = "") => (name ? `<i class="bi bi-${name}${cls ? ` ${cls}` : ""}" aria-hidden="true"></i>` : "");
 
 function saNavLink(item, sub) {

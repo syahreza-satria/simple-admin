@@ -7,7 +7,8 @@
      berisi halaman aktif terbuka otomatis.
    - `icon` adalah nama Bootstrap Icons tanpa awalan "bi-", misalnya "house".
      Daftar lengkap: https://icons.getbootstrap.com/
-   - `badge` opsional.
+   - `badge` opsional. `match` berisi halaman lain yang ikut menandai item ini
+     aktif, misalnya halaman detail.
    ========================================================================== */
 
 const saBrand = "simple-admin";
@@ -24,7 +25,7 @@ const saNav = [
         text: "Toko",
         icon: "bag",
         children: [
-          { text: "Pesanan", href: "pages/orders.html", badge: "12" },
+          { text: "Pesanan", href: "pages/orders.html", badge: "12", match: ["pages/order-detail.html"] },
           { text: "Produk", href: "pages/products.html" },
           { text: "Pelanggan", href: "pages/customers.html" },
           { text: "Laporan", href: "pages/reports.html" },
@@ -46,7 +47,15 @@ const saNav = [
           { text: "Lupa kata sandi", href: "pages/auth/forgot-password.html" },
         ],
       },
-      { text: "Halaman 404", href: "404.html", icon: "exclamation-circle" },
+      {
+        text: "Error",
+        icon: "exclamation-circle",
+        children: [
+          { text: "404 Tidak ditemukan", href: "404.html" },
+          { text: "500 Kesalahan server", href: "pages/error-500.html" },
+          { text: "Maintenance", href: "pages/maintenance.html" },
+        ],
+      },
       { text: "Halaman kosong", href: "pages/blank.html", icon: "file-earmark" },
     ],
   },
@@ -68,7 +77,10 @@ const saNav = [
   },
   {
     label: "Plugin",
-    items: [{ text: "Grafik", href: "pages/plugins/charts.html", icon: "bar-chart" }],
+    items: [
+      { text: "Grafik", href: "pages/plugins/charts.html", icon: "bar-chart" },
+      { text: "Tabel data", href: "pages/plugins/datatable.html", icon: "table" },
+    ],
   },
   {
     label: "Panduan",

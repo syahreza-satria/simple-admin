@@ -5,7 +5,7 @@ function renderOrders(filter) {
     .map(
       (o, i) => `
     <tr style="--i:${i}">
-<td><span class="sa-id">#${o.id}</span></td>
+<td><a class="sa-id text-decoration-none" href="pages/order-detail.html?id=${encodeURIComponent(o.id)}">#${o.id}</a></td>
 <td class="fw-medium">${o.name}</td>
 <td class="text-body-secondary">${o.date}</td>
 <td><span class="sa-status sa-st-${o.status}">${statusLabel[o.status]}</span></td>

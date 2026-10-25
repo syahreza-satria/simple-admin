@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <script>
+      try {
+        var t = localStorage.getItem("sa-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-bs-theme", t);
+      } catch (e) {}
+    </script>
+    <title>Terjadi Kesalahan · Simple Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <button class="btn btn-light sa-icon-btn sa-theme-toggle sa-auth-theme" type="button" id="saThemeToggle" aria-label="Aktifkan mode gelap" aria-pressed="false">
+      <i class="bi bi-sun sa-icon-sun" aria-hidden="true"></i>
+      <i class="bi bi-moon sa-icon-moon" aria-hidden="true"></i>
+    </button>
+
+    <main class="sa-error">
+      <div class="sa-error-card">
+        <a href="../index.html" class="sa-brand justify-content-center mb-4">
+          <span class="sa-brand-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+            </svg>
+          </span>
+          simple-admin
+        </a>
+
+        <div class="sa-error-code" aria-hidden="true">
+          <span>5</span>
+          <span class="sa-error-zero"><i class="bi bi-cloud-slash" aria-hidden="true"></i></span>
+          <span>0</span>
+        </div>
+
+        <h1 class="sa-error-title">Terjadi kesalahan pada server</h1>
+        <p class="sa-error-text">Permintaan Anda tidak dapat diproses saat ini. Ini bukan kesalahan Anda; tim kami sudah diberi tahu. Coba lagi dalam beberapa saat.</p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+          <button type="button" class="btn btn-primary" data-reload>Coba lagi</button>
+          <a href="../index.html" class="btn btn-light">Kembali ke Dashboard</a>
+        </div>
+
+        <p class="sa-error-links mb-0">Kode referensi: <code class="sa-error-path">ERR-500-7F3A2C</code></p>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/js/pages/error.js"></script>
+  </body>
+</html>
